@@ -19,6 +19,18 @@
 
   *{box-sizing:border-box}
 
+  .sr-only{
+    position:absolute !important;
+    width:1px !important;
+    height:1px !important;
+    padding:0 !important;
+    margin:-1px !important;
+    overflow:hidden !important;
+    clip:rect(0,0,0,0) !important;
+    white-space:nowrap !important;
+    border:0 !important;
+  }
+
   body{
     margin:0;
     background:#fff;
@@ -107,8 +119,9 @@
     background:#fff;
   }
 
-  .experience:focus,
-  button:focus-visible{
+  .experience:focus-visible,
+  button:focus-visible,
+  #toolTitle:focus-visible{
     outline:3px solid var(--focus);
     outline-offset:3px;
   }
@@ -121,11 +134,12 @@
 
   .action{
     appearance:none;
+    position:relative;
     border:2px solid #e0e0e0;
     background:#fff;
     color:var(--black);
     border-radius:18px;
-    padding:15px 14px;
+    padding:15px 38px 15px 14px;
     min-height:78px;
     cursor:pointer;
     text-align:left;
@@ -142,6 +156,15 @@
   .action[aria-pressed="true"]{
     background:var(--selected);
     border-color:var(--black);
+  }
+
+  .selected-check{
+    position:absolute;
+    top:10px;
+    right:12px;
+    font-size:1rem;
+    font-weight:900;
+    line-height:1;
   }
 
   .more-row{margin-top:13px}
@@ -195,11 +218,12 @@
 
   .competency{
     appearance:none;
+    position:relative;
     width:100%;
     border:2px solid #ddd;
     background:#fff;
     border-radius:16px;
-    padding:15px 15px 14px;
+    padding:15px 40px 14px 15px;
     cursor:pointer;
     text-align:left;
     font:inherit;
@@ -217,10 +241,6 @@
     background:var(--selected);
   }
 
-  .competency:disabled{
-    opacity:.47;
-    cursor:not-allowed;
-  }
 
   .competency-name{
     display:block;
@@ -350,6 +370,13 @@
     color:#707070;
   }
 
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      scroll-behavior:auto !important;
+      transition:none !important;
+    }
+  }
+
   @media (max-width:760px){
     .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
     .competency-list{grid-template-columns:1fr}
@@ -369,11 +396,12 @@
 <body>
 <div class="wrap">
   <main class="tool">
+    <div class="sr-only" id="liveStatus" role="status" aria-live="polite" aria-atomic="true"></div>
     <header class="header">
-      <h1>Find the Skills in Your Experience</h1>
+      <h1 id="toolTitle" tabindex="-1">Find the Skills in Your Experience</h1>
       <p class="intro">
         You build career-ready skills in jobs, classes, student organizations, volunteering,
-        athletics, caregiving, and everyday responsibilities. Think of one experience and tap
+        athletics, caregiving, and everyday responsibilities. Think of one experience and select
         what you did—we'll help you identify the competencies you practiced.
       </p>
     </header>
@@ -384,8 +412,9 @@
           <span class="step-number" aria-hidden="true">1</span>
           <h2 id="step1">Think of one experience</h2>
         </div>
-        <p class="help">Optional: name it so you can keep the experience in mind.</p>
-        <input class="experience" id="experience" type="text"
+        <p class="help" id="experienceHelp">Optional: name it so you can keep the experience in mind.</p>
+        <label class="sr-only" for="experience">Experience name (optional)</label>
+        <input class="experience" id="experience" type="text" aria-describedby="experienceHelp"
           placeholder="Example: dining hall job, group project, student org..." />
       </section>
 
@@ -394,12 +423,12 @@
           <span class="step-number" aria-hidden="true">2</span>
           <h2 id="step2">What did you do?</h2>
         </div>
-        <p class="help">Tap anything that sounds like your experience. Choose what you actually did—there are no right answers.</p>
+        <p class="help" id="step2Help">Select anything that sounds like your experience. Choose what you actually did—there are no right answers.</p>
 
         <div class="cards" id="mainCards"></div>
 
         <div class="more-row">
-          <button class="text-btn" id="moreBtn" type="button" aria-expanded="false">
+          <button class="text-btn" id="moreBtn" type="button" aria-expanded="false" aria-controls="extra">
             + Show more ways I contributed
           </button>
         </div>
@@ -409,10 +438,10 @@
         </div>
       </section>
 
-      <section class="results" id="results" hidden aria-live="polite" aria-labelledby="resultsTitle">
+      <section class="results" id="results" hidden aria-labelledby="resultsTitle">
         <div class="results-head">
           <h2 id="resultsTitle">Transferable skills you may have practiced</h2>
-          <p>
+          <p id="resultsInstructions">
             Choose up to <strong>3</strong> that feel strongest in this experience.
             Each skill is connected to a University of Iowa Career Center career readiness competency,
             with power verbs you can use to describe what you did.
@@ -420,7 +449,7 @@
         </div>
 
         <div class="results-body">
-          <div class="competency-list" id="competencyList"></div>
+          <div class="competency-list" id="competencyList" aria-describedby="resultsInstructions"></div>
 
           <div class="selected-summary" id="selectedSummary" hidden>
             <div class="label">Your strongest transferable skills</div>
@@ -432,7 +461,7 @@
             <button class="secondary" id="resetBtn" type="button">Start over</button>
           </div>
 
-          <div class="status" id="status" role="status"></div>
+          <div class="status" id="status"></div>
 
           <div class="manual-copy" id="manualCopy" hidden>
             <label for="manualCopyText">Copy these power verbs:</label>
@@ -606,12 +635,43 @@ const competencyList = document.getElementById("competencyList");
 const selectedSummary = document.getElementById("selectedSummary");
 const chosen = document.getElementById("chosen");
 const status = document.getElementById("status");
+const liveStatus = document.getElementById("liveStatus");
 const experience = document.getElementById("experience");
 const manualCopy = document.getElementById("manualCopy");
 const manualCopyText = document.getElementById("manualCopyText");
+const toolTitle = document.getElementById("toolTitle");
 
 let selectedActions = new Set();
 let selectedCompetencies = new Set();
+let announceTimer;
+
+function announce(message){
+  window.clearTimeout(announceTimer);
+  liveStatus.textContent = "";
+  announceTimer = window.setTimeout(()=>{
+    liveStatus.textContent = message;
+  }, 20);
+}
+
+function addSelectedCheck(button, selected){
+  let check = button.querySelector(".selected-check");
+  if(selected){
+    if(!check){
+      check = document.createElement("span");
+      check.className = "selected-check";
+      check.setAttribute("aria-hidden","true");
+      check.textContent = "✓";
+      button.appendChild(check);
+    }
+  }else if(check){
+    check.remove();
+  }
+}
+
+function setPressed(button, selected){
+  button.setAttribute("aria-pressed", selected ? "true" : "false");
+  addSelectedCheck(button, selected);
+}
 
 actions.forEach((action,index)=>{
   const button = document.createElement("button");
@@ -619,27 +679,31 @@ actions.forEach((action,index)=>{
   button.className = "action";
   button.textContent = action.label;
   button.setAttribute("aria-pressed","false");
+  button.setAttribute("aria-describedby","step2Help");
   button.dataset.index = index;
 
   button.addEventListener("click",()=>{
-    if(selectedActions.has(index)){
-      selectedActions.delete(index);
-      button.setAttribute("aria-pressed","false");
-    }else{
+    const willSelect = !selectedActions.has(index);
+    if(willSelect){
       selectedActions.add(index);
-      button.setAttribute("aria-pressed","true");
+    }else{
+      selectedActions.delete(index);
     }
+    setPressed(button, willSelect);
     updateResults();
+    announce(`${willSelect ? "Selected" : "Removed"}: ${action.label}. Skill suggestions updated below.`);
   });
 
   (action.group === "main" ? mainCards : extraCards).appendChild(button);
 });
 
 moreBtn.addEventListener("click",()=>{
-  const open = moreBtn.getAttribute("aria-expanded") === "true";
-  moreBtn.setAttribute("aria-expanded", String(!open));
-  extra.hidden = open;
-  moreBtn.textContent = open ? "+ Show more ways I contributed" : "− Show fewer actions";
+  const isOpen = moreBtn.getAttribute("aria-expanded") === "true";
+  const willOpen = !isOpen;
+  moreBtn.setAttribute("aria-expanded", String(willOpen));
+  extra.hidden = !willOpen;
+  moreBtn.textContent = willOpen ? "− Show fewer actions" : "+ Show more ways I contributed";
+  announce(willOpen ? "More contribution options shown." : "Additional contribution options hidden.");
 });
 
 function scoreCompetencies(){
@@ -657,63 +721,91 @@ function scoreCompetencies(){
     .map(([name,score])=>({name,score}));
 }
 
+function renderCompetencyButton(item){
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "competency";
+  button.dataset.competency = item.name;
+  button.setAttribute("aria-describedby","resultsInstructions");
+  setPressed(button, selectedCompetencies.has(item.name));
+
+  const name = document.createElement("span");
+  name.className = "competency-name";
+  name.textContent = item.name;
+
+  const label = document.createElement("span");
+  label.className = "verb-label";
+  label.textContent = "Power verbs";
+
+  const verbs = document.createElement("span");
+  verbs.className = "verbs";
+  verbs.textContent = competencies[item.name].verbs.join(" • ");
+
+  // Insert text before the visual selected check so button reading order stays natural.
+  button.prepend(verbs);
+  button.prepend(label);
+  button.prepend(name);
+
+  button.addEventListener("click",()=>{
+    const isSelected = selectedCompetencies.has(item.name);
+
+    if(isSelected){
+      selectedCompetencies.delete(item.name);
+      setPressed(button, false);
+      status.textContent = "";
+      renderSummary();
+      announce(`${item.name} removed. ${selectedCompetencies.size} of 3 skills selected.`);
+      return;
+    }
+
+    if(selectedCompetencies.size >= 3){
+      const message = "You can choose up to 3 skills. Deselect one before choosing another.";
+      status.textContent = message;
+      announce(message);
+      return;
+    }
+
+    selectedCompetencies.add(item.name);
+    setPressed(button, true);
+    status.textContent = "";
+    renderSummary();
+    announce(`${item.name} selected. ${selectedCompetencies.size} of 3 skills selected.`);
+  });
+
+  return button;
+}
+
 function updateResults(){
   const scored = scoreCompetencies();
   const available = new Set(scored.map(item=>item.name));
+  const previousSelectedCount = selectedCompetencies.size;
   selectedCompetencies = new Set([...selectedCompetencies].filter(c=>available.has(c)));
 
   if(scored.length===0){
     results.hidden = true;
     selectedCompetencies.clear();
     renderSummary();
+    status.textContent = "";
     return;
   }
 
+  const wasHidden = results.hidden;
   results.hidden = false;
   competencyList.innerHTML = "";
 
   scored.forEach(item=>{
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "competency";
-    button.setAttribute(
-      "aria-pressed",
-      selectedCompetencies.has(item.name) ? "true" : "false"
-    );
-
-    if(!selectedCompetencies.has(item.name) && selectedCompetencies.size>=3){
-      button.disabled = true;
-    }
-
-    const name = document.createElement("span");
-    name.className = "competency-name";
-    name.textContent = item.name;
-
-    const label = document.createElement("span");
-    label.className = "verb-label";
-    label.textContent = "Power verbs";
-
-    const verbs = document.createElement("span");
-    verbs.className = "verbs";
-    verbs.textContent = competencies[item.name].verbs.join(" • ");
-
-    button.appendChild(name);
-    button.appendChild(label);
-    button.appendChild(verbs);
-
-    button.addEventListener("click",()=>{
-      if(selectedCompetencies.has(item.name)){
-        selectedCompetencies.delete(item.name);
-      }else if(selectedCompetencies.size<3){
-        selectedCompetencies.add(item.name);
-      }
-      updateResults();
-    });
-
-    competencyList.appendChild(button);
+    competencyList.appendChild(renderCompetencyButton(item));
   });
 
   renderSummary();
+
+  if(previousSelectedCount !== selectedCompetencies.size){
+    status.textContent = "Your selected skills were updated to match the actions you chose.";
+  }
+
+  if(wasHidden){
+    announce(`${scored.length} transferable skill suggestions are now available below.`);
+  }
 }
 
 function renderSummary(){
@@ -737,6 +829,7 @@ function legacyCopy(text){
   const textarea = document.createElement("textarea");
   textarea.value = text;
   textarea.setAttribute("readonly","");
+  textarea.setAttribute("tabindex","-1");
   textarea.style.position = "fixed";
   textarea.style.left = "-9999px";
   textarea.style.top = "0";
@@ -758,8 +851,10 @@ function legacyCopy(text){
 
 document.getElementById("copyBtn").addEventListener("click", async ()=>{
   if(selectedCompetencies.size===0){
-    status.textContent = "Choose at least one transferable skill first.";
+    const message = "Choose at least one transferable skill first.";
+    status.textContent = message;
     manualCopy.hidden = true;
+    announce(message);
     return;
   }
 
@@ -781,6 +876,7 @@ document.getElementById("copyBtn").addEventListener("click", async ()=>{
     try{
       await navigator.clipboard.writeText(text);
       status.textContent = "Power verbs copied!";
+      announce("Power verbs copied to your clipboard.");
       return;
     }catch(e){
       // Continue to legacy fallback.
@@ -791,6 +887,7 @@ document.getElementById("copyBtn").addEventListener("click", async ()=>{
   // inside embedded course pages when clipboard permissions are restricted.
   if(legacyCopy(text)){
     status.textContent = "Power verbs copied!";
+    announce("Power verbs copied to your clipboard.");
     return;
   }
 
@@ -799,14 +896,16 @@ document.getElementById("copyBtn").addEventListener("click", async ()=>{
   manualCopy.hidden = false;
   manualCopyText.focus();
   manualCopyText.select();
-  status.textContent = "Your browser blocked automatic copying. The text is selected below—press Ctrl+C (Windows) or Command+C (Mac).";
+  const message = "Your browser blocked automatic copying. The text is selected below—press Ctrl+C on Windows or Command+C on Mac.";
+  status.textContent = message;
+  announce(message);
 });
 
 document.getElementById("resetBtn").addEventListener("click",()=>{
   selectedActions.clear();
   selectedCompetencies.clear();
   experience.value = "";
-  document.querySelectorAll(".action").forEach(btn=>btn.setAttribute("aria-pressed","false"));
+  document.querySelectorAll(".action").forEach(btn=>setPressed(btn,false));
   results.hidden = true;
   selectedSummary.hidden = true;
   competencyList.innerHTML = "";
@@ -814,6 +913,11 @@ document.getElementById("resetBtn").addEventListener("click",()=>{
   status.textContent = "";
   manualCopy.hidden = true;
   manualCopyText.value = "";
+  extra.hidden = true;
+  moreBtn.setAttribute("aria-expanded","false");
+  moreBtn.textContent = "+ Show more ways I contributed";
+  toolTitle.focus();
+  announce("Tool reset. Start again with one experience.");
 });
 </script>
 </body>
