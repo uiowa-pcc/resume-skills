@@ -9,717 +9,239 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --iowa-black:#000;
-  --iowa-gold:#FFCD00;
-  --cool-gray:#63666A;
-  --paper:#fff;
-  --canvas:#F7F7F7;
-  --soft:#F1F1F1;
-  --soft-gold:#FFF8D6;
-  --border:#D6D6D6;
-  --link:#00558C;
-  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.045);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--canvas);color:#000;font:16px/1.5 "Roboto",Arial,Helvetica,sans-serif}
-button,input{font:inherit}
-button{color:inherit}
-a{color:var(--link)}
-:focus-visible{outline:3px solid var(--iowa-gold);outline-offset:3px}
-.skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;background:#fff;color:#000;border:2px solid #000;padding:9px 12px;border-radius:6px}
-.skip-link:focus{left:8px}
-.shell{max-width:920px;margin:0 auto;padding:22px 18px 72px}
-.intro,.panel{background:var(--paper);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}
-.intro{padding:28px 28px 24px}
-.panel{padding:24px;margin-top:16px}
-.gold-mark{width:42px;height:7px;background:var(--iowa-gold);border-radius:999px;margin-bottom:14px}
-h1,h2{font-family:"Antonio","Arial Narrow",Arial,sans-serif;font-weight:700;color:#000}
-h1{font-size:clamp(2.15rem,5vw,3.25rem);line-height:1;margin:0 0 10px;letter-spacing:-.025em}
-h2{font-size:1.62rem;line-height:1.12;margin:0 0 8px}
-h3{font-size:1.05rem;line-height:1.3;margin:0 0 5px}
-p{margin:0 0 12px}
-.lede{font-size:1.08rem;max-width:770px;margin-bottom:12px}
-.meta{font-size:.9rem;color:var(--cool-gray);margin:0}
-.notice{margin-top:18px;padding:13px 15px;border-left:5px solid var(--iowa-gold);background:var(--soft-gold);border-radius:0 11px 11px 0}
-.section-copy{color:#2F3032;max-width:780px;margin-bottom:16px}
-.step-label{display:flex;align-items:center;gap:9px;margin-bottom:8px;font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
-.step-number{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--iowa-gold);font-weight:700}
-.field{display:flex;flex-direction:column;gap:6px}
-label{font-weight:700}
-.hint{font-size:.84rem;color:var(--cool-gray);font-weight:400}
-input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-radius:10px;padding:11px 12px;background:#fff;color:#000}
-.example{font-size:.84rem;color:var(--cool-gray);margin:7px 0 0}
-.recent-wrap{margin:0 0 16px;padding:14px;background:var(--soft);border-radius:12px}
-.recent-label{font-size:.84rem;font-weight:700;margin-bottom:8px}
-.recent-list{display:flex;flex-wrap:wrap;gap:8px}
-.recent-btn{border:1px solid #BFC0C1;background:#fff;border-radius:999px;padding:8px 11px;font-size:.86rem;font-weight:700;cursor:pointer;text-align:left}
-.recent-btn:hover{border-color:#666}
-.recent-btn[aria-pressed="true"]{background:#fff;border-color:#000;box-shadow:inset 0 0 0 1px #000}
-.recent-context{display:block;font-size:.74rem;font-weight:400;color:var(--cool-gray);margin-top:1px}
-.recent-note{font-size:.8rem;color:var(--cool-gray);margin:8px 0 0}
-.suggestion-box{margin:0 0 14px;padding:13px 14px;background:var(--soft-gold);border-left:5px solid var(--iowa-gold);border-radius:0 11px 11px 0}
-.suggestion-box strong{display:block;margin-bottom:3px}
-.suggestion-box p{margin:0;font-size:.88rem;color:#343536}
-.suggested-task{position:relative}
-.suggested-task::after{content:'Suggested';display:inline-block;margin-left:8px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#555}
-.more-actions{margin:12px 0 4px}.more-actions .btn{background:#fff;color:#111;border-color:#999}.more-actions-wrap[hidden]{display:none!important}
-.actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}
-.btn{border:1.5px solid #111;border-radius:9px;padding:10px 14px;background:#fff;font-weight:700;cursor:pointer}
-.btn.primary{background:#000;color:#fff;border-color:#000}
-.btn.soft{background:var(--soft);border-color:#BEBEBE}
-.btn.small{padding:7px 10px;font-size:.86rem}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.filters{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 16px}
-.filter-btn{border:1px solid #C5C5C5;background:#fff;border-radius:999px;padding:7px 11px;font-size:.86rem;font-weight:700;cursor:pointer}
-.filter-btn[aria-pressed="true"]{background:#000;color:#fff;border-color:#000}
-.task-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.task-btn{min-height:56px;text-align:left;background:#fff;border:1.5px solid #C9C9C9;border-radius:11px;padding:10px 12px;cursor:pointer;font-weight:500;line-height:1.35;transition:background .12s,border-color .12s}
-.task-btn:hover{border-color:#666}
-.task-btn[aria-pressed="true"]{background:var(--soft);border-color:#555;box-shadow:inset 0 0 0 1px #555}
-.task-btn[hidden]{display:none}
-.selection-note{margin-top:12px;font-size:.87rem;color:var(--cool-gray)}
-.empty{padding:20px;text-align:center;border:1.5px dashed #BFC0C1;border-radius:13px;background:#FAFAFA;color:var(--cool-gray)}
-.comp-grid{display:grid;gap:11px;margin-top:14px}
-.comp-card{border:1px solid var(--border);border-radius:14px;background:#fff;overflow:hidden}
-.comp-head{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:start;padding:14px}
-.comp-check{width:22px;height:22px;margin-top:1px;accent-color:#000}
-.comp-title{font-weight:700;font-size:1.02rem}
-.comp-desc{font-size:.86rem;color:#454648;margin-top:2px}
-.match{font-size:.78rem;font-weight:700;background:var(--soft-gold);padding:5px 8px;border-radius:999px;white-space:nowrap}
-.comp-body{border-top:1px solid #ECECEC;padding:13px 14px 14px;background:#FCFCFC}
-.evidence-label,.skills-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#4C4D4F;margin-bottom:6px}
-.evidence-list{margin:0 0 12px;padding-left:20px;font-size:.9rem;color:#343536}
-.evidence-list li+li{margin-top:4px}
-.skill-chips{display:flex;flex-wrap:wrap;gap:7px}
-.skill-chip{border:1px solid #BFC0C1;background:#fff;border-radius:999px;padding:7px 10px;font-size:.84rem;font-weight:700;cursor:pointer}
-.skill-chip[aria-pressed="true"]{background:var(--soft);border-color:#555;box-shadow:inset 0 0 0 1px #555}
-.review-tip{margin-top:14px;padding:13px 15px;background:var(--soft);border-radius:12px;font-size:.9rem}
-.summary-title{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
-.exp-label{font-size:.84rem;color:var(--cool-gray);margin-top:2px}
-.result-list{display:grid;gap:11px;margin-top:15px}
-.result-card{border-left:4px solid var(--iowa-gold);background:#FAFAFA;border-radius:0 11px 11px 0;padding:12px 13px}
-.result-card h3{font-size:1rem;margin-bottom:5px}
-.result-skills{font-size:.91rem;font-weight:500}
-.result-evidence{margin-top:6px;font-size:.85rem;color:#4A4B4D}
-.use-next{margin-top:17px;padding:14px 15px;background:var(--soft);border-radius:12px}
-.use-next strong{display:block;margin-bottom:4px}
-.use-next p{font-size:.9rem;color:#343536;margin:0}
-.status{min-height:1.25em;margin-top:10px;font-size:.88rem;font-weight:700}
-.resource-link{margin-top:16px;font-size:.86rem}
-.disclaimer{font-size:.82rem;color:var(--cool-gray);margin-top:12px}
-@media(max-width:720px){
-  .shell{padding:12px 10px 48px}.intro,.panel{padding:20px 17px;border-radius:16px}.task-grid{grid-template-columns:1fr}.comp-head{grid-template-columns:auto 1fr}.match{grid-column:2;justify-self:start}.summary-title{display:block}
-}
-@media(max-width:440px){.actions .btn{width:100%}.filters{gap:6px}.filter-btn{font-size:.8rem}.comp-head{padding:12px}.comp-body{padding:12px}}
-@media print{
-  body{background:#fff;font-size:11pt}.shell{max-width:none;padding:0}.intro,.panel{box-shadow:none;border:0;padding:0;margin:0}.intro,.panel:not(#resultsPanel){display:none!important}#resultsPanel{display:block!important}#resultsPanel .step-label,#resultsPanel .section-copy,#resultsPanel .actions,#resultsPanel .status,#resultsPanel .use-next,#resultsPanel .resource-link,#resultsPanel .disclaimer{display:none!important}.result-card{break-inside:avoid;background:#fff;border-left:3px solid #000}h2{font-size:20pt}
-}
+:root{--black:#000;--gold:#FFCD00;--gray:#63666A;--paper:#fff;--canvas:#F7F7F7;--soft:#F1F1F1;--gold-soft:#FFF8D6;--border:#D6D6D6;--link:#00558C;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.045)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--canvas);color:#000;font:16px/1.5 "Roboto",Arial,Helvetica,sans-serif}button,input,textarea,select{font:inherit}button{color:inherit}a{color:var(--link)}:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.skip{position:absolute;left:-9999px;top:8px;z-index:10;background:#fff;border:2px solid #000;padding:9px 12px;border-radius:7px}.skip:focus{left:8px}.shell{max-width:900px;margin:auto;padding:22px 18px 64px}.intro,.card{background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}.intro{padding:28px}.card{padding:24px;margin-top:16px}.gold-mark{width:42px;height:7px;background:var(--gold);border-radius:999px;margin-bottom:14px}h1,h2{font-family:"Antonio","Arial Narrow",Arial,sans-serif;font-weight:700}h1{font-size:clamp(2.15rem,5vw,3.2rem);line-height:1;margin:0 0 10px;letter-spacing:-.025em}h2{font-size:1.55rem;line-height:1.12;margin:0 0 7px}h3{font-size:1.02rem;margin:0 0 4px}.lede{font-size:1.05rem;max-width:760px;margin:0 0 10px}.meta{font-size:.9rem;color:var(--gray);margin:0}.subtle{font-size:.87rem;color:var(--gray)}.section{padding-top:20px;margin-top:20px;border-top:1px solid #E5E5E5}.section:first-child{padding-top:0;margin-top:0;border-top:0}.label{font-weight:700;margin-bottom:6px;display:block}.field{display:flex;flex-direction:column;gap:6px}input[type=text],textarea,select{width:100%;border:1.5px solid #B8B8B8;border-radius:10px;background:#fff;color:#000;padding:11px 12px}input[type=text]{min-height:46px}textarea{min-height:82px;resize:vertical}.recent{margin:0 0 14px;padding:12px;background:var(--soft);border-radius:12px}.recent strong{display:block;font-size:.84rem;margin-bottom:7px}.chips,.action-grid,.verb-list{display:flex;flex-wrap:wrap;gap:8px}.recent-btn,.action-btn,.verb,.ghost{border:1.4px solid #BFC0C1;background:#fff;border-radius:999px;padding:8px 11px;font-weight:700;cursor:pointer}.recent-btn{font-size:.85rem;text-align:left}.recent-btn[aria-pressed=true],.action-btn[aria-pressed=true],.verb[aria-pressed=true]{background:var(--soft);border-color:#444;box-shadow:inset 0 0 0 1px #555}.recent-context{display:block;font-size:.73rem;color:var(--gray);font-weight:400}.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.action-btn{border-radius:11px;text-align:left;font-weight:500;line-height:1.3;min-height:54px}.suggested::after{content:'Suggested';display:block;margin-top:4px;font-size:.68rem;line-height:1;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#666}.tip{background:var(--gold-soft);border-left:5px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;margin:12px 0}.tip p{margin:0;font-size:.88rem}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px;align-items:center}.btn{border:1.5px solid #111;border-radius:9px;padding:10px 14px;background:#fff;font-weight:700;cursor:pointer}.btn.primary{background:#000;color:#fff;border-color:#000}.btn.soft{background:var(--soft);border-color:#BEBEBE}.btn.small{padding:7px 10px;font-size:.85rem}.btn:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}.status{min-height:1.2em;margin-top:9px;font-size:.87rem;font-weight:700}.result-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.experience-label{font-size:.87rem;color:var(--gray);margin:2px 0 0}.result-help{margin:12px 0 4px;font-size:.9rem;color:#343536}.result-grid{display:grid;gap:10px;margin-top:13px}.match-card{border:1px solid var(--border);border-radius:14px;background:#fff;padding:14px}.match-top{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}.match-card h3{font-size:1.05rem}.why{font-size:.84rem;color:#48494B;margin:4px 0 10px}.match-badge{font-size:.72rem;font-weight:700;background:var(--gold-soft);border-radius:999px;padding:5px 8px;white-space:nowrap}.verb-label{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#4D4E50;margin-bottom:6px}.verb{font-size:.83rem;padding:7px 10px}.remove-match{border:0;background:transparent;text-decoration:underline;cursor:pointer;font-size:.8rem;color:#555;padding:4px}.other-matches{margin-top:12px}.other-matches summary{font-weight:700;cursor:pointer;padding:8px 0}.other-card{border-top:1px solid #E6E6E6;padding:12px 0}.other-card:first-child{border-top:0}.other-title{display:flex;justify-content:space-between;gap:10px}.manual-pick{margin-top:12px;padding:12px;background:var(--soft);border-radius:11px}.keep-note{font-size:.88rem;color:#424345;background:var(--soft);border-radius:11px;padding:11px 12px;margin-top:12px}.resource{font-size:.84rem;margin-top:14px}.compact-note{font-size:.82rem;color:var(--gray);margin-top:9px}
+@media(max-width:680px){.shell{padding:10px 9px 46px}.intro,.card{padding:19px 16px;border-radius:16px}.action-grid{grid-template-columns:1fr}.result-head{display:block}.actions .btn{flex:1 1 150px}.match-top{gap:6px}}
+@media(max-width:420px){.actions{display:grid;grid-template-columns:1fr}.actions .btn{width:100%}.recent-btn{max-width:100%}}
+@media print{body{background:#fff}.shell{max-width:none;padding:0}.intro,.card{box-shadow:none;border:0}.intro,#workCard,.actions,.other-matches,.resource,.compact-note,.remove-match{display:none!important}#resultsCard{display:block!important;margin:0;padding:0}.match-card{break-inside:avoid}}
 </style>
 </head>
 <body>
-<a class="skip-link" href="#activity">Skip to activity</a>
-<main class="shell" id="activity">
-  <section class="intro" aria-labelledby="page-title">
+<a class="skip" href="#main">Skip to activity</a>
+<main id="main" class="shell">
+  <section class="intro">
     <div class="gold-mark" aria-hidden="true"></div>
-    <h1 id="page-title">Find Your Transferable Skills</h1>
-    <p class="lede">Choose one experience and what you actually did. We’ll help you spot skills you practiced that can transfer to other classes, jobs, internships, and opportunities.</p>
-    <p class="meta">You do not need a formal job or internship. A class project, student organization, volunteer role, caregiving responsibility, athletics, or personal project can build transferable skills too.</p>
-    <div class="notice"><strong>This is a brainstorm, not a test.</strong> The suggestions are a starting point. Keep only the skills you can explain with a real example from your experience.</div>
+    <h1>Find Your Transferable Skills</h1>
+    <p class="lede">Choose one experience and a few things you actually did. We’ll surface the strongest career-readiness matches and power verbs you can use to describe them.</p>
+    <p class="meta">This should be quick. Keep what fits; remove what doesn’t. You can repeat it with another experience anytime.</p>
   </section>
 
-  <section class="panel" aria-labelledby="experience-title">
-    <div class="step-label"><span class="step-number">1</span> Choose</div>
-    <h2 id="experience-title">What experience are you thinking about?</h2>
-    <p class="section-copy">Focus on one experience at a time. You can repeat the activity with another experience later.</p>
-    <div class="recent-wrap" id="recentWrap" hidden>
-      <div class="recent-label">Use a recent experience</div>
-      <div class="recent-list" id="recentList" aria-label="Recent experiences"></div>
-      <p class="recent-note">These appear only when recent work from the Experience Brainstorm is available on this device. You can still enter something different below.</p>
-    </div>
-    <div class="field">
-      <label for="experienceName">Experience, role, project, or responsibility</label>
-      <input id="experienceName" type="text" autocomplete="off" placeholder="e.g., Resident Assistant">
-    </div>
-    <p class="example">Other examples: group research project, retail job, student organization committee, caring for siblings, volunteer event, athletics, or a personal project.</p>
-  </section>
-
-  <section class="panel" aria-labelledby="actions-title">
-    <div class="step-label"><span class="step-number">2</span> Reflect</div>
-    <h2 id="actions-title">What did you do?</h2>
-    <p class="section-copy">Start with the suggestions if they fit, then add or remove anything based on what you actually did. These are prompts—not a checklist you need to complete.</p>
-    <div class="suggestion-box" id="suggestionBox" hidden>
-      <strong id="suggestionTitle">Suggested starting points</strong>
-      <p id="suggestionCopy">We recognized this kind of experience and selected a few common actions. Keep only what is true for you.</p>
-    </div>
-    <div class="task-grid" id="taskGrid"></div>
-    <div class="more-actions" id="moreActions" hidden>
-      <button class="btn secondary" type="button" id="moreActionsBtn" aria-expanded="false" aria-controls="moreActionsWrap">See more action ideas</button>
-    </div>
-    <div class="more-actions-wrap" id="moreActionsWrap" hidden>
-      <div class="filters" id="filters" aria-label="Filter activity prompts"></div>
-    </div>
-    <div class="other-action">
-      <button class="task-btn other-action-toggle" type="button" id="otherActionToggle" aria-expanded="false" aria-controls="otherActionFields">Something else I did</button>
-      <div class="other-action-fields" id="otherActionFields" hidden>
-        <label for="otherActionText">What else did you do?</label>
-        <textarea id="otherActionText" maxlength="400" placeholder="Example: Managed our family’s weekly appointments and transportation schedule"></textarea>
-        <p class="other-action-help">We won’t try to guess from your wording. Instead, all Iowa career-readiness competencies will be available below so you can choose what genuinely fits.</p>
+  <section class="card" id="workCard">
+    <div class="section">
+      <h2>1. Pick an experience</h2>
+      <div class="recent" id="recentWrap" hidden>
+        <strong>Use a recent experience</strong>
+        <div class="chips" id="recentList"></div>
+      </div>
+      <div class="field">
+        <label class="label" for="experienceName">Experience, role, project, or responsibility</label>
+        <input id="experienceName" type="text" autocomplete="off" placeholder="e.g., Resident Assistant">
       </div>
     </div>
-    <p class="selection-note" id="selectionNote" aria-live="polite">Select a few actions that describe your experience.</p>
-  </section>
 
-  <section class="panel" aria-labelledby="review-title">
-    <div class="step-label"><span class="step-number">3</span> Decide</div>
-    <h2 id="review-title">Which power verbs fit?</h2>
-    <p class="section-copy">Based on what you selected, these Iowa career-readiness competencies may fit. Under each one, choose power verbs that accurately describe what you did.</p>
-    <p class="manual-note" id="manualNote" hidden>Because you added something not covered by the prompts, all eight competencies are available to browse below. Suggested matches still appear first.</p>
-    <div id="compEmpty" class="empty">Select what you did above to see possible skills.</div>
-    <div class="comp-grid" id="compGrid"></div>
-    <div class="review-tip" id="reviewTip" hidden><strong>Use evidence, not labels.</strong> “Communication” is more useful when you can say what that looked like—for example, explaining information clearly, writing for an audience, or listening and responding to concerns.</div>
-    <div class="actions">
-      <button class="btn primary" type="button" id="buildResultsBtn" disabled>Build My Skill List</button>
+    <div class="section" id="actionSection">
+      <h2>2. What did you do?</h2>
+      <p class="subtle">Choose a few that fit. If we recognize the experience, we’ll start with three likely actions—remove anything that is not true for you.</p>
+      <div class="tip" id="suggestionTip" hidden><p><strong>Starting points selected for you.</strong> Keep the ones that fit, then continue.</p></div>
+      <div class="action-grid" id="actionGrid"></div>
+      <div class="actions" id="showMoreWrap">
+        <button class="btn small" id="showMoreBtn" type="button" aria-expanded="false">See more action ideas</button>
+        <button class="btn small soft" id="otherBtn" type="button" aria-expanded="false">Something else I did</button>
+      </div>
+      <div class="field hidden" id="otherWrap" style="margin-top:12px">
+        <label class="label" for="otherText">What else did you do?</label>
+        <textarea id="otherText" maxlength="350" placeholder="e.g., Managed my family’s weekly appointments and transportation schedule"></textarea>
+      </div>
+      <p class="compact-note" id="actionCount">Choose 2–4 actions if you can. There is no required number.</p>
+      <div class="actions">
+        <button class="btn primary" id="matchBtn" type="button">Show My Skill Matches</button>
+      </div>
+      <div class="status" id="workStatus" role="status" aria-live="polite"></div>
     </div>
-    <div class="status" id="reviewStatus" role="status" aria-live="polite"></div>
   </section>
 
-  <section class="panel" id="resultsPanel" aria-labelledby="results-title" hidden>
-    <div class="step-label"><span class="step-number">4</span> Keep</div>
-    <div class="summary-title">
+  <section class="card hidden" id="resultsCard" aria-live="polite">
+    <div class="result-head">
       <div>
-        <h2 id="results-title">Skills from this experience</h2>
-        <p class="exp-label" id="resultExperience"></p>
+        <h2>Your strongest matches</h2>
+        <p class="experience-label" id="resultExperience"></p>
       </div>
     </div>
-    <p class="section-copy">Use these as language ideas. Choose only power verbs that accurately describe what you did, then add the details and results that make the example specific.</p>
-    <div class="result-list" id="resultList"></div>
-    <div class="use-next">
-      <strong>Now you have evidence to work with.</strong>
-      <p>Use the competency as the skill you practiced and the power verbs as wording ideas. They can help you describe the experience in a resume bullet, cover letter, interview example, LinkedIn profile, or personal statement.</p>
+    <p class="result-help"><strong>Keep what fits. Remove what doesn’t.</strong> The competency names show the transferable skill areas; the selected power verbs give you language for describing what you actually did.</p>
+    <div class="result-grid" id="resultGrid"></div>
+
+    <details class="other-matches hidden" id="otherMatches">
+      <summary>See other possible matches</summary>
+      <div id="otherGrid"></div>
+    </details>
+
+    <div class="manual-pick hidden" id="manualPick">
+      <label class="label" for="manualCompetency">Your added action did not match a preset prompt. Which skill area fits it best?</label>
+      <select id="manualCompetency"><option value="">Choose one if useful</option></select>
+      <button class="btn small" id="addManualBtn" type="button" style="margin-top:9px">Add This Match</button>
     </div>
+
+    <div class="keep-note">You do not need to use every power verb. Pick the ones that accurately describe your experience, then add the details and results that make your example specific.</div>
     <div class="actions">
-      <button class="btn primary" type="button" id="copyBtn">Copy My Skill List</button>
-      <button class="btn" type="button" id="printBtn">Print / Save</button>
-      <button class="btn soft" type="button" id="resetBtn">Start With Another Experience</button>
+      <button class="btn primary" id="copyBtn" type="button">Copy My Power Verbs</button>
+      <button class="btn" id="printBtn" type="button">Print / Save</button>
+      <button class="btn soft" id="anotherBtn" type="button">Try Another Experience</button>
     </div>
     <div class="status" id="resultStatus" role="status" aria-live="polite"></div>
-    <p class="resource-link"><a href="https://careers.uiowa.edu/career-ready" target="_blank" rel="noopener">Explore Iowa’s Career Readiness Competencies</a></p>
-    <p class="disclaimer">Career-readiness competency suggestions are based on the actions you selected. You are the best judge of what you actually practiced and can explain.</p>
+    <p class="resource"><a href="https://careers.uiowa.edu/career-ready" target="_blank" rel="noopener">Explore Iowa’s Career Readiness Competencies</a></p>
   </section>
 </main>
-
 <script>
-(() => {
-  const competencies = {
-    career: {
-      name: 'Career & Self-Development',
-      desc: 'Growing through learning, feedback, self-awareness, career exploration, and goal setting.',
-      skills: ['Developed','Evaluated','Identified','Planned','Prioritized','Researched','Revised','Strategized']
-    },
-    communication: {
-      name: 'Communication',
-      desc: 'Exchanging information and ideas clearly and effectively with others.',
-      skills: ['Addressed','Clarified','Communicated','Consulted','Explained','Informed','Presented','Summarized']
-    },
-    critical: {
-      name: 'Critical Thinking',
-      desc: 'Analyzing information and context to make decisions, solve problems, and respond to needs.',
-      skills: ['Analyzed','Assessed','Determined','Evaluated','Investigated','Recommended','Resolved','Solved']
-    },
-    perspectives: {
-      name: 'Other Perspectives',
-      desc: 'Seeking, valuing, and thoughtfully considering perspectives different from your own.',
-      skills: ['Adapted','Consulted','Interpreted','Mediated','Negotiated','Supported','Welcomed','Cooperated']
-    },
-    leadership: {
-      name: 'Leadership',
-      desc: 'Using strengths to guide, motivate, support, and move work toward shared goals.',
-      skills: ['Directed','Encouraged','Guided','Initiated','Led','Managed','Mentored','Trained']
-    },
-    professionalism: {
-      name: 'Professionalism',
-      desc: 'Using dependable, accountable, ethical, and effective work habits.',
-      skills: ['Completed','Handled','Implemented','Maintained','Organized','Prepared','Prioritized','Tracked']
-    },
-    teamwork: {
-      name: 'Teamwork',
-      desc: 'Building collaborative relationships and sharing responsibility to reach common goals.',
-      skills: ['Collaborated','Contributed','Coordinated','Cooperated','Facilitated','Supported','Assisted','Mediated']
-    },
-    technology: {
-      name: 'Technology',
-      desc: 'Using and adapting to technology effectively and ethically to complete work and solve problems.',
-      skills: ['Programmed','Installed','Operated','Updated','Debugged','Streamlined','Converted','Tracked']
-    }
-  };
+(()=>{
+'use strict';
+const EXPERIENCE_BANK_KEY='uiowaCareerExperienceBank_v1';
+const SKILLS_BANK_KEY='uiowaCareerSkillsBank_v1';
 
-  const tasks = [
-    {id:'explain', text:'Explained, taught, presented, or shared information or ideas', group:'communicate', comps:['communication','leadership'], skills:{communication:['Explained','Presented','Instructed','Taught'], leadership:['Guided']}},
-    {id:'write', text:'Wrote, edited, documented, or created written content', group:'communicate', comps:['communication','professionalism'], skills:{communication:['Wrote','Edited','Drafted','Composed'], professionalism:['Prepared','Completed']}},
-    {id:'support', text:'Supported, helped, listened to, served, coached, or cared for someone', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['Supported','Assisted','Cooperated'], communication:['Consulted','Clarified'], perspectives:['Adapted','Welcomed','Supported']}},
+const competencies={
+ career:{name:'Career & Self-Development',verbs:['Developed','Evaluated','Identified','Planned','Prioritized','Researched']},
+ communication:{name:'Communication',verbs:['Addressed','Clarified','Communicated','Consulted','Explained','Presented']},
+ critical:{name:'Critical Thinking',verbs:['Analyzed','Assessed','Determined','Evaluated','Investigated','Resolved']},
+ perspectives:{name:'Other Perspectives',verbs:['Adapted','Consulted','Interpreted','Mediated','Negotiated','Supported']},
+ leadership:{name:'Leadership',verbs:['Directed','Encouraged','Guided','Initiated','Led','Mentored']},
+ professionalism:{name:'Professionalism',verbs:['Completed','Handled','Implemented','Maintained','Organized','Prioritized']},
+ teamwork:{name:'Teamwork',verbs:['Collaborated','Contributed','Coordinated','Cooperated','Facilitated','Supported']},
+ technology:{name:'Technology',verbs:['Operated','Updated','Debugged','Streamlined','Converted','Tracked']}
+};
 
-    {id:'solve', text:'Solved a problem, made a decision, or adapted when something changed', group:'solve', comps:['critical','professionalism','career'], skills:{critical:['Analyzed','Determined','Resolved','Solved'], professionalism:['Handled','Completed'], career:['Developed','Revised']}},
-    {id:'analyze', text:'Researched, analyzed, or used information, data, or evidence', group:'solve', comps:['critical','technology','career'], skills:{critical:['Analyzed','Researched','Evaluated','Synthesized'], technology:['Compiled','Converted','Tracked'], career:['Studied','Identified']}},
-    {id:'organize', text:'Organized details, priorities, schedules, deadlines, or requirements', group:'manage', comps:['professionalism','critical'], skills:{professionalism:['Organized','Scheduled','Tracked','Prioritized'], critical:['Assessed','Determined','Evaluated']}},
+const actions=[
+ {id:'explain',text:'Explained, taught, presented, or shared information',comps:['communication','leadership'],verbs:{communication:['Explained','Presented','Clarified','Communicated'],leadership:['Guided','Mentored']}},
+ {id:'write',text:'Wrote, edited, documented, or created written content',comps:['communication','professionalism'],verbs:{communication:['Communicated','Clarified'],professionalism:['Prepared','Completed']}},
+ {id:'support',text:'Supported, helped, listened to, served, coached, or cared for someone',comps:['teamwork','communication','perspectives'],verbs:{teamwork:['Supported','Cooperated','Collaborated'],communication:['Consulted','Clarified'],perspectives:['Adapted','Supported']}},
+ {id:'solve',text:'Solved a problem, made a decision, or adapted when something changed',comps:['critical','professionalism','career'],verbs:{critical:['Analyzed','Determined','Resolved','Evaluated'],professionalism:['Handled','Completed'],career:['Developed','Evaluated']}},
+ {id:'analyze',text:'Researched, analyzed, or used information, data, or evidence',comps:['critical','career','technology'],verbs:{critical:['Analyzed','Evaluated','Investigated','Assessed'],career:['Researched','Identified'],technology:['Tracked','Converted']}},
+ {id:'organize',text:'Organized details, priorities, schedules, deadlines, or requirements',comps:['professionalism','critical'],verbs:{professionalism:['Organized','Prioritized','Maintained','Implemented'],critical:['Assessed','Determined']}},
+ {id:'team',text:'Worked or coordinated with others toward a shared goal',comps:['teamwork','professionalism'],verbs:{teamwork:['Collaborated','Coordinated','Cooperated','Contributed'],professionalism:['Organized','Implemented']}},
+ {id:'conflict',text:'Handled conflict, disagreement, or different expectations',comps:['communication','perspectives','teamwork'],verbs:{communication:['Addressed','Clarified','Consulted'],perspectives:['Mediated','Negotiated','Adapted'],teamwork:['Cooperated','Collaborated']}},
+ {id:'lead',text:'Led, planned, organized, or coordinated a project, event, activity, or group',comps:['leadership','teamwork','professionalism'],verbs:{leadership:['Led','Directed','Initiated','Guided'],teamwork:['Coordinated','Facilitated'],professionalism:['Organized','Implemented']}},
+ {id:'initiative',text:'Noticed a need, spoke up, or took action without being told exactly what to do',comps:['leadership','critical','career'],verbs:{leadership:['Initiated','Led'],critical:['Identified','Resolved'],career:['Developed','Planned']}},
+ {id:'mentor',text:'Trained, mentored, onboarded, or guided someone',comps:['leadership','communication'],verbs:{leadership:['Mentored','Guided','Encouraged'],communication:['Explained','Presented']}},
+ {id:'sensitive',text:'Handled private, sensitive, difficult, or high-responsibility situations',comps:['professionalism','communication'],verbs:{professionalism:['Handled','Maintained','Completed'],communication:['Consulted','Clarified']}},
+ {id:'technology',text:'Used, learned, or troubleshot software, digital tools, systems, or equipment',comps:['technology','critical','career'],verbs:{technology:['Operated','Updated','Debugged','Streamlined'],critical:['Analyzed','Resolved'],career:['Developed','Evaluated']}},
+ {id:'feedback',text:'Used feedback, practice, or goals to improve',comps:['career','professionalism'],verbs:{career:['Evaluated','Developed','Planned'],professionalism:['Implemented','Completed']}},
+ {id:'perspectives',text:'Worked with different people or perspectives and adjusted to others’ needs',comps:['perspectives','communication','teamwork'],verbs:{perspectives:['Adapted','Consulted','Supported'],communication:['Communicated','Clarified'],teamwork:['Collaborated','Cooperated']}}
+];
 
-    {id:'team', text:'Worked or coordinated with others toward a shared goal', group:'people', comps:['teamwork','professionalism'], skills:{teamwork:['Collaborated','Coordinated','Cooperated','Contributed'], professionalism:['Facilitated','Organized']}},
-    {id:'conflict', text:'Handled conflict, disagreement, or different expectations', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['Collaborated','Cooperated','Mediated'], communication:['Mediated','Negotiated','Arbitrated'], perspectives:['Adapted','Consulted','Mediated']}},
+const profiles=[
+ {keywords:['resident assistant','resident advisor','peer mentor','peer leader'],tasks:['support','conflict','lead']},
+ {keywords:['retail','cashier','customer service','sales associate','front desk','reception'],tasks:['support','solve','team']},
+ {keywords:['barista','server','hostess','restaurant','food service','dining','hospitality'],tasks:['support','team','organize']},
+ {keywords:['babysit','babysitter','nanny','childcare','caregiver','caregiving'],tasks:['support','organize','solve']},
+ {keywords:['tutor','tutoring','mentor','teacher','teaching','coach','instructor'],tasks:['explain','support','mentor']},
+ {keywords:['class project','group project','team project','course project','capstone','case study'],tasks:['analyze','team','write']},
+ {keywords:['research','lab assistant','research assistant','study'],tasks:['analyze','write','organize']},
+ {keywords:['student organization','student org','club','committee','association','fraternity','sorority'],tasks:['team','lead','initiative']},
+ {keywords:['volunteer','service','food pantry','community service'],tasks:['support','team','solve']},
+ {keywords:['athlete','athletics','sport','team captain','dance','theatre','theater','music','band','choir'],tasks:['team','feedback','organize']},
+ {keywords:['personal project','independent project','side project','portfolio','freelance'],tasks:['initiative','technology','solve']},
+ {keywords:['president','vice president','chair','leader','leadership','event planner','event planning','coordinator'],tasks:['lead','team','organize']},
+ {keywords:['intern','internship'],tasks:['team','organize','feedback']}
+];
+const categoryProfiles={work:['team','organize','solve'],class:['analyze','team','write'],involvement:['team','lead','initiative'],volunteer:['support','team','solve'],research:['analyze','write','organize'],athletics:['team','feedback','organize'],caregiving:['support','organize','solve'],independent:['initiative','technology','solve']};
 
-    {id:'lead', text:'Led, planned, organized, or coordinated a project, event, activity, or group effort', group:'manage', comps:['leadership','teamwork','professionalism'], skills:{leadership:['Led','Directed','Managed','Initiated'], teamwork:['Facilitated','Coordinated'], professionalism:['Implemented','Organized']}},
-    {id:'initiative', text:'Noticed a need, spoke up, or took action without being told exactly what to do', group:'manage', comps:['leadership','career','critical','communication'], skills:{leadership:['Initiated','Led'], career:['Developed','Strategized'], critical:['Identified','Solved'], communication:['Suggested','Persuaded']}},
-    {id:'mentor', text:'Trained, mentored, onboarded, or guided someone', group:'manage', comps:['leadership','communication'], skills:{leadership:['Mentored','Trained','Guided'], communication:['Instructed','Explained']}},
-    {id:'sensitive', text:'Handled private, sensitive, difficult, or high-responsibility situations', group:'manage', comps:['professionalism','communication'], skills:{professionalism:['Handled','Maintained','Reviewed'], communication:['Consulted','Clarified','Supported']}},
+const $=id=>document.getElementById(id);
+const selectedActions=new Set();
+const autoSuggested=new Set();
+const removedMatches=new Set();
+const selectedVerbs={};
+let recentExperiences=[];
+let selectedRecentId=null;
+let showingAll=false;
+let currentScores=null;
 
-    {id:'technology', text:'Used, learned, or troubleshot software, digital tools, systems, or equipment', group:'tech', comps:['technology','critical','career'], skills:{technology:['Programmed','Installed','Operated','Updated','Debugged','Streamlined'], critical:['Solved','Analyzed'], career:['Developed','Studied']}},
+function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function normalize(v=''){return String(v).toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim()}
+function safeRead(key){try{const x=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
+function selectedRecent(){return recentExperiences.find((x,i)=>(x.id||`${x.experienceName}-${i}`)===selectedRecentId)||null}
 
-    {id:'feedback', text:'Used feedback, practice, or goals to improve', group:'grow', comps:['career','professionalism','perspectives'], skills:{career:['Evaluated','Developed','Revised','Studied'], professionalism:['Revised','Completed'], perspectives:['Adapted','Consulted']}},
-    {id:'perspectives', text:'Worked with different people or perspectives and adjusted to others’ needs', group:'grow', comps:['perspectives','communication','teamwork','critical'], skills:{perspectives:['Adapted','Consulted','Welcomed','Supported'], communication:['Communicated','Interpreted'], teamwork:['Collaborated','Cooperated'], critical:['Assessed','Evaluated']}}
-  ];
+function loadRecent(){
+ recentExperiences=safeRead(EXPERIENCE_BANK_KEY).filter(x=>x&&x.experienceName).slice(0,8);
+ const wrap=$('recentWrap'),list=$('recentList');list.innerHTML='';
+ if(!recentExperiences.length){wrap.hidden=true;return}wrap.hidden=false;
+ recentExperiences.forEach((x,i)=>{const id=x.id||`${x.experienceName}-${i}`;const b=document.createElement('button');b.type='button';b.className='recent-btn';b.setAttribute('aria-pressed','false');b.innerHTML=`${esc(x.experienceName)}${x.context?`<span class="recent-context">${esc(x.context)}</span>`:''}`;b.addEventListener('click',()=>{selectedRecentId=id;$('experienceName').value=x.experienceName;[...list.children].forEach(c=>c.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');applySuggestions();});list.appendChild(b)});
+}
 
-  const filterDefs = [
-    ['all','Show all'],['communicate','Communicated'],['solve','Solved / researched'],['people','Worked with people'],['manage','Led / managed'],['tech','Used technology'],['grow','Learned / adapted']
-  ];
+function detectSuggestions(){
+ const name=normalize($('experienceName').value);const recent=selectedRecent();
+ for(const p of profiles){if(p.keywords.some(k=>name.includes(normalize(k)))) return p.tasks.slice(0,3)}
+ if(recent?.sourceCategory && categoryProfiles[recent.sourceCategory]) return categoryProfiles[recent.sourceCategory].slice(0,3);
+ return [];
+}
 
-  // Common experience patterns provide a small starting point only. Students confirm what is actually true.
-  const experienceProfiles = [
-    {label:'resident assistant / peer leader', keywords:['resident assistant','resident advisor','ra ','peer mentor','peer leader'], tasks:['support','conflict','lead','sensitive','solve']},
-    {label:'retail / customer service', keywords:['retail','cashier','customer service','sales associate','store associate','front desk','reception'], tasks:['support','solve','team','organize','technology']},
-    {label:'food service / hospitality', keywords:['barista','server','hostess','host ','restaurant','food service','dining','hospitality'], tasks:['support','team','organize','solve','technology']},
-    {label:'caregiving / childcare', keywords:['babysit','babysitter','nanny','childcare','caregiver','caregiving','taking care','family care'], tasks:['support','organize','solve','sensitive']},
-    {label:'tutoring / mentoring / teaching', keywords:['tutor','tutoring','mentor','mentoring','teacher','teaching','coach','coaching','instructor'], tasks:['explain','support','mentor','solve','feedback']},
-    {label:'class or group project', keywords:['class project','group project','team project','course project','capstone','case study'], tasks:['analyze','team','write','explain','organize']},
-    {label:'research', keywords:['research','lab assistant','research assistant','study'], tasks:['analyze','write','organize','technology']},
-    {label:'student organization / committee', keywords:['student organization','student org','club','committee','association','fraternity','sorority'], tasks:['team','lead','initiative','explain','organize']},
-    {label:'volunteer / service', keywords:['volunteer','service','food pantry','community service'], tasks:['support','team','solve']},
-    {label:'athletics / performance', keywords:['athlete','athletics','sport','team captain','dance','theatre','theater','music','band','choir'], tasks:['team','feedback','solve','organize','lead']},
-    {label:'independent / personal project', keywords:['personal project','independent project','side project','portfolio','self taught','self-taught','freelance'], tasks:['initiative','feedback','technology','analyze','solve']},
-    {label:'leadership / event planning', keywords:['president','vice president','chair','leader','leadership','event planner','event planning','coordinator'], tasks:['lead','team','explain','initiative','organize']},
-    {label:'internship', keywords:['intern','internship'], tasks:['team','organize','technology','feedback','solve','explain']}
-  ];
+function applySuggestions(){
+ selectedActions.clear();autoSuggested.clear();removedMatches.clear();
+ const ids=detectSuggestions();ids.forEach(id=>{selectedActions.add(id);autoSuggested.add(id)});
+ showingAll=false;$('showMoreBtn').textContent='See more action ideas';$('showMoreBtn').setAttribute('aria-expanded','false');
+ $('suggestionTip').hidden=!ids.length;renderActions();$('resultsCard').classList.add('hidden');updateCount();
+}
 
-  const categoryProfiles = {
-    work:['team','organize','solve','support'],
-    class:['analyze','write','organize','team'],
-    involvement:['team','lead','initiative'],
-    volunteer:['support','team','solve'],
-    research:['analyze','write','organize'],
-    athletics:['team','feedback','organize'],
-    caregiving:['support','organize','solve'],
-    independent:['initiative','feedback','solve','technology']
-  };
+function renderActions(){
+ const grid=$('actionGrid');grid.innerHTML='';
+ let visible;
+ if(showingAll) visible=actions;
+ else if(autoSuggested.size) visible=actions.filter(a=>autoSuggested.has(a.id)||selectedActions.has(a.id));
+ else visible=actions.slice(0,6);
+ visible.forEach(a=>{const b=document.createElement('button');b.type='button';b.className='action-btn'+(autoSuggested.has(a.id)?' suggested':'');b.textContent=a.text;b.setAttribute('aria-pressed',String(selectedActions.has(a.id)));b.addEventListener('click',()=>{if(selectedActions.has(a.id))selectedActions.delete(a.id);else selectedActions.add(a.id);autoSuggested.delete(a.id);b.classList.remove('suggested');b.setAttribute('aria-pressed',String(selectedActions.has(a.id)));updateCount();$('resultsCard').classList.add('hidden');});grid.appendChild(b)});
+}
+function updateCount(){const n=selectedActions.size;const other=$('otherText').value.trim();$('actionCount').textContent=n?`${n} action${n===1?'':'s'} selected${other?' plus your added action':''}.`:'Choose 2–4 actions if you can. There is no required number.'}
 
-  const EXPERIENCE_BANK_KEY = 'uiowaCareerExperienceBank_v1';
-  const SKILLS_BANK_KEY = 'uiowaCareerSkillsBank_v1';
-  const AUTO_SUGGESTION_LIMIT = 3;
-  const selectedTasks = new Set();
-  const autoSuggestedTasks = new Set();
-  const manuallyTouchedTasks = new Set();
-  const chosenCompetencies = new Set();
-  const chosenSkills = {};
-  let activeFilter = 'all';
-  let recentExperiences = [];
-  let selectedRecentId = null;
-  let showAllActions = false;
+$('showMoreBtn').addEventListener('click',()=>{showingAll=!showingAll;$('showMoreBtn').textContent=showingAll?'Show fewer ideas':'See more action ideas';$('showMoreBtn').setAttribute('aria-expanded',String(showingAll));renderActions()});
+$('otherBtn').addEventListener('click',()=>{const hidden=$('otherWrap').classList.toggle('hidden');$('otherBtn').setAttribute('aria-expanded',String(!hidden));if(!hidden)$('otherText').focus()});
+$('otherText').addEventListener('input',()=>{updateCount();$('resultsCard').classList.add('hidden')});
+$('experienceName').addEventListener('input',()=>{selectedRecentId=null;document.querySelectorAll('.recent-btn').forEach(b=>b.setAttribute('aria-pressed','false'));clearTimeout(window.__skillSuggestTimer);window.__skillSuggestTimer=setTimeout(applySuggestions,350)});
 
-  const experienceName = document.getElementById('experienceName');
-  const suggestionBox = document.getElementById('suggestionBox');
-  const suggestionTitle = document.getElementById('suggestionTitle');
-  const suggestionCopy = document.getElementById('suggestionCopy');
-  const recentWrap = document.getElementById('recentWrap');
-  const recentList = document.getElementById('recentList');
-  const filters = document.getElementById('filters');
-  const moreActions = document.getElementById('moreActions');
-  const moreActionsBtn = document.getElementById('moreActionsBtn');
-  const moreActionsWrap = document.getElementById('moreActionsWrap');
-  const taskGrid = document.getElementById('taskGrid');
-  const selectionNote = document.getElementById('selectionNote');
-  const otherActionToggle = document.getElementById('otherActionToggle');
-  const otherActionFields = document.getElementById('otherActionFields');
-  const otherActionText = document.getElementById('otherActionText');
-  const manualNote = document.getElementById('manualNote');
-  const compGrid = document.getElementById('compGrid');
-  const compEmpty = document.getElementById('compEmpty');
-  const reviewTip = document.getElementById('reviewTip');
-  const buildResultsBtn = document.getElementById('buildResultsBtn');
-  const reviewStatus = document.getElementById('reviewStatus');
-  const resultsPanel = document.getElementById('resultsPanel');
-  const resultExperience = document.getElementById('resultExperience');
-  const resultList = document.getElementById('resultList');
-  const copyBtn = document.getElementById('copyBtn');
-  const printBtn = document.getElementById('printBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const resultStatus = document.getElementById('resultStatus');
+function score(){
+ const scores={},evidence={},verbHits={};Object.keys(competencies).forEach(k=>{scores[k]=0;evidence[k]=[];verbHits[k]=[]});
+ actions.filter(a=>selectedActions.has(a.id)).forEach(a=>{a.comps.forEach((c,idx)=>{scores[c]+=idx===0?3:1;evidence[c].push(a.text);(a.verbs[c]||[]).forEach(v=>{if(!verbHits[c].includes(v))verbHits[c].push(v)})})});
+ return {scores,evidence,verbHits};
+}
+function topKeys(scores){return Object.keys(scores).filter(k=>scores[k]>0).sort((a,b)=>scores[b]-scores[a]||competencies[a].name.localeCompare(competencies[b].name))}
+function ensureVerbSet(key,verbHits){
+ if(!selectedVerbs[key]) selectedVerbs[key]=new Set();
+ if(selectedVerbs[key].size===0){const picks=[...(verbHits[key]||[]),...competencies[key].verbs].filter((v,i,a)=>a.indexOf(v)===i).slice(0,4);picks.forEach(v=>selectedVerbs[key].add(v))}
+}
+function makeMatchCard(key,rank,container,isOther=false){
+ const c=competencies[key];const {evidence,verbHits}=currentScores;ensureVerbSet(key,verbHits);
+ const card=document.createElement('article');card.className=isOther?'other-card':'match-card';card.dataset.key=key;
+ const verbs=[...(verbHits[key]||[]),...c.verbs].filter((v,i,a)=>a.indexOf(v)===i).slice(0,6);
+ const top=document.createElement('div');top.className='match-top';
+ const head=document.createElement('div');head.innerHTML=`<h3>${esc(c.name)}</h3><div class="why">Because you selected: ${esc((evidence[key]||[]).slice(0,2).join('; '))}</div>`;
+ const badge=document.createElement('span');badge.className='match-badge';badge.textContent=rank===0?'Strongest match':'Possible match';top.append(head,badge);card.appendChild(top);
+ const label=document.createElement('div');label.className='verb-label';label.textContent='Power verbs — tap to remove any that do not fit';card.appendChild(label);
+ const list=document.createElement('div');list.className='verb-list';verbs.forEach(v=>{const b=document.createElement('button');b.type='button';b.className='verb';b.textContent=v;b.setAttribute('aria-pressed',String(selectedVerbs[key].has(v)));b.addEventListener('click',()=>{if(selectedVerbs[key].has(v))selectedVerbs[key].delete(v);else selectedVerbs[key].add(v);b.setAttribute('aria-pressed',String(selectedVerbs[key].has(v)));saveCurrentResult()});list.appendChild(b)});card.appendChild(list);
+ const rm=document.createElement('button');rm.type='button';rm.className='remove-match';rm.textContent='Remove this match';rm.addEventListener('click',()=>{removedMatches.add(key);card.remove();saveCurrentResult()});card.appendChild(rm);container.appendChild(card);
+}
 
-  function escapeHtml(value){
-    return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  }
+function renderResults(){
+ currentScores=score();removedMatches.clear();Object.keys(selectedVerbs).forEach(k=>delete selectedVerbs[k]);
+ const ordered=topKeys(currentScores.scores);const resultGrid=$('resultGrid'),otherGrid=$('otherGrid');resultGrid.innerHTML='';otherGrid.innerHTML='';
+ ordered.slice(0,3).forEach((k,i)=>makeMatchCard(k,i,resultGrid,false));
+ const rest=ordered.slice(3);$('otherMatches').classList.toggle('hidden',rest.length===0);rest.forEach((k,i)=>makeMatchCard(k,i+3,otherGrid,true));
+ const otherText=$('otherText').value.trim();$('manualPick').classList.toggle('hidden',!otherText);populateManualSelect(ordered);
+ $('resultExperience').textContent=$('experienceName').value.trim();$('resultsCard').classList.remove('hidden');saveCurrentResult();$('resultsCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
 
-  function normalizeText(value=''){
-    return String(value).toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
-  }
+function populateManualSelect(exclude=[]){const sel=$('manualCompetency');sel.innerHTML='<option value="">Choose one if useful</option>';Object.keys(competencies).filter(k=>!exclude.includes(k)).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=competencies[k].name;sel.appendChild(o)})}
+$('addManualBtn').addEventListener('click',()=>{const key=$('manualCompetency').value;if(!key)return;currentScores.scores[key]=1;currentScores.evidence[key]=[$('otherText').value.trim()];currentScores.verbHits[key]=[];const topNow=[...$('resultGrid').querySelectorAll('[data-key]')].map(x=>x.dataset.key);if(topNow.length<3)makeMatchCard(key,topNow.length,$('resultGrid'),false);else{ $('otherMatches').classList.remove('hidden');makeMatchCard(key,topNow.length,$('otherGrid'),true)}$('manualCompetency').querySelector(`option[value="${key}"]`)?.remove();saveCurrentResult()});
 
-  function selectedRecentExperience(){
-    return recentExperiences.find((exp,index)=>(exp.id || `${exp.experienceName}-${index}`)===selectedRecentId) || null;
-  }
+$('matchBtn').addEventListener('click',()=>{const name=$('experienceName').value.trim();if(!name){$('workStatus').textContent='Add an experience first.';$('experienceName').focus();return}if(selectedActions.size===0&&!$('otherText').value.trim()){$('workStatus').textContent='Choose at least one thing you did.';return}$('workStatus').textContent='';renderResults()});
 
-  function detectProfile(name, recent){
-    const hay=` ${normalizeText(name)} `;
-    let best=null;
-    for(const profile of experienceProfiles){
-      if(profile.keywords.some(keyword=>hay.includes(` ${normalizeText(keyword)} `) || hay.includes(normalizeText(keyword)))){best=profile;break;}
-    }
-    if(best) return {label:best.label, tasks:best.tasks, source:'name'};
-    const category=recent?.sourceCategory;
-    if(category && categoryProfiles[category]){
-      const label=({work:'work experience',class:'class/project experience',involvement:'organization/involvement',volunteer:'volunteer/service',research:'research/creative work',athletics:'athletics/performance',caregiving:'caregiving/responsibility',independent:'independent/personal work'})[category] || 'this experience';
-      return {label,tasks:categoryProfiles[category],source:'category'};
-    }
-    return null;
-  }
+function keptKeys(){return [...document.querySelectorAll('#resultGrid [data-key],#otherGrid [data-key]')].map(x=>x.dataset.key).filter(k=>!removedMatches.has(k))}
+function saveCurrentResult(){
+ if(!currentScores)return;const name=$('experienceName').value.trim();if(!name)return;const recent=selectedRecent();const keys=keptKeys();
+ const entry={id:`skills-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,experienceName:name,context:recent?.context||'',competencies:keys.map(k=>({id:k,name:competencies[k].name,skills:[...(selectedVerbs[k]||new Set())],evidence:(currentScores.evidence[k]||[]).slice(0,3)})),updatedAt:new Date().toISOString()};
+ try{let bank=safeRead(SKILLS_BANK_KEY);bank=bank.filter(x=>x&&x.experienceName!==name);bank.unshift(entry);localStorage.setItem(SKILLS_BANK_KEY,JSON.stringify(bank.slice(0,20)))}catch(_){ }
+}
+function copyText(){const name=$('experienceName').value.trim();const lines=[`Power verbs from: ${name}`,''];keptKeys().forEach(k=>{const verbs=[...(selectedVerbs[k]||new Set())];lines.push(competencies[k].name);if(verbs.length)lines.push(verbs.join(', '));lines.push('')});return lines.join('\n').trim()}
+$('copyBtn').addEventListener('click',async()=>{const text=copyText();try{await navigator.clipboard.writeText(text);$('resultStatus').textContent='Your power verbs were copied.'}catch(_){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();$('resultStatus').textContent='Your power verbs were copied.'}});
+$('printBtn').addEventListener('click',()=>window.print());
+$('anotherBtn').addEventListener('click',()=>{selectedActions.clear();autoSuggested.clear();removedMatches.clear();Object.keys(selectedVerbs).forEach(k=>delete selectedVerbs[k]);selectedRecentId=null;showingAll=false;currentScores=null;$('experienceName').value='';$('otherText').value='';$('otherWrap').classList.add('hidden');$('otherBtn').setAttribute('aria-expanded','false');$('resultsCard').classList.add('hidden');$('suggestionTip').hidden=true;document.querySelectorAll('.recent-btn').forEach(b=>b.setAttribute('aria-pressed','false'));renderActions();updateCount();$('experienceName').focus();window.scrollTo({top:0,behavior:'smooth'})});
 
-  function applyExperienceSuggestions({force=false}={}){
-    const name=experienceName.value.trim();
-    const recent=selectedRecentExperience();
-    const profile=detectProfile(name,recent);
-    const canReplace = force || manuallyTouchedTasks.size===0 || [...selectedTasks].every(id=>autoSuggestedTasks.has(id));
-    if(!profile || !canReplace){
-      if(!profile){
-        suggestionBox.hidden=true; autoSuggestedTasks.clear();
-        showAllActions=true;
-        renderTasks();
-      }
-      return;
-    }
-    const starterTasks=profile.tasks.slice(0,AUTO_SUGGESTION_LIMIT);
-    autoSuggestedTasks.clear();
-    starterTasks.forEach(id=>autoSuggestedTasks.add(id));
-    selectedTasks.clear();
-    starterTasks.forEach(id=>selectedTasks.add(id));
-    showAllActions=false;
-    suggestionBox.hidden=false;
-    suggestionTitle.textContent=`A few likely starting points for ${name || profile.label}`;
-    suggestionCopy.textContent='We selected three broad actions to get you started. Remove anything that is not true, or see more ideas if you need them.';
-    renderTasks();
-    updateSuggestions();
-  }
-
-  function loadRecentExperiences(){
-    try{
-      const saved = JSON.parse(localStorage.getItem(EXPERIENCE_BANK_KEY) || '[]');
-      if(Array.isArray(saved)){
-        recentExperiences = saved
-          .filter(item => item && typeof item.experienceName === 'string' && item.experienceName.trim())
-          .slice(-6)
-          .reverse();
-      }
-    }catch(e){
-      recentExperiences = [];
-    }
-    renderRecentExperiences();
-  }
-
-  function renderRecentExperiences(){
-    recentList.innerHTML='';
-    if(!recentExperiences.length){
-      recentWrap.hidden=true;
-      return;
-    }
-    recentWrap.hidden=false;
-    recentExperiences.forEach((exp,index)=>{
-      const b=document.createElement('button');
-      b.type='button';
-      b.className='recent-btn';
-      const expId=exp.id || `${exp.experienceName}-${index}`;
-      b.setAttribute('aria-pressed',String(selectedRecentId===expId));
-      const name=document.createElement('span');
-      name.textContent=exp.experienceName;
-      b.appendChild(name);
-      if(exp.context){
-        const context=document.createElement('span');
-        context.className='recent-context';
-        context.textContent=exp.context;
-        b.appendChild(context);
-      }
-      b.addEventListener('click',()=>{
-        selectedRecentId=expId;
-        experienceName.value=exp.experienceName;
-        manuallyTouchedTasks.clear();
-        renderRecentExperiences();
-        applyExperienceSuggestions({force:true});
-        experienceName.focus();
-      });
-      recentList.appendChild(b);
-    });
-  }
-
-  let suggestionTimer=null;
-  experienceName.addEventListener('input',()=>{
-    if(selectedRecentId){
-      const selected=selectedRecentExperience();
-      if(!selected || experienceName.value.trim()!==selected.experienceName.trim()){
-        selectedRecentId=null;
-        renderRecentExperiences();
-      }
-    }
-    clearTimeout(suggestionTimer);
-    suggestionTimer=setTimeout(()=>applyExperienceSuggestions(),450);
-  });
-  experienceName.addEventListener('change',()=>applyExperienceSuggestions());
-
-  function hasOtherAction(){
-    return otherActionText.value.trim().length > 0;
-  }
-
-  otherActionToggle.addEventListener('click',()=>{
-    const opening=otherActionFields.hidden;
-    otherActionFields.hidden=!opening;
-    otherActionToggle.setAttribute('aria-expanded',String(opening));
-    otherActionToggle.setAttribute('aria-pressed',String(opening));
-    if(opening) otherActionText.focus();
-  });
-
-  otherActionText.addEventListener('input',()=>{
-    updateSuggestions();
-  });
-
-  function renderFilters(){
-    filters.innerHTML = '';
-    filterDefs.forEach(([id,label]) => {
-      const b = document.createElement('button');
-      b.type='button'; b.className='filter-btn'; b.textContent=label;
-      b.setAttribute('aria-pressed', String(activeFilter===id));
-      b.addEventListener('click', () => {activeFilter=id; renderFilters(); renderTasks();});
-      filters.appendChild(b);
-    });
-  }
-
-  function renderTasks(){
-    taskGrid.innerHTML='';
-    const hasSuggestions=autoSuggestedTasks.size>0;
-    moreActions.hidden=!hasSuggestions;
-    moreActionsBtn.setAttribute('aria-expanded',String(showAllActions));
-    moreActionsBtn.textContent=showAllActions?'Show fewer ideas':'See more action ideas';
-    moreActionsWrap.hidden=!showAllActions;
-
-    tasks.forEach(t => {
-      const isStarter=autoSuggestedTasks.has(t.id);
-      const keepVisible=selectedTasks.has(t.id);
-      if(hasSuggestions && !showAllActions && !isStarter && !keepVisible) return;
-      if(showAllActions && activeFilter!=='all' && t.group!==activeFilter && !keepVisible) return;
-
-      const b=document.createElement('button');
-      b.type='button'; b.className='task-btn'+(isStarter?' suggested-task':''); b.textContent=t.text;
-      b.setAttribute('aria-pressed',String(selectedTasks.has(t.id)));
-      b.addEventListener('click',() => {
-        manuallyTouchedTasks.add(t.id);
-        if(selectedTasks.has(t.id)) selectedTasks.delete(t.id); else selectedTasks.add(t.id);
-        b.setAttribute('aria-pressed',String(selectedTasks.has(t.id)));
-        updateSuggestions();
-      });
-      taskGrid.appendChild(b);
-    });
-  }
-
-  moreActionsBtn.addEventListener('click',()=>{
-    showAllActions=!showAllActions;
-    if(showAllActions) activeFilter='all';
-    renderFilters();
-    renderTasks();
-  });
-
-  function scoreCompetencies(){
-    const score={};
-    const evidence={};
-    const skillHits={};
-    Object.keys(competencies).forEach(k=>{score[k]=0;evidence[k]=[];skillHits[k]=new Set();});
-    tasks.filter(t=>selectedTasks.has(t.id)).forEach(t => {
-      t.comps.forEach((c,idx) => {
-        score[c] += idx===0 ? 2 : 1;
-        evidence[c].push(t.text);
-        (t.skills[c]||[]).forEach(s=>skillHits[c].add(s));
-      });
-    });
-    return {score,evidence,skillHits};
-  }
-
-  function updateSuggestions(){
-    const count=selectedTasks.size;
-    const hasOther=hasOtherAction();
-    const total=count+(hasOther?1:0);
-    if(total===0){
-      selectionNote.textContent='Select a few actions that describe your experience.';
-    }else if(hasOther && count===0){
-      selectionNote.textContent='Your additional action is ready. Browse the competencies below and choose what fits.';
-    }else if(hasOther){
-      selectionNote.textContent=`${count} listed action${count===1?'':'s'} selected, plus your additional action.`;
-    }else{
-      const autoCount=[...selectedTasks].filter(id=>autoSuggestedTasks.has(id)).length;
-      selectionNote.textContent=autoCount ? `${count} action${count===1?'':'s'} selected as a starting point. Remove any suggestion that is not true for you.` : `${count} action${count===1?'':'s'} selected. You can choose more if they fit.`;
-    }
-    reviewStatus.textContent='';
-    resultsPanel.hidden=true;
-    manualNote.hidden=!hasOther;
-
-    if(total===0){
-      compGrid.innerHTML=''; compEmpty.hidden=false; reviewTip.hidden=true; buildResultsBtn.disabled=true;
-      chosenCompetencies.clear();
-      Object.keys(chosenSkills).forEach(k=>delete chosenSkills[k]);
-      return;
-    }
-
-    const {score,evidence,skillHits}=scoreCompetencies();
-    const suggested=Object.keys(competencies).filter(k=>score[k]>0).sort((a,b)=>score[b]-score[a]);
-    const browseOnly=hasOther ? Object.keys(competencies).filter(k=>score[k]===0) : [];
-    const ordered=[...suggested,...browseOnly];
-    const current=new Set(ordered);
-    [...chosenCompetencies].forEach(k=>{if(!current.has(k)) chosenCompetencies.delete(k);});
-    Object.keys(chosenSkills).forEach(k=>{if(!current.has(k)) delete chosenSkills[k];});
-
-    compGrid.innerHTML=''; compEmpty.hidden=true; reviewTip.hidden=false;
-    ordered.forEach((key,index)=>{
-      const c=competencies[key];
-      const isSuggested=score[key]>0;
-      if(!(key in chosenSkills)) chosenSkills[key]=new Set();
-      const suggestedSkills=[...skillHits[key]];
-      const suggestedIndex=suggested.indexOf(key);
-      if(isSuggested && !chosenCompetencies.has(key) && suggestedIndex<Math.min(4,suggested.length)) chosenCompetencies.add(key);
-      if(isSuggested) suggestedSkills.slice(0,4).forEach(s=>chosenSkills[key].add(s));
-
-      const card=document.createElement('div'); card.className='comp-card';
-      const head=document.createElement('div'); head.className='comp-head';
-      const cb=document.createElement('input'); cb.type='checkbox'; cb.className='comp-check'; cb.checked=chosenCompetencies.has(key); cb.id=`comp-${key}`;
-      cb.addEventListener('change',()=>{cb.checked?chosenCompetencies.add(key):chosenCompetencies.delete(key); updateBuildButton();});
-      const text=document.createElement('div');
-      text.innerHTML=`<label class="comp-title" for="comp-${key}">${escapeHtml(c.name)}</label><div class="comp-desc">${escapeHtml(c.desc)}</div>`;
-      const match=document.createElement('span'); match.className='match';
-      match.textContent=isSuggested ? (suggestedIndex===0?'Strong match':'Possible match') : 'Browse';
-      head.append(cb,text,match);
-      const body=document.createElement('div'); body.className='comp-body';
-      if(isSuggested){
-        const evLabel=document.createElement('div'); evLabel.className='evidence-label'; evLabel.textContent='What pointed here';
-        const ul=document.createElement('ul'); ul.className='evidence-list';
-        evidence[key].slice(0,4).forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li);});
-        body.append(evLabel,ul);
-      }else{
-        const browseHelp=document.createElement('p'); browseHelp.className='other-action-help'; browseHelp.textContent='Not automatically suggested. Choose this if your additional action is evidence of this competency.';
-        body.appendChild(browseHelp);
-      }
-      const skLabel=document.createElement('div'); skLabel.className='skills-label'; skLabel.textContent='power verbs that may fit — choose what is accurate';
-      const chips=document.createElement('div'); chips.className='skill-chips';
-      const skills=[...new Set([...suggestedSkills,...c.skills])].slice(0,8);
-      skills.forEach(skill=>{
-        const sb=document.createElement('button'); sb.type='button'; sb.className='skill-chip'; sb.textContent=skill;
-        sb.setAttribute('aria-pressed',String(chosenSkills[key].has(skill)));
-        sb.addEventListener('click',()=>{
-          if(chosenSkills[key].has(skill)) chosenSkills[key].delete(skill); else chosenSkills[key].add(skill);
-          sb.setAttribute('aria-pressed',String(chosenSkills[key].has(skill)));
-          if(chosenSkills[key].size && !chosenCompetencies.has(key)){chosenCompetencies.add(key); cb.checked=true;}
-          updateBuildButton();
-        });
-        chips.appendChild(sb);
-      });
-      body.append(skLabel,chips); card.append(head,body); compGrid.appendChild(card);
-    });
-    updateBuildButton();
-  }
-
-  function updateBuildButton(){
-    buildResultsBtn.disabled = (selectedTasks.size===0 && !hasOtherAction()) || chosenCompetencies.size===0;
-  }
-
-  function saveSkillResult(name, evidence){
-    try{
-      const keys=[...chosenCompetencies].filter(k=>competencies[k]);
-      const selected=recentExperiences.find((exp,index)=>(exp.id || `${exp.experienceName}-${index}`)===selectedRecentId);
-      const entry={
-        id:`skills-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
-        experienceName:name,
-        context:selected && selected.context ? selected.context : '',
-        competencies:keys.map(key=>{
-          const evidenceItems=(evidence[key]||[]).slice(0,3);
-          if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
-          return {
-            id:key,
-            name:competencies[key].name,
-            skills:[...(chosenSkills[key]||new Set())],
-            evidence:evidenceItems
-          };
-        }),
-        updatedAt:new Date().toISOString()
-      };
-      let bank=JSON.parse(localStorage.getItem(SKILLS_BANK_KEY)||'[]');
-      if(!Array.isArray(bank)) bank=[];
-      bank=bank.filter(item=>item && item.experienceName!==name);
-      bank.unshift(entry);
-      localStorage.setItem(SKILLS_BANK_KEY,JSON.stringify(bank.slice(0,20)));
-    }catch(e){ /* Optional convenience only; the tool still works without storage. */ }
-  }
-
-  function buildResults(){
-    reviewStatus.textContent='';
-    const name=experienceName.value.trim();
-    if(!name){
-      reviewStatus.textContent='Add the experience you are reflecting on above.';
-      experienceName.focus();
-      return;
-    }
-    const {evidence}=scoreCompetencies();
-    const keys=[...chosenCompetencies].filter(k=>competencies[k]);
-    if(!keys.length){reviewStatus.textContent='Choose at least one competency that fits.';return;}
-    resultExperience.textContent=name;
-    resultList.innerHTML='';
-    keys.forEach(key=>{
-      const card=document.createElement('div'); card.className='result-card';
-      const skills=[...(chosenSkills[key]||new Set())];
-      const evidenceItems=(evidence[key]||[]).slice(0,3);
-      if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
-      card.innerHTML=`<h3>${escapeHtml(competencies[key].name)}</h3><div class="result-skills">${escapeHtml(skills.length?skills.join(' • '):'Choose a power verb above if you want a wording prompt')}</div><div class="result-evidence"><strong>Evidence:</strong> ${escapeHtml(evidenceItems.join('; '))}</div>`;
-      resultList.appendChild(card);
-    });
-    saveSkillResult(name,evidence);
-    resultsPanel.hidden=false;
-    resultsPanel.scrollIntoView({behavior:'smooth',block:'start'});
-  }
-
-  function resultText(){
-    const {evidence}=scoreCompetencies();
-    const name=experienceName.value.trim();
-    const lines=[`Skills from: ${name}`,''];
-    [...chosenCompetencies].forEach(key=>{
-      const skills=[...(chosenSkills[key]||new Set())];
-      lines.push(competencies[key].name);
-      if(skills.length) lines.push(`Power verbs: ${skills.join(', ')}`);
-      const evidenceItems=(evidence[key]||[]).slice(0,3);
-      if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
-      if(evidenceItems.length) lines.push(`Evidence: ${evidenceItems.join('; ')}`);
-      lines.push('');
-    });
-    return lines.join('\n').trim();
-  }
-
-  async function copyResults(){
-    try{
-      await navigator.clipboard.writeText(resultText());
-      resultStatus.textContent='Copied your transferable skills and power verbs.';
-    }catch(e){
-      const ta=document.createElement('textarea'); ta.value=resultText(); ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
-      try{document.execCommand('copy');resultStatus.textContent='Copied your transferable skills and power verbs.';}catch(err){resultStatus.textContent='Copy was blocked by your browser. Use Print / Save instead.';}
-      ta.remove();
-    }
-  }
-
-  function reset(){
-    experienceName.value=''; selectedRecentId=null; selectedTasks.clear(); autoSuggestedTasks.clear(); showAllActions=false; manuallyTouchedTasks.clear(); suggestionBox.hidden=true; chosenCompetencies.clear(); Object.keys(chosenSkills).forEach(k=>delete chosenSkills[k]); activeFilter='all'; otherActionText.value=''; otherActionFields.hidden=true; otherActionToggle.setAttribute('aria-expanded','false'); otherActionToggle.setAttribute('aria-pressed','false'); resultsPanel.hidden=true; resultStatus.textContent=''; reviewStatus.textContent=''; renderRecentExperiences(); renderFilters(); renderTasks(); updateSuggestions(); window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>experienceName.focus(),350);
-  }
-
-  buildResultsBtn.addEventListener('click',buildResults);
-  copyBtn.addEventListener('click',copyResults);
-  printBtn.addEventListener('click',()=>window.print());
-  resetBtn.addEventListener('click',reset);
-
-  loadRecentExperiences(); renderFilters(); renderTasks(); updateSuggestions();
+loadRecent();renderActions();updateCount();
 })();
 </script>
 </body>
