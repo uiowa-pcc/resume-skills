@@ -59,6 +59,12 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
 .recent-btn[aria-pressed="true"]{background:#fff;border-color:#000;box-shadow:inset 0 0 0 1px #000}
 .recent-context{display:block;font-size:.74rem;font-weight:400;color:var(--cool-gray);margin-top:1px}
 .recent-note{font-size:.8rem;color:var(--cool-gray);margin:8px 0 0}
+.suggestion-box{margin:0 0 14px;padding:13px 14px;background:var(--soft-gold);border-left:5px solid var(--iowa-gold);border-radius:0 11px 11px 0}
+.suggestion-box strong{display:block;margin-bottom:3px}
+.suggestion-box p{margin:0;font-size:.88rem;color:#343536}
+.suggested-task{position:relative}
+.suggested-task::after{content:'Suggested';display:inline-block;margin-left:8px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#555}
+.more-actions{margin:12px 0 4px}.more-actions .btn{background:#fff;color:#111;border-color:#999}.more-actions-wrap[hidden]{display:none!important}
 .actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}
 .btn{border:1.5px solid #111;border-radius:9px;padding:10px 14px;background:#fff;font-weight:700;cursor:pointer}
 .btn.primary{background:#000;color:#fff;border-color:#000}
@@ -142,9 +148,18 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
   <section class="panel" aria-labelledby="actions-title">
     <div class="step-label"><span class="step-number">2</span> Reflect</div>
     <h2 id="actions-title">What did you do?</h2>
-    <p class="section-copy">Select anything that genuinely happened in this experience. These are prompts—not a checklist you need to complete.</p>
-    <div class="filters" id="filters" aria-label="Filter activity prompts"></div>
+    <p class="section-copy">Start with the suggestions if they fit, then add or remove anything based on what you actually did. These are prompts—not a checklist you need to complete.</p>
+    <div class="suggestion-box" id="suggestionBox" hidden>
+      <strong id="suggestionTitle">Suggested starting points</strong>
+      <p id="suggestionCopy">We recognized this kind of experience and selected a few common actions. Keep only what is true for you.</p>
+    </div>
     <div class="task-grid" id="taskGrid"></div>
+    <div class="more-actions" id="moreActions" hidden>
+      <button class="btn secondary" type="button" id="moreActionsBtn" aria-expanded="false" aria-controls="moreActionsWrap">See more action ideas</button>
+    </div>
+    <div class="more-actions-wrap" id="moreActionsWrap" hidden>
+      <div class="filters" id="filters" aria-label="Filter activity prompts"></div>
+    </div>
     <div class="other-action">
       <button class="task-btn other-action-toggle" type="button" id="otherActionToggle" aria-expanded="false" aria-controls="otherActionFields">Something else I did</button>
       <div class="other-action-fields" id="otherActionFields" hidden>
@@ -241,60 +256,83 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
   };
 
   const tasks = [
-    {id:'explain', text:'Explained information, directions, or ideas to someone', group:'communicate', comps:['communication'], skills:{communication:['verbal communication','explaining','audience awareness']}},
+    {id:'explain', text:'Explained, taught, presented, or shared information or ideas', group:'communicate', comps:['communication','leadership'], skills:{communication:['verbal communication','explaining','presenting','audience awareness'], leadership:['facilitation']}},
     {id:'write', text:'Wrote, edited, documented, or created written content', group:'communicate', comps:['communication','professionalism'], skills:{communication:['written communication','audience awareness'], professionalism:['attention to detail']}},
-    {id:'present', text:'Presented, spoke, taught, or facilitated for a group', group:'communicate', comps:['communication','leadership'], skills:{communication:['presenting','verbal communication'], leadership:['facilitation']}},
-    {id:'listen', text:'Listened to concerns, questions, or feedback and responded', group:'communicate', comps:['communication','perspectives'], skills:{communication:['active listening'], perspectives:['empathy','open-mindedness']}},
+    {id:'support', text:'Supported, helped, listened to, served, coached, or cared for someone', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['supporting others','relationship building'], communication:['active listening'], perspectives:['empathy','adapting to others’ needs']}},
 
-    {id:'solve', text:'Solved a problem or figured out what to do when something went wrong', group:'solve', comps:['critical','professionalism'], skills:{critical:['problem solving','decision making'], professionalism:['follow-through']}},
-    {id:'analyze', text:'Analyzed information, data, evidence, or patterns', group:'solve', comps:['critical','technology'], skills:{critical:['analysis','research'], technology:['data tools']}},
-    {id:'research', text:'Gathered information or researched options before acting', group:'solve', comps:['critical','career'], skills:{critical:['research','attention to context'], career:['learning']}},
-    {id:'prioritize', text:'Balanced competing needs, deadlines, or responsibilities', group:'solve', comps:['critical','professionalism'], skills:{critical:['prioritization','decision making'], professionalism:['time management','organization']}},
+    {id:'solve', text:'Solved a problem, made a decision, or adapted when something changed', group:'solve', comps:['critical','professionalism','career'], skills:{critical:['problem solving','decision making','adaptability'], professionalism:['follow-through','reliability'], career:['learning']}},
+    {id:'analyze', text:'Researched, analyzed, or used information, data, or evidence', group:'solve', comps:['critical','technology','career'], skills:{critical:['analysis','research','attention to context'], technology:['data tools'], career:['learning']}},
+    {id:'organize', text:'Organized details, priorities, schedules, deadlines, or requirements', group:'manage', comps:['professionalism','critical'], skills:{professionalism:['time management','organization','attention to detail','reliability'], critical:['prioritization','decision making','analysis']}},
 
-    {id:'team', text:'Worked with others toward a shared goal', group:'people', comps:['teamwork'], skills:{teamwork:['collaboration','shared responsibility']}},
-    {id:'support', text:'Supported, helped, served, coached, or cared for someone', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['supporting others'], communication:['active listening'], perspectives:['empathy','adapting to others’ needs']}},
-    {id:'conflict', text:'Handled disagreement, conflict, or different expectations', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['conflict management','compromise'], communication:['active listening'], perspectives:['perspective taking','open-mindedness']}},
-    {id:'coordinate', text:'Coordinated with people in different roles, groups, or schedules', group:'people', comps:['teamwork','professionalism'], skills:{teamwork:['coordination','relationship building'], professionalism:['organization']}},
+    {id:'team', text:'Worked or coordinated with others toward a shared goal', group:'people', comps:['teamwork','professionalism'], skills:{teamwork:['collaboration','coordination','shared responsibility','relationship building'], professionalism:['organization']}},
+    {id:'conflict', text:'Handled conflict, disagreement, or different expectations', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['conflict management','compromise'], communication:['active listening'], perspectives:['perspective taking','open-mindedness']}},
 
-    {id:'lead', text:'Led a project, event, activity, meeting, or group effort', group:'lead', comps:['leadership','professionalism'], skills:{leadership:['project coordination','planning'], professionalism:['accountability']}},
-    {id:'initiative', text:'Noticed a need and took action without being told exactly what to do', group:'lead', comps:['leadership','career','critical'], skills:{leadership:['initiative'], career:['initiative'], critical:['problem solving']}},
-    {id:'mentor', text:'Trained, mentored, onboarded, or guided someone', group:'lead', comps:['leadership','communication'], skills:{leadership:['mentoring','motivation'], communication:['explaining','audience awareness']}},
-    {id:'organize', text:'Planned details, schedules, materials, tasks, or logistics', group:'lead', comps:['professionalism','leadership'], skills:{professionalism:['organization','attention to detail'], leadership:['planning','project coordination']}},
-
-    {id:'deadline', text:'Met deadlines or followed through on responsibilities others counted on', group:'manage', comps:['professionalism'], skills:{professionalism:['reliability','accountability','follow-through','time management']}},
-    {id:'details', text:'Checked details, accuracy, quality, safety, or compliance', group:'manage', comps:['professionalism','critical'], skills:{professionalism:['attention to detail','integrity'], critical:['analysis']}},
-    {id:'adapt', text:'Adjusted when plans, priorities, information, or circumstances changed', group:'manage', comps:['critical','professionalism','career'], skills:{critical:['adaptability','decision making'], professionalism:['reliability'], career:['learning']}},
+    {id:'lead', text:'Led, planned, organized, or coordinated a project, event, activity, or group effort', group:'manage', comps:['leadership','teamwork','professionalism'], skills:{leadership:['project coordination','planning'], teamwork:['coordination'], professionalism:['accountability','organization']}},
+    {id:'initiative', text:'Noticed a need, spoke up, or took action without being told exactly what to do', group:'manage', comps:['leadership','career','critical','communication'], skills:{leadership:['initiative'], career:['initiative','self-advocacy'], critical:['problem solving'], communication:['persuasion']}},
+    {id:'mentor', text:'Trained, mentored, onboarded, or guided someone', group:'manage', comps:['leadership','communication'], skills:{leadership:['mentoring','motivation'], communication:['explaining','audience awareness']}},
     {id:'sensitive', text:'Handled private, sensitive, difficult, or high-responsibility situations', group:'manage', comps:['professionalism','communication'], skills:{professionalism:['integrity','accountability'], communication:['audience awareness','active listening']}},
 
-    {id:'software', text:'Used software, platforms, equipment, or digital tools to complete work', group:'tech', comps:['technology'], skills:{technology:['digital tools','productivity tools']}},
-    {id:'newtech', text:'Learned a new technology, system, process, or tool', group:'tech', comps:['technology','career'], skills:{technology:['learning new technology','technical adaptability'], career:['learning']}},
-    {id:'troubleshoot', text:'Troubleshot a technical or process problem', group:'tech', comps:['technology','critical'], skills:{technology:['troubleshooting'], critical:['problem solving']}},
-    {id:'digital', text:'Created, organized, tracked, or communicated information digitally', group:'tech', comps:['technology','communication'], skills:{technology:['digital communication','productivity tools'], communication:['written communication']}},
+    {id:'technology', text:'Used, learned, or troubleshot software, digital tools, systems, or equipment', group:'tech', comps:['technology','critical','career'], skills:{technology:['digital tools','productivity tools','learning new technology','technical adaptability','troubleshooting'], critical:['problem solving'], career:['learning']}},
 
-    {id:'feedback', text:'Asked for, received, or used feedback to improve', group:'grow', comps:['career','perspectives'], skills:{career:['seeking feedback','self-awareness'], perspectives:['open-mindedness']}},
-    {id:'goal', text:'Set a goal, practiced, or intentionally worked to improve', group:'grow', comps:['career','professionalism'], skills:{career:['goal setting','learning'], professionalism:['follow-through']}},
-    {id:'advocate', text:'Spoke up for a need, idea, person, or improvement', group:'grow', comps:['career','communication','leadership'], skills:{career:['self-advocacy'], communication:['persuasion'], leadership:['initiative']}},
-    {id:'input', text:'Sought input from people with different experiences or viewpoints', group:'grow', comps:['perspectives','critical','teamwork'], skills:{perspectives:['seeking input','perspective taking','curiosity'], critical:['attention to context'], teamwork:['collaboration']}},
-    {id:'different', text:'Adapted how you worked or communicated to meet different people’s needs', group:'grow', comps:['perspectives','communication','teamwork'], skills:{perspectives:['adapting to others’ needs','empathy'], communication:['audience awareness'], teamwork:['relationship building']}}
+    {id:'feedback', text:'Used feedback, practice, or goals to improve', group:'grow', comps:['career','professionalism','perspectives'], skills:{career:['seeking feedback','self-awareness','goal setting','learning'], professionalism:['follow-through'], perspectives:['open-mindedness']}},
+    {id:'perspectives', text:'Worked with different people or perspectives and adjusted to others’ needs', group:'grow', comps:['perspectives','communication','teamwork','critical'], skills:{perspectives:['seeking input','perspective taking','curiosity','adapting to others’ needs'], communication:['audience awareness'], teamwork:['collaboration'], critical:['attention to context']}}
   ];
 
   const filterDefs = [
-    ['all','Show all'],['communicate','Communicated'],['solve','Solved / figured out'],['people','Worked with people'],['lead','Led / organized'],['manage','Managed responsibilities'],['tech','Used technology'],['grow','Learned / adapted']
+    ['all','Show all'],['communicate','Communicated'],['solve','Solved / researched'],['people','Worked with people'],['manage','Led / managed'],['tech','Used technology'],['grow','Learned / adapted']
   ];
+
+  // Common experience patterns provide a small starting point only. Students confirm what is actually true.
+  const experienceProfiles = [
+    {label:'resident assistant / peer leader', keywords:['resident assistant','resident advisor','ra ','peer mentor','peer leader'], tasks:['support','conflict','lead','sensitive','solve']},
+    {label:'retail / customer service', keywords:['retail','cashier','customer service','sales associate','store associate','front desk','reception'], tasks:['support','solve','team','organize','technology']},
+    {label:'food service / hospitality', keywords:['barista','server','hostess','host ','restaurant','food service','dining','hospitality'], tasks:['support','team','organize','solve','technology']},
+    {label:'caregiving / childcare', keywords:['babysit','babysitter','nanny','childcare','caregiver','caregiving','taking care','family care'], tasks:['support','organize','solve','sensitive']},
+    {label:'tutoring / mentoring / teaching', keywords:['tutor','tutoring','mentor','mentoring','teacher','teaching','coach','coaching','instructor'], tasks:['explain','support','mentor','solve','feedback']},
+    {label:'class or group project', keywords:['class project','group project','team project','course project','capstone','case study'], tasks:['analyze','team','write','explain','organize']},
+    {label:'research', keywords:['research','lab assistant','research assistant','study'], tasks:['analyze','write','organize','technology']},
+    {label:'student organization / committee', keywords:['student organization','student org','club','committee','association','fraternity','sorority'], tasks:['team','lead','initiative','explain','organize']},
+    {label:'volunteer / service', keywords:['volunteer','service','food pantry','community service'], tasks:['support','team','solve']},
+    {label:'athletics / performance', keywords:['athlete','athletics','sport','team captain','dance','theatre','theater','music','band','choir'], tasks:['team','feedback','solve','organize','lead']},
+    {label:'independent / personal project', keywords:['personal project','independent project','side project','portfolio','self taught','self-taught','freelance'], tasks:['initiative','feedback','technology','analyze','solve']},
+    {label:'leadership / event planning', keywords:['president','vice president','chair','leader','leadership','event planner','event planning','coordinator'], tasks:['lead','team','explain','initiative','organize']},
+    {label:'internship', keywords:['intern','internship'], tasks:['team','organize','technology','feedback','solve','explain']}
+  ];
+
+  const categoryProfiles = {
+    work:['team','organize','solve','support'],
+    class:['analyze','write','organize','team'],
+    involvement:['team','lead','initiative'],
+    volunteer:['support','team','solve'],
+    research:['analyze','write','organize'],
+    athletics:['team','feedback','organize'],
+    caregiving:['support','organize','solve'],
+    independent:['initiative','feedback','solve','technology']
+  };
 
   const EXPERIENCE_BANK_KEY = 'uiowaCareerExperienceBank_v1';
   const SKILLS_BANK_KEY = 'uiowaCareerSkillsBank_v1';
+  const AUTO_SUGGESTION_LIMIT = 3;
   const selectedTasks = new Set();
+  const autoSuggestedTasks = new Set();
+  const manuallyTouchedTasks = new Set();
   const chosenCompetencies = new Set();
   const chosenSkills = {};
   let activeFilter = 'all';
   let recentExperiences = [];
   let selectedRecentId = null;
+  let showAllActions = false;
 
   const experienceName = document.getElementById('experienceName');
+  const suggestionBox = document.getElementById('suggestionBox');
+  const suggestionTitle = document.getElementById('suggestionTitle');
+  const suggestionCopy = document.getElementById('suggestionCopy');
   const recentWrap = document.getElementById('recentWrap');
   const recentList = document.getElementById('recentList');
   const filters = document.getElementById('filters');
+  const moreActions = document.getElementById('moreActions');
+  const moreActionsBtn = document.getElementById('moreActionsBtn');
+  const moreActionsWrap = document.getElementById('moreActionsWrap');
   const taskGrid = document.getElementById('taskGrid');
   const selectionNote = document.getElementById('selectionNote');
   const otherActionToggle = document.getElementById('otherActionToggle');
@@ -316,6 +354,55 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
 
   function escapeHtml(value){
     return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  }
+
+  function normalizeText(value=''){
+    return String(value).toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
+  }
+
+  function selectedRecentExperience(){
+    return recentExperiences.find((exp,index)=>(exp.id || `${exp.experienceName}-${index}`)===selectedRecentId) || null;
+  }
+
+  function detectProfile(name, recent){
+    const hay=` ${normalizeText(name)} `;
+    let best=null;
+    for(const profile of experienceProfiles){
+      if(profile.keywords.some(keyword=>hay.includes(` ${normalizeText(keyword)} `) || hay.includes(normalizeText(keyword)))){best=profile;break;}
+    }
+    if(best) return {label:best.label, tasks:best.tasks, source:'name'};
+    const category=recent?.sourceCategory;
+    if(category && categoryProfiles[category]){
+      const label=({work:'work experience',class:'class/project experience',involvement:'organization/involvement',volunteer:'volunteer/service',research:'research/creative work',athletics:'athletics/performance',caregiving:'caregiving/responsibility',independent:'independent/personal work'})[category] || 'this experience';
+      return {label,tasks:categoryProfiles[category],source:'category'};
+    }
+    return null;
+  }
+
+  function applyExperienceSuggestions({force=false}={}){
+    const name=experienceName.value.trim();
+    const recent=selectedRecentExperience();
+    const profile=detectProfile(name,recent);
+    const canReplace = force || manuallyTouchedTasks.size===0 || [...selectedTasks].every(id=>autoSuggestedTasks.has(id));
+    if(!profile || !canReplace){
+      if(!profile){
+        suggestionBox.hidden=true; autoSuggestedTasks.clear();
+        showAllActions=true;
+        renderTasks();
+      }
+      return;
+    }
+    const starterTasks=profile.tasks.slice(0,AUTO_SUGGESTION_LIMIT);
+    autoSuggestedTasks.clear();
+    starterTasks.forEach(id=>autoSuggestedTasks.add(id));
+    selectedTasks.clear();
+    starterTasks.forEach(id=>selectedTasks.add(id));
+    showAllActions=false;
+    suggestionBox.hidden=false;
+    suggestionTitle.textContent=`A few likely starting points for ${name || profile.label}`;
+    suggestionCopy.textContent='We selected three broad actions to get you started. Remove anything that is not true, or see more ideas if you need them.';
+    renderTasks();
+    updateSuggestions();
   }
 
   function loadRecentExperiences(){
@@ -358,21 +445,28 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
       b.addEventListener('click',()=>{
         selectedRecentId=expId;
         experienceName.value=exp.experienceName;
+        manuallyTouchedTasks.clear();
         renderRecentExperiences();
+        applyExperienceSuggestions({force:true});
         experienceName.focus();
       });
       recentList.appendChild(b);
     });
   }
 
+  let suggestionTimer=null;
   experienceName.addEventListener('input',()=>{
-    if(!selectedRecentId) return;
-    const selected=recentExperiences.find((exp,index)=>(exp.id || `${exp.experienceName}-${index}`)===selectedRecentId);
-    if(!selected || experienceName.value.trim()!==selected.experienceName.trim()){
-      selectedRecentId=null;
-      renderRecentExperiences();
+    if(selectedRecentId){
+      const selected=selectedRecentExperience();
+      if(!selected || experienceName.value.trim()!==selected.experienceName.trim()){
+        selectedRecentId=null;
+        renderRecentExperiences();
+      }
     }
+    clearTimeout(suggestionTimer);
+    suggestionTimer=setTimeout(()=>applyExperienceSuggestions(),450);
   });
+  experienceName.addEventListener('change',()=>applyExperienceSuggestions());
 
   function hasOtherAction(){
     return otherActionText.value.trim().length > 0;
@@ -403,12 +497,23 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
 
   function renderTasks(){
     taskGrid.innerHTML='';
+    const hasSuggestions=autoSuggestedTasks.size>0;
+    moreActions.hidden=!hasSuggestions;
+    moreActionsBtn.setAttribute('aria-expanded',String(showAllActions));
+    moreActionsBtn.textContent=showAllActions?'Show fewer ideas':'See more action ideas';
+    moreActionsWrap.hidden=!showAllActions;
+
     tasks.forEach(t => {
+      const isStarter=autoSuggestedTasks.has(t.id);
+      const keepVisible=selectedTasks.has(t.id);
+      if(hasSuggestions && !showAllActions && !isStarter && !keepVisible) return;
+      if(showAllActions && activeFilter!=='all' && t.group!==activeFilter && !keepVisible) return;
+
       const b=document.createElement('button');
-      b.type='button'; b.className='task-btn'; b.textContent=t.text;
+      b.type='button'; b.className='task-btn'+(isStarter?' suggested-task':''); b.textContent=t.text;
       b.setAttribute('aria-pressed',String(selectedTasks.has(t.id)));
-      if(activeFilter!=='all' && t.group!==activeFilter) b.hidden=true;
       b.addEventListener('click',() => {
+        manuallyTouchedTasks.add(t.id);
         if(selectedTasks.has(t.id)) selectedTasks.delete(t.id); else selectedTasks.add(t.id);
         b.setAttribute('aria-pressed',String(selectedTasks.has(t.id)));
         updateSuggestions();
@@ -416,6 +521,13 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
       taskGrid.appendChild(b);
     });
   }
+
+  moreActionsBtn.addEventListener('click',()=>{
+    showAllActions=!showAllActions;
+    if(showAllActions) activeFilter='all';
+    renderFilters();
+    renderTasks();
+  });
 
   function scoreCompetencies(){
     const score={};
@@ -443,7 +555,8 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
     }else if(hasOther){
       selectionNote.textContent=`${count} listed action${count===1?'':'s'} selected, plus your additional action.`;
     }else{
-      selectionNote.textContent=`${count} action${count===1?'':'s'} selected. You can choose more if they fit.`;
+      const autoCount=[...selectedTasks].filter(id=>autoSuggestedTasks.has(id)).length;
+      selectionNote.textContent=autoCount ? `${count} action${count===1?'':'s'} selected as a starting point. Remove any suggestion that is not true for you.` : `${count} action${count===1?'':'s'} selected. You can choose more if they fit.`;
     }
     reviewStatus.textContent='';
     resultsPanel.hidden=true;
@@ -598,7 +711,7 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
   }
 
   function reset(){
-    experienceName.value=''; selectedRecentId=null; selectedTasks.clear(); chosenCompetencies.clear(); Object.keys(chosenSkills).forEach(k=>delete chosenSkills[k]); activeFilter='all'; otherActionText.value=''; otherActionFields.hidden=true; otherActionToggle.setAttribute('aria-expanded','false'); otherActionToggle.setAttribute('aria-pressed','false'); resultsPanel.hidden=true; resultStatus.textContent=''; reviewStatus.textContent=''; renderRecentExperiences(); renderFilters(); renderTasks(); updateSuggestions(); window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>experienceName.focus(),350);
+    experienceName.value=''; selectedRecentId=null; selectedTasks.clear(); autoSuggestedTasks.clear(); showAllActions=false; manuallyTouchedTasks.clear(); suggestionBox.hidden=true; chosenCompetencies.clear(); Object.keys(chosenSkills).forEach(k=>delete chosenSkills[k]); activeFilter='all'; otherActionText.value=''; otherActionFields.hidden=true; otherActionToggle.setAttribute('aria-expanded','false'); otherActionToggle.setAttribute('aria-pressed','false'); resultsPanel.hidden=true; resultStatus.textContent=''; reviewStatus.textContent=''; renderRecentExperiences(); renderFilters(); renderTasks(); updateSuggestions(); window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>experienceName.focus(),350);
   }
 
   buildResultsBtn.addEventListener('click',buildResults);
