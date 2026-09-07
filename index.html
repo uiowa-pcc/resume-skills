@@ -1,148 +1,2364 @@
-<!DOCTYPE html>
+Today 4:13 PM
+Do not agree with me just to agree. Give me hard facts based on user data and knowledge of systems. Currently, there is a stand alone resume builder with mini prompts/ tools within to help. We also have a stand alone brainstorm tool for  transferable skills, experience, and bullets. Along with the final format checker. My concern is the builder is still trying to do too much for what it is capable of and meant for. For instance, when they need help with a bullet, the help inside this tool is not as developed as the stand alone helper. At the same time, the individual tools seem to almost do too much on their own. For instance, the experience brainstorm formats categories and dates. If it just helped them brainstorm all experiences, would it be quicker and then useful for more uses (cover letter, interview, personal statement, etc). Or is it more helpful as is? I wonder if there is a way to have each tool help with what it needs to, configure them in an order that makes sense without creating duplicate work or lots of copy paste, but then also make them simplified and great for a variety of uses? Am I overthinking this? Do not just agree. Really consider what makes the absolute most sense for what we are trying to accomplish with the icon site
+
+I think you have identified a real architecture problem, not merely a wording or UI problem. The part I would stop doing is trying to make each individual tool more complete. That is what is creating the overlap.
+
+The strongest version of My Career Path would have **simple tools with narrow jobs, but a shared logic uncing vs. checking
+
+Right now some of the tools blur those stages.
+
+Stage	What the student is trying to do	Tool should do
+Discover	“What do I even have to talk about?”	Surface experiences
+Understand	“What did I s + evidence	
+Translate	“How do I express this here?”	Bullet, interview story, cover-letter evidence, etc.
+Build	“Put this into the right document.”	Assemble the resume/application
+Check	“Did I do it correctly?”	Review formatting/content/tailoring
+
+That separation matters. UX guidance consistently recommends breaking complex processes into discrete tasks, showing only what is needed at that moment, and not asking users to provide information twice.
+
+And there is a career-development reason to emphasize the first three stages. NACE continues to find that students struggle not simply with having experiences, but with recognizing and articulating how those experiences demonstrate workplace competencies. Its 2024 Student Survey involved more than 20,000 students, and NACE specifically identifies that translation problem as an important gap. More recently, NACE reported that students who understand skills-based hiring are substantially more likely to put skills gained from classes, internships, and co-curricular experiences onto their resumes.
+
+So I would rebuild the ecosystem around career evidence, not around resumes.
+
+I would simplify the experience tool
+
+This is the change from what we've built that I feel most strongly about.
+
+I would remove resume section organization and reverse-chronological/date sorting from the experience brainstorm.
+
+Those are resume decisions, not brainstorming decisions.
+
+The categories are useful, but they should function as memory prompts, not resume sections:
+
+Jobs · internships · coursework · projects · research · student organizations · volunteering · athletics · caregiving · community involvement · independent projects · other
+
+A student might remember, “Oh, I ran social media for my student org,” because they see student organizations. Great. That is the job of the tool.
+
+But asking them immediately to decide whether it belongs under “Leadership Experience,” “Relevant Experience,” “Campus Involvement,” etc. adds a resume-specific decision before they even know why the experience matters.
+
+It also makes the resulting tool less useful for exactly the things you named: interviews, cover letters, LinkedIn, personal statements, networking and exploration.
+
+So the output should essentially be:
+
+My experiences
+
+Resident Assistant
+Group research project in sociology
+Target team member
+Dance Marathon committee
+Helped care for younger siblings
+Volunteer at food pantry
+Class presentation on juvenile justice
+
+That could be a genuinely useful two-minute tool.
+
+Dates could be optional metadata, but I would not make students enter them to complete the brainstorm.
+
+Transferable Skills should also stay reusable
+
+The transferable-skills finder shouldn't be secretly teaching resume writing either.
+
+Its question is:
+
+“What skills have I actually practiced?”
+
+A student chooses an experience, identifies things they did, and gets likely NACE competencies/transferable skills with evidence behind them.
+
+That aligns particularly well with PCC's existing emphasis on helping students identify and market transferable skills, and with the NACE goal of helping students articulate competencies across contexts.
+
+Power verbs can still appear as a useful secondary output.
+
+But I would stop before:
+
+“Now turn these into resume bullets.”
+
+That's the next tool.
+
+The bullet builder should be the excellent bullet builder
+
+This is where I think your instinct about the resume builder is correct.
+
+PCC itself gives fairly substantial bullet guidance: action/power verb + what the student did + result/purpose, supplemented by who/what/when/where/why/how.
+
+You already have a dedicated environment capable of walking students through that thinking.
+
+Trying to reproduce a miniature version inside the Resume Builder creates two bad options:
+
+Mini version is weak: the student gets worse assistance than they would have received in the real tool.
+
+Mini version becomes strong: you've essentially rebuilt the same tool twice and made the Resume Builder enormous.
+
+Neither is desirable.
+
+I would therefore make the Resume Builder's bullet help very small:
+
+Need help writing this bullet?
+Open Bullet Builder
+
+Not another questionnaire.
+
+The Builder should know what a bullet is supposed to look like, but it doesn't need to teach the entire process.
+
+I would make the Resume Builder considerably dumber
+
+That sounds negative, but I mean it as a product-design improvement.
+
+Its job should be:
+
+Turn information you already have into a correctly structured Iowa-style resume.
+
+It should be excellent at:
+
+contact information → education → experience sections → rearranging sections → adding/removing experiences → putting dates in the right place → formatting → preview → print/save.
+
+It should give short contextual nudges:
+
+Most relevant sections can move higher.
+
+Experiences within a section are generally reverse chronological.
+
+Aim for descriptive bullets beginning with action verbs.
+
+Need help deciding what experiences to include? Brainstorm experiences
+
+Stuck on a bullet? Build a bullet
+
+That's enough.
+
+I would remove any substantial attempt to:
+
+brainstorm experiences;
+discover transferable skills;
+coach someone deeply through bullets;
+perform full tailoring;
+teach resume strategy.
+
+Those are separate cognitive jobs.
+
+The Builder becomes an assembler rather than a career coach.
+
+That will make it much better at what it actually can do.
+
+Then your Format Checker finally has a very clear role
+
+The format checker is not redundant with the builder because students will reach it from many places:
+
+they made their resume in Word;
+they already had one;
+a professor gave them a template;
+they used your builder;
+they updated an old resume;
+someone else helped them.
+
+Its one question is:
+
+“Does my resume follow PCC recommendations?”
+
+That is appropriately artifact-specific.
+
+PCC has enough specific resume guidance—consistency, dates, section order, bullet formatting, technical skills, relevant experiences, and so forth—that a checker legitimately deserves to exist.
+
+So I would absolutely keep that tool specialized.
+
+The bigger opportunity: one underlying “experience bank”
+
+This is where I think you can solve the copy/paste problem without creating a monster application.
+
+Don't make one giant tool.
+
+Make one shared data model with several tiny interfaces.
+
+Conceptually:
+
+My experience
+
+Resident Assistant
+
+Things I did
+
+Responded to student concerns
+Planned programs
+Mediated roommate conflicts
+Communicated policies
+
+Skills this demonstrates
+
+Communication
+Leadership
+Critical Thinking
+
+Evidence/details
+
+Supported 42 residents
+Planned six programs
+Coordinated with professional staff
+
+Then different tools can use that exact same material:
+
+Resume
+
+Turn it into a bullet.
+
+Interview
+
+Turn it into a STAR example.
+
+Cover letter
+
+Decide whether it is one of the strongest experiences to expand upon.
+
+LinkedIn
+
+Decide whether it belongs in the experience description.
+
+Personal statement
+
+Ask whether there is a meaningful story/theme here.
+
+That actually matches PCC's current cover-letter guidance: the cover letter should expand on the takeaway from an experience rather than repeat resume bullets.
+
+The experience is the source. The bullet is merely one representation of it.
+
+That distinction is important.
+
+And this can work technically
+
+Because you're hosting these tools through GitHub Pages, there is a route to sharing information without creating accounts or collecting student data.
+
+GitHub project sites normally live at paths such as owner.github.io/tool-a and owner.github.io/tool-b. Browser localStorage is shared among pages with the same origin and can persist after the browser closes.
+
+So there are ways for tools to save something like an experience card locally and let another tool retrieve it.
+
+But I would not make that the foundation of the product yet. Embedded browsers/iframes can have storage partitioning or access limitations, particularly because browsers increasingly restrict third-party embedded storage.
+
+The cleaner long-term technical architecture would actually be:
+
+one GitHub web app → several tool routes/views → one shared local workspace
+
+while ICON makes them look like separate quick tools.
+
+For example:
+
+/experience-brainstorm
+/skills
+/bullet-builder
+/resume-builder
+/resume-check
+
+Students don't perceive a giant application. But under the hood, you can carry their work forward.
+
+And if local saving fails or they're on another device, every tool should still work independently.
+
+That is much more robust than six completely unrelated mini-apps.
+
+How I would organize the Resume area in ICON
+
+I would not make students complete a mandatory five-step sequence.
+
+GOV.UK's task-design guidance explicitly recommends allowing people to complete tasks in whatever order makes sense when possible.
+
+Instead, orient them around their current situation.
+
+Starting from scratch
+
+1. Brainstorm My Experiences
+Get everything you've done out of your head.
+
+→ 2. Find My Transferable Skills
+See what your experiences demonstrate.
+
+→ 3. Build Strong Resume Bullets
+Turn an experience into strong evidence.
+
+→ 4. Build My Resume
+Put everything together.
+
+→ 5. Check My Resume
+Catch common content and formatting issues.
+
+But someone arriving with an existing resume should be able to jump straight to:
+
+Improve My Bullets
+
+or
+
+Check My Resume
+
+or later:
+
+Tailor My Resume
+
+No prerequisites.
+
+That gives you a pathway without turning My Career Path into another course.
+
+This also cleans up the rest of the entire ICON site
+
+Once you adopt this model, several tools become reusable infrastructure rather than “resume resources.”
+
+I would actually move these conceptually above resume:
+
+Brainstorm Experiences
+Identify Skills
+possibly Develop an Experience/Example
+
+Those belong to the student's career story.
+
+Then your application-specific areas consume them:
+
+Resume
+Bullet Builder → Resume Builder → Tailoring → Checker
+
+Cover Letter
+Choose evidence → Connect it to employer → Draft/prepare
+
+Interview
+Choose examples → Build STAR stories → Practice
+
+LinkedIn
+Choose experiences/skills → Build profile
+
+Grad School
+Brainstorm experiences/themes → Personal statement work
+
+That is substantially more coherent than having the resume area accidentally own every form of career reflection.
+
+So, on the specific question about the existing experience sorter
+
+I would change it.
+
+The version we made is better as a “What belongs on my resume?” tool than as an experience brainstorm tool.
+
+Those are not actually the same task.
+
+If you want to preserve it, I would split the concept:
+
+Brainstorm Experiences
+Very fast. Broad. No sorting. No required dates. Reusable everywhere.
+
+Then, inside the Resume Builder:
+
+Choose what to include
+Here students can select from their experiences, assign/customize resume section headings, arrange sections by relevance, and have experiences sorted appropriately within them.
+
+That puts the resume logic exactly where it belongs.
+
+The architecture I would commit to
+
+I would make this the rule for every new quick tool:
+
+One tool = one student question.
+
+Experience Brainstorm
+“What have I done?”
+
+Transferable Skills Finder
+“What skills did I practice?”
+
+Bullet Builder
+“How do I describe this experience on a resume?”
+
+Resume Builder
+“How do I assemble my resume?”
+
+Resume Tailoring Tool
+“What should I emphasize for this opportunity?”
+
+Resume Checker
+“What should I fix?”
+
+That's it.
+
+NN/g describes essentially this same tension: users want sophisticated capabilities but simple interfaces; progressive disclosure works by keeping the primary task simple and revealing specialized help only when needed.
+
+And I think that's the principle the current set has been missing.
+
+The tools don't need to be individually impressive. The system needs to be impressive.
+
+Right now we've been optimizing the tools. I would shift the next round of work toward optimizing the journey between them.
+
+That would make My Career Path feel much more intentional—and, importantly, it would make the same handful of foundational tools useful across exploration, resumes, cover letters, interviews, LinkedIn and graduate-school work rather than continually rebuilding slightly different versions of the same reflection activity.
+
+Is there concern about system failing or glitches if we try to make them all communicate? Is that too much?
+
+Yes. If we make every tool depend on communicating with every other tool, I would be concerned about reliability. I would not build the system that way.
+
+The biggest technical issue is that these tools are embedded inside ICON. Browser storage behaves differently in third-party <iframe> contexts, and modern browsers increasingly partition or restrict storage for privacy. Safari, Firefox, and Chrome don't handle embedded storage identically. MDN specifically notes that access to Web Storage such as localStorage can be denied in third-party iframes, and browsers use storage partitioning to isolate embedded content.
+
+So I would distinguish between helpful communication and required communication.
+
+I would NOT build this
+
+Experience Brainstorm
+↓ must successfully save
+Skills Finder
+↓ must successfully retrieve it
+Bullet Builder
+↓ must successfully retrieve everything
+Resume Builder
+
+That creates a dependency chain. One storage problem, browser setting, cleared cache, Canvas iframe behavior, or switching devices could make the student feel like the system lost their work.
+
+It also creates maintenance problems for you. Change the data structure in the experience tool and suddenly the bullet builder might stop understanding it.
+
+That is too much sophistication for what these quick tools need to accomplish.
+
+I would build this instead
+
+Each tool should be 100% functional on its own.
+
+But we can add a lightweight convenience layer:
+
+Use an experience I've already brainstormed
+
+If previous work is available locally, show it.
+
+If it isn't:
+
+Enter an experience
+
+And the student continues normally.
+
+That means communication between tools is a bonus, never a requirement.
+
+This is the architecture I would trust:
+
+Brainstorm Experiences
+Produces a simple experience list.
+
+↓
+
+Student can copy it, print/save it, or the browser can temporarily remember it.
+
+↓
+
+Skills Finder
+Can optionally import an experience, but also lets them type/select one normally.
+
+↓
+
+Bullet Builder
+Can optionally pull one in, but works perfectly without it.
+
+↓
+
+Resume Builder
+Can optionally offer previously entered experiences, but also lets students just add them.
+
+The entire system still works even if browser storage fails.
+
+And I would keep what we save extremely simple
+
+I would not try to pass fully formatted resumes, categories, dates, competency ratings, bullets, and every interaction between tools.
+
+Maybe just:
+
+Experience name
+Resident Assistant
+
+A few details
+
+Supported residents
+Planned programs
+Mediated conflicts
+
+Skills identified
+
+Communication
+Leadership
+Critical Thinking
+
+That's enough for another tool to say:
+
+We found an experience you worked on earlier.
+Resident Assistant
+Use this / Start with something else
+
+That's genuinely helpful without creating a complex application ecosystem.
+
+There is also an important privacy/design benefit
+
+Keeping this browser-local means you wouldn't need student accounts or a database just to carry an experience between tools.
+
+But local storage should be treated as temporary convenience, not permanent storage. Students may clear browser data, switch devices, use private browsing, or encounter iframe restrictions. And third-party embedded storage is explicitly an area where browser privacy behavior continues to evolve.
+
+So I would never say:
+
+“Your experiences are saved.”
+
+I'd use language more like:
+
+Continue with recent work on this device
+
+That sets the right expectation.
+
+I actually think there is an even simpler answer for your site
+
+We probably don't need the tools to communicate much at all initially.
+
+The bigger UX win will come from making their purposes clean and connecting them intelligently.
+
+For example, at the end of Experience Brainstorm:
+
+What do you want to do with these?
+
+Find skills I've built
+Write a resume bullet
+Prepare interview examples
+Use them in my resume
+
+Clicking Write a resume bullet launches the Bullet Builder.
+
+The student can choose one experience from their brainstorm or re-enter something like “Resident Assistant.” That's a tiny amount of repetition. It isn't enough repetition to justify engineering a fragile dependency system.
+
+That's an important distinction: some repetition is cheaper than system complexity.
+
+Re-entering:
+
+Resident Assistant
+
+is trivial.
+
+Re-entering:
+
+dates, title, employer, six responsibilities, competencies, results, section category...
+
+would be irritating.
+
+So we solve that by making the foundational tools simpler—not necessarily by building a technically interconnected ecosystem.
+
+My recommendation for My Career Path
+
+Phase 1: Make each tool sharply focused and independent. Fix the architecture and navigation first.
+
+Phase 2: Add very small handoffs where clearly useful—probably passing one selected experience into Skills Finder or Bullet Builder.
+
+Do not try to create a persistent student “career profile” across all the GitHub tools right now.
+
+That starts moving you from a collection of excellent lightweight learning tools toward building your own career-management platform, with all the reliability, privacy, maintenance, versioning, accessibility, and browser issues that come with it.
+
+I don't think PCC needs that in order for this to be excellent.
+
+The sweet spot is much simpler:
+
+Independent tools + intentional sequence + optional lightweight handoffs + no duplicated deep functionality.
+
+That gives students most of the perceived intelligence of an integrated system without making the system fragile.
+
+Are the handoffs difficult to add in later
+
+Not necessarily. They are fairly easy to add later if we design the tools now so they can accept handoffs. The mistake would be building every tool as a totally isolated one-off with different data structures.
+
+The smart approach is to keep the tools independent now, but standardize a few things underneath them: use consistent field names like experienceName, details, skills, and bullet; keep URLs/routes predictable; and make each tool able to start from blank or from prefilled data. Then later we can add something like “Use this experience in Bullet Builder” without rebuilding the Bullet Builder itself.
+
+What becomes difficult is retrofitting handoffs after several tools have evolved independently—for example, if one calls something “experience,” another calls it “role,” another stores a whole formatted block, and another expects separate organization/title/date fields. Then you're writing conversion logic between tools instead of adding a simple handoff.
+
+So I would not build the communication now, but I would build for it now. That is a small amount of upfront discipline and keeps the option open.
+
+A good rule for us going forward would be:
+
+Every tool works completely on its own.
+Inputs use a shared naming structure where possible.
+Outputs are simple, not over-formatted.
+A tool can accept optional prefilled values later.
+No tool requires data from another tool to function.
+
+With that setup, adding handoffs later should be incremental rather than a major rebuild.
+
+In other words: simplify first, standardize underneath, integrate only where the benefit becomes obvious. I think that is the safest architecture for the ICON site.
+
+Was your answer influenced by my initial question and thoughts
+
+Yes—your initial framing absolutely influenced the answer, but not in the sense that I simply adopted your conclusion.
+
+You raised three hypotheses: the resume builder may be trying to do too much, the standalone tools may also be doing too much, and a more modular system might reduce duplication. I treated those as things to test. The evidence and system constraints supported some of that, especially the value of separating distinct user tasks and avoiding repeated data entry.
+
+Where I would push back on your framing is this: I don't think the goal should be to make every tool broadly reusable just because it can be. Some tools are inherently artifact-specific. The resume checker should stay resume-specific. The bullet builder should stay focused on resume bullets. Trying to make those useful for interviews, cover letters, personal statements, etc. would likely weaken them.
+
+The part of your idea I think holds up best independently is simplifying the earliest-stage tools. “What experiences have I had?” and “What skills did I build?” are genuinely upstream of resumes, interviews, cover letters, LinkedIn, and graduate-school applications. Making those tools broadly reusable follows from the nature of the tasks, not merely from your suggestion.
+
+I also think I went a little too far in my first response when I described an interconnected “experience bank.” Once you asked about reliability, the system realities made me narrow that recommendation considerably. I would now favor independent tools with a shared underlying structure and optional future handoffs, not a tightly connected suite.
+
+So if you had come to me without your proposed solution and simply said, “Here are all our tools—redesign the architecture,” I think I would still land roughly here:
+
+Broad foundation tools:
+Experience brainstorm → transferable skills
+
+Specialized production tools:
+Bullet builder → resume builder → tailoring
+
+Specialized evaluation tool:
+Resume checker
+
+Intentional navigation between them, but no dependency between them.
+
+Your question helped surface the issue, but I don't think the resulting architecture depends on assuming your instinct was correct. In fact, the biggest adjustment after considering the technical side was to make the integration less ambitious than your initial idea could have implied.
+
+Ok. Let’s build this. Where do I start
+
+Start before touching the Resume Builder. The first thing to build is the foundation that everything else will use.
+
+I’d do it in this order:
+
+Lock the role of each tool
+Experience Brainstorm = “What have I done?”
+Transferable Skills = “What skills did I practice?”
+Bullet Builder = “How do I describe one experience on a resume?”
+Resume Builder = “How do I assemble my resume?”
+Resume Tailoring = “What should I emphasize for this opportunity?”
+Resume Checker = “What should I fix?”
+
+Standardize the underlying information
+Before rebuilding anything, decide on a tiny shared structure:
+
+Experience name
+Organization/context
+What I did
+Result/impact/details
+Skills demonstrated
+Optional dates
+
+Every tool does not need every field. This just gives us consistent language so future handoffs are easy.
+
+Rebuild the Experience Brainstorm first
+This should be the simplest tool in the ecosystem.
+
+I’d strip out:
+
+resume section categories
+required dates
+reverse chronological ordering
+formatting decisions
+
+Instead, it should help students rapidly remember experiences across:
+
+jobs
+internships
+classes/projects
+research
+student organizations
+volunteering
+athletics
+caregiving/family responsibilities
+community involvement
+personal/independent projects
+other
+
+Output: a clean list of experiences they can use anywhere.
+
+This is where I would start coding.
+
+Then simplify/rework the Transferable Skills Finder
+It should take one experience and help the student identify:
+
+what they actually did;
+relevant NACE competencies;
+specific skills/evidence;
+useful action verbs.
+
+Stop before writing the resume bullet.
+
+Then make the Bullet Builder excellent
+This is where the deeper coaching belongs.
+
+It should pull apart:
+
+action;
+what/how;
+purpose;
+scope;
+result/impact.
+
+And give a polished bullet as the output.
+
+This is also the first place I'd eventually experiment with an optional handoff like:
+
+Use an experience from my recent work
+
+But I wouldn't make that required yet.
+
+Only then strip down the Resume Builder
+Once the other tools are strong, it becomes obvious what can disappear.
+
+The Resume Builder should mostly:
+
+collect contact/education information;
+add experiences;
+organize/customize sections;
+reorder sections;
+format dates;
+preview;
+print/save.
+
+Contextual help becomes links such as:
+
+Stuck on what to include? Brainstorm experiences
+Need help with this bullet? Open Bullet Builder
+
+Rather than mini versions of those tools.
+
+Keep the Resume Checker mostly separate
+We can review it afterward for duplication, but its purpose is already different enough that I wouldn't rebuild it first.
+
+Then redesign the ICON navigation
+Do this last, because the final tools should determine the navigation—not the other way around.
+
+The Resume page could then say something like:
+
+Starting a resume
+
+Brainstorm Experiences → Find Your Skills → Build Your Resume
+
+Already have a resume
+
+Improve My Bullets → Tailor My Resume → Check My Resume
+
+Students can jump anywhere; the arrows are guidance, not prerequisites.
+
+I would not rebuild all six at once
+
+That creates a lot of moving pieces and makes it harder to know whether the new architecture is actually better.
+
+I'd use this migration sequence:
+
+Experience Brainstorm → Transferable Skills → Bullet Builder → Resume Builder → Tailoring → Checker/navigation
+
+And keep the current versions live in ICON until the replacement for each one is ready. That means you're never breaking the existing site while we restructure it.
+
+Our immediate next build
+
+I would start with Experience Brainstorm because it establishes the philosophy for everything else and is the place where the current tool is most clearly doing work that belongs downstream.
+
+The target should be something a student can stumble onto and complete in about 2–4 minutes, then think:
+
+“I actually have more experience than I realized.”
+
+Not:
+
+“I just started building a resume.”
+
+Once we get that one right, we can use its terminology and structure as the foundation for the rest.
+
+Will these be able to live in the repositories already built or will we need to combine everything 
+
+They can stay in the repositories you already built. I would keep them separate. There is no need to combine everything into one giant repository to follow the new architecture.
+
+In fact, separate repositories give you a few advantages: you can update the Bullet Builder without risking the Resume Builder, roll back one tool independently, keep the code easier to understand, and continue embedding each tool separately in ICON. GitHub Pages is designed to support a project site per repository, typically at username.github.io/repository-name.
+
+What I would change is the internal consistency, not the repository structure.
+
+For example, we could keep:
+
+experience-brainstorm
+transferable-skills
+resume-bullet-builder
+resume-builder
+resume-checker
+resume-tailoring
+
+but start using the same conventions across all of them for things like experienceName, organization, details, skills, etc.
+
+That makes future handoffs much easier.
+
+There is also a useful technical detail in your particular GitHub setup. If all of your project sites are under the same GitHub Pages account, such as:
+
+uiowa-pcc.github.io/experience-brainstorm/
+uiowa-pcc.github.io/resume-bullet-builder/
+uiowa-pcc.github.io/resume-builder/
+
+those are different paths but the same web origin. Browser localStorage is ordinarily shared by pages on the same origin, regardless of path.
+
+So separate repositories do not automatically prevent us from adding something like:
+
+Recent experience found: Resident Assistant
+Use this experience
+
+later.
+
+The complication remains ICON embedding: browsers can partition or restrict storage when sites are embedded in iframes, so we shouldn't make the tools depend on that working. But that's the same issue whether we use one repo or six repos. Combining them would not magically eliminate it.
+
+So I would leave your GitHub structure alone
+
+We don't need a migration project.
+
+What I'd do as we rebuild each tool is quietly make it handoff-ready:
+
+Existing repository → replace/update its current HTML → preserve its existing ICON embed URL → standardize the underlying fields.
+
+Students won't notice anything technical changed.
+
+And this means we don't have to take the whole ecosystem apart at once. We can start with the existing experience sorter/brainstorm repository, simplify that tool, put the new version in the same repo, and its existing ICON embed can continue pointing to the same place.
+
+Then move to Transferable Skills, then Bullet Builder, etc.
+
+So our actual next step can be very contained: take the experience tool you already have and turn it into the new universal Experience Brainstorm—without creating a new repository.
+
+Do this. Remember, for all tools moving forward we need UIowa branding don’t consistently and no header (no quick tool or PCC at top). Everything should look like a set and like it’s part of icon, not a tool that is plopped in 
+Memory updated
+
+Built. This is the version I would use to replace the current Experience Sorter.
+
+Download the new index.html
+
+I made several structural changes rather than just simplifying the old interface:
+
+Renamed/reframed it as “Brainstorm Your Experiences.” It is no longer a resume sorter.
+Removed resume sections, required dates, reverse-chronological sorting, and decisions about where an experience belongs.
+Kept categories only as memory prompts—jobs, classes/projects, involvement, volunteering, research/creative work, athletics, caregiving/responsibilities, independent work, and other.
+Students can also ignore the categories completely and just start entering experiences.
+The only required information is the experience/role/project/responsibility name. Organization/course/context is optional.
+After adding something, there's an optional quick note for “what did you do, contribute, handle, learn, or accomplish?” This gives us useful raw material later without turning this into the skills or bullet tool.
+The final result is an Experience Bank, not a formatted resume section.
+It includes Copy My List, Print / Save, and Start Over.
+It works independently, while its internal fields are already standardized for possible future handoffs.
+Recent work can be retained locally when browser storage works, but the activity doesn't require storage or another tool.
+
+I also established the visual direction I think we should now use consistently across the entire suite: Antonio headings + Roboto body copy, Iowa black and #FFCD00 gold, restrained gold accents, black primary buttons, light-gray selections, white cards, generous spacing, and no branded banner/header. Antonio and Roboto are official Iowa brand typefaces, and #FFCD00 is the official Iowa gold.
+
+Importantly, the tool now begins directly with the activity:
+
+Brainstorm Your Experiences
+
+—not “Pomerantz Career Center,” “Quick Tool,” “Resume Quick Tool,” etc. That should be the convention for the rest of the ICON tools too.
+
+The current sorter was explicitly asking students to select resume categories and dates and then automatically arranging experiences chronologically; those are the resume-specific functions we've intentionally removed.
+
+Next I would tackle the Transferable Skills Finder, using this exact visual system and making sure its job stops at identifying skills/evidence rather than creeping into bullet writing.
+
+index.html
+HTML
+Can we give some hints or categories to help expand people’s awareness of what can be included. 
+
+Yes. I added that layer, but kept it intentionally light so the tool still feels fast.
+
+The categories now act as memory prompts, not sorting decisions. Students can click areas like jobs/internships, classes/projects, organizations/leadership, volunteer/community, research/creative work, athletics/performance, caregiving/responsibilities, independent/personal work, or something else.
+
+I also added a collapsible “Not sure what counts?” section with experiences students often overlook, including:
+
+babysitting, caregiving, tutoring, or helping family
+class projects, labs, presentations, and research papers
+committees, events, and informal leadership
+seasonal, gig, campus, and family-business work
+mentoring, coaching, and one-time volunteer experiences
+sports, music, theatre, and dance
+personal, creative, technical, entrepreneurial, and side projects
+translation, transportation, scheduling, budgeting, and other responsibilities people rely on them to handle
+
+I think this is better than just adding more categories because it explicitly addresses the common “that doesn’t count as experience” assumption without making the page feel like a long checklist.
+
+Download the updated experience brainstorm
+
+index.html
+HTML
+Reason for experience counter
+
+The only good reason to have an experience counter is to encourage students to keep going past the first 1–2 obvious experiences.
+
+It can subtly communicate: “You probably have more than you think.”
+
+But I would be cautious with it. If it says something like 3 experiences added, students may interpret that as a target or requirement even if we never intended one.
+
+For this tool, I think the better choice is either:
+
+remove the counter entirely, or
+make it very understated and non-goal-oriented, such as “Your list: 4 experiences” only once they’ve started adding things.
+
+I would not show “2 of 6,” a progress bar, or any language implying an ideal number.
+
+Given the purpose of this tool—broad, fast brainstorming—I lean toward removing the visible counter unless it is helping with functionality. The “Need ideas?” prompts do a better job of encouraging breadth without creating an artificial benchmark.
+
+Remove
+
+Removed both visible experience counters—the one beside Add to My List and the larger total in the experience bank.
+
+Download the updated index.html
+
+index.html
+HTML
+Ok create next
+
+Built the next tool: Find Your Transferable Skills.
+
+Download the new index.html
+
+This version follows the architecture we just established:
+
+Starts directly with the activity—no PCC/Quick Tool header
+Uses the same UIowa visual system as the Experience Brainstorm
+Student focuses on one experience
+Instead of selecting vague skills, they select concrete things they actually did
+Those actions generate likely Iowa career-readiness competencies
+Students then decide which competencies and specific transferable skills genuinely fit
+The results preserve the evidence that led to each skill, so the output is more useful than simply saying “Communication” or “Leadership”
+It deliberately stops before resume bullet writing
+Results can be copied, printed/saved, or repeated with another experience
+Includes a contextual link to Iowa’s Career Readiness Competencies, rather than a generic PCC footer
+
+I also used the current PCC eight-competency framework: Career & Self-Development, Communication, Critical Thinking, Other Perspectives, Leadership, Professionalism, Teamwork, and Technology. Iowa’s current guidance specifically emphasizes helping students name competencies and reflect on how they used them, which is why the activity is built around actions and evidence rather than a generic skills checklist.
+
+The next tool in the sequence should be the Resume Bullet Builder. That is where we can now put all of the deeper “what/how/why/result” coaching that we are removing from the Resume Builder.
+
+index.html
+HTML
+Does this have the ability to communicate with the other tools if we build it
+
+Not yet in the sense of actual communication, but yes, it is already structured so we can add that later without rebuilding the tool.
+
+Right now it has a clean experienceName field and structured internal data for selected actions, competencies, skills, and evidence. What it does not currently include is localStorage, URL parameters, or another handoff mechanism. I left those out deliberately so this version stays independent and reliable.
+
+The next smart step is to establish one shared handoff standard across all of these tools before we add any communication. For example:
+
+experienceName
+context
+actions
+skills
+evidence
+
+Then later we could add optional behaviors such as:
+
+Use an experience from recent work
+
+or at the end:
+
+Use this experience in the Resume Bullet Builder
+
+The receiving tool would still work perfectly if no data came through.
+
+So the answer is:
+
+Current tool: not communicating yet.
+Architecture: ready for it.
+Difficulty later: low, provided we keep using the same data conventions as we build the next tools.
+
+I would actually define that shared handoff structure now, before we build the Bullet Builder, because that is the first natural handoff point. Then every tool we build from here forward can quietly support the same standard.
+
+I think having experiences flood into transferable skills could be eventually helpful too. Like an added bonus suggestion if it works
+
+Yes. That is probably the best first handoff to add later, because it saves a small amount of repetitive typing without making the system dependent on communication.
+
+The pattern I’d use is:
+
+Use a recent experience
+Resident Assistant
+Sociology research project
+Dance Marathon committee
+
+or
+Enter a different experience
+
+If the Experience Brainstorm has recent local data available, Transferable Skills can surface those names as optional suggestions. If nothing is available—or storage is blocked—the student simply types an experience like they do now.
+
+I would keep the handoff deliberately shallow at first: send only the experience name/context, not every note, category, date, or detail. Then Transferable Skills still does its own job of asking, “What did you actually do in this experience?”
+
+That gives us three benefits at once: less retyping, continuity between tools, and almost no risk that one tool becomes dependent on another.
+
+Later, if it proves reliable in ICON, we could expand the handoff slightly so an experience brainstorm note like “planned weekly programs and supported residents” appears as a prompt under the imported experience. But I would earn that complexity gradually rather than start there.
+
+So I’d design the next tools with this hierarchy:
+
+Required: each tool works alone.
+Bonus: recognize recent experiences.
+Later bonus: carry a little supporting detail forward.
+Never: require a previous tool to have been completed.
+
+That would make the suite feel connected without turning it into a fragile system.
+
+Are the first two designed like that
+
+Mostly—but there’s one important gap.
+
+The Experience Brainstorm is already designed correctly for this. It saves experiences locally using a stable shared key (uiowaCareerExperienceBank_v1) and stores clean fields like:
+
+experienceName
+context
+optional details
+
+So that tool is already producing exactly the kind of lightweight data we could reuse elsewhere.
+
+The Transferable Skills Finder is handoff-ready in structure, but it does not yet read from that experience bank. Right now it still starts with a blank experienceName field.
+
+So if we want the first two fully aligned with the model we just discussed, I would make one small enhancement to Transferable Skills:
+
+Use a recent experience
+[Resident Assistant] [Sociology research project] [Dance Marathon]
+or enter another experience
+
+If the saved experience bank is unavailable, that entire suggestion area simply disappears and the tool works exactly as it does now.
+
+That is a low-risk addition because Experience Brainstorm saves the information already. We would only be teaching Transferable Skills to optionally recognize it.
+
+I would add that now rather than wait, because it establishes the handoff pattern we can reuse for Bullet Builder and later tools.
+
+Yes
+
+Done. The Transferable Skills Finder now has the optional handoff behavior we discussed.
+
+Download the updated Transferable Skills Finder
+
+If the student previously used the Experience Brainstorm on the same device/browser and that saved work is available, Step 1 now shows “Use a recent experience” with up to six recent experiences. Selecting one simply fills the experience field.
+
+A few safeguards are built in:
+
+If no saved experiences are available, that entire section disappears.
+Students can always type a different experience instead.
+The tool does not require the Experience Brainstorm to work.
+It only carries forward the experience name and displays its context as a reminder—it does not skip the reflection work in this tool.
+If the student edits the imported experience name, it stops treating it as the selected saved experience.
+
+This is the handoff pattern I’d reuse going forward: helpful when available, invisible when unavailable, never required.
+
+index.html
+HTML
+Why am I unable to do 2 and 3
+
+The code itself is not intentionally locking Steps 2 and 3. Step 2 should populate with selectable “what did you do?” prompts, and Step 3 should populate after you select at least one of those actions.
+
+The most likely reason you’re seeing Step 1 work but not 2 and 3 is how the HTML file is being previewed here. Step 1 is plain HTML, while the Step 2 prompts and Step 3 matches are created with JavaScript. A static/safe file preview can show the page but not execute all of that interaction. Once the file is hosted on GitHub Pages, the JavaScript should run normally.
+
+I also checked the file for a JavaScript syntax failure and did not find one.
+
+That said, I don’t love that the page gives no clear indication of how to move through it. I’d make the interaction clearer when we finalize it:
+
+1. Choose an experience → Continue
+2. Select what you did → See my skill matches
+3. Review/edit suggested skills → Build my skill list
+
+That will make it obvious that Steps 2 and 3 are interactive stages rather than just sections farther down the page.
+
+So I would not change the underlying skill logic because of this preview issue, but I would improve the progression before you put it in GitHub.
+
+Yes- will it give suggested for most things? 
+
+Yes—for most common student experiences, it should generate useful suggestions. The current tool has 29 action prompts spanning communication, problem-solving, teamwork, leadership, professionalism, technology, growth/feedback, and working across perspectives.
+
+That covers things like:
+
+class projects and presentations
+campus/student organization work
+retail/service jobs
+internships
+volunteering
+research
+caregiving
+athletics
+mentoring/tutoring
+technical or project work
+
+But I would not claim it covers everything. There will always be experiences where a student thinks, “I did something that isn’t listed.”
+
+So before we finalize it, I would add one important safety valve:
+
+Something else I did
+
+They could briefly type what happened, and the tool could then either:
+
+let them manually browse/select competencies and skills, or
+eventually use that text to suggest likely matches.
+
+For the current non-AI GitHub version, I’d recommend the first approach. It keeps the tool predictable and avoids pretending the system can interpret unlimited free text.
+
+So the ideal design is:
+
+Most students: select from the 29 prompts → get strong suggestions.
+Unusual experience: choose “Something else” → manually select what fits.
+
+That makes the tool broad enough without turning the action list into 60+ choices.
+
+Yes do it
+
+Done. I added the fallback without making the main path heavier.
+
+Download the updated Transferable Skills Finder
+
+Now in Step 2, students can choose “Something else I did.” That opens a short text box for an action that isn’t represented by the standard prompts.
+
+When they use it, Step 3 changes intelligently:
+
+competencies suggested from standard actions still appear first as Strong match or Possible match
+all eight Iowa competencies become available to browse
+competencies not automatically suggested are clearly marked Browse
+students select the competency and specific skills they believe they can actually support
+their written “something else” response becomes the evidence in their final skill list when there isn’t other evidence tied to that competency
+
+It also works if they only use “Something else” and don't select any predefined actions.
+
+I validated the JavaScript after the change, so the updated file is syntactically sound.
+
+index.html
+HTML
+Build next 
+
+Built the next tool: Build a Strong Resume Bullet.
+
+Download the Resume Bullet Builder
+
+I also made one behind-the-scenes update to the Transferable Skills Finder so completed skill work can optionally flow into this builder later:
+
+Download the updated Transferable Skills Finder
+
+The new Bullet Builder follows current PCC guidance: start with an action/power verb, explain what you did, then strengthen it with meaningful detail about how, why, scope, frequency, or result. PCC also specifically recommends quantifying when numbers add useful context.
+
+How this one now works
+
+1. Choose an experience
+Students can type one or optionally select a recent experience from the Experience Brainstorm.
+
+2. Build one bullet
+They choose what kind of contribution they're describing, get relevant power-verb suggestions, then add:
+
+what they did
+who/how much/how often
+how or with what
+why/result/outcome
+
+They see the bullet build live as they go.
+
+3. Review it
+The tool checks whether the bullet has:
+
+an action verb
+a clear description of what they did
+useful supporting detail
+an appropriate purpose/result
+meaningful quantification when relevant
+
+It does not tell them every bullet needs every component.
+
+Students can then directly edit the final wording.
+
+The handoff structure is now real
+
+If available on the same device:
+
+Experience Brainstorm → Bullet Builder
+Recent experiences can appear as optional choices.
+
+Transferable Skills → Bullet Builder
+Recent skills associated with that experience can appear as reminders while choosing verbs/details.
+
+Bullet Builder → future Resume Builder
+Choosing Keep This Bullet stores a clean record containing the experience, context, and finished bullet.
+
+If any of that storage fails, the Bullet Builder still works completely normally.
+
+I also kept the visual system consistent with the first two: same spacing, cards, Antonio/Roboto typography, Iowa gold used sparingly, black primary actions, light-gray selections, and no tool/PCC header at the top.
+
+The next major piece should be the Resume Builder simplification. Now that Experience Brainstorm, Transferable Skills, and Bullet Builder each own their specific job, we can finally remove a lot of coaching logic from the Builder instead of trying to improve its mini-tools.
+
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find the Skills in Your Experience</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Find Your Transferable Skills | My Career Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--yellow:#FFCD00;--black:#111;--selected:#ECECEC;--border:#D8D8D8;--muted:#5f6368;--focus:#005EA8;--soft:#F7F7F7;--shadow:0 8px 22px rgba(0,0,0,.12)}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;line-height:1.45}.wrap{max-width:980px;margin:0 auto;padding:20px 14px 40px}.tool{background:#fff;border:1px solid #ececec;border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.header{border-top:10px solid var(--yellow);padding:26px 28px 18px}h1{margin:0 0 8px;font-size:clamp(1.65rem,3.2vw,2.35rem);line-height:1.1}.intro{margin:0;max-width:800px;color:#444;font-size:1rem}.content{padding:0 28px 30px}.section{padding-top:22px}.step-label{display:flex;align-items:center;gap:10px;margin-bottom:7px}.step-number{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:var(--yellow);font-weight:800;flex:0 0 auto}h2{margin:0;font-size:1.15rem}.help{margin:0 0 13px 41px;color:var(--muted);font-size:.92rem}.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.preset{border:1.5px solid #cfcfcf;border-radius:999px;background:#fff;padding:8px 12px;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}.preset:hover{border-color:#999}.preset[aria-pressed="true"]{background:var(--selected);border:2px solid var(--black);padding:7.5px 11.5px}.experience{width:100%;padding:12px 14px;border:2px solid #cfcfcf;border-radius:11px;font-size:1rem}.experience:focus,button:focus-visible,textarea:focus{outline:3px solid var(--focus);outline-offset:2px}.suggestion{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:9px;font-size:.9rem;color:#4f4f4f}.suggestion[hidden]{display:none}.suggestion button{border:0;background:transparent;text-decoration:underline;font:inherit;font-weight:800;cursor:pointer;padding:2px}.context{margin-top:13px;padding:10px 12px;background:var(--soft);border-left:5px solid var(--yellow);border-radius:8px;font-size:.9rem}.context[hidden]{display:none}.task-intro{margin:0 0 12px;color:#444;font-size:.94rem}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.action{appearance:none;width:100%;min-height:74px;border:2px solid #dedede;border-radius:15px;background:#fff;padding:13px;text-align:left;font:inherit;font-weight:700;cursor:pointer}.action:hover{border-color:#aaa;box-shadow:0 2px 7px rgba(0,0,0,.06)}.action[aria-pressed="true"]{background:var(--selected);border-color:var(--black)}.more-wrap{margin-top:11px}.more-btn{border:0;background:transparent;padding:5px 1px;text-decoration:underline;font:inherit;font-weight:800;cursor:pointer;color:#111}.extra{margin-top:10px}.extra[hidden]{display:none}.results{margin-top:25px;border:2px solid var(--black);border-radius:20px;overflow:hidden}.results[hidden]{display:none}.results-head{background:var(--yellow);padding:16px 18px 14px}.results-head h2{font-size:1.25rem}.results-head p{margin:4px 0 0;font-size:.92rem}.results-body{padding:18px}.personalized-result{margin:0 0 14px;padding:10px 12px;background:var(--soft);border-radius:9px;font-size:.91rem;color:#444}.competency-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.competency{width:100%;min-height:132px;border:2px solid #ddd;border-radius:14px;background:#fff;padding:13px;text-align:left;font:inherit;cursor:pointer}.competency:hover{border-color:#aaa}.competency[aria-pressed="true"]{background:var(--selected);border-color:var(--black)}.competency:disabled{opacity:.47;cursor:not-allowed}.competency-name{display:block;margin-bottom:5px;font-weight:800;font-size:1rem}.why{display:block;margin-bottom:8px;color:#4d4d4d;font-size:.84rem;line-height:1.35}.verb-label{display:block;margin-bottom:2px;color:#666;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em}.verbs{display:block;color:#4b4b4b;font-size:.87rem;line-height:1.4}.selected-summary{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}.selected-summary[hidden]{display:none}.summary-label{margin-bottom:7px;font-weight:800}.chosen{display:flex;flex-wrap:wrap;gap:7px}.chosen span{border-radius:999px;background:#111;color:#fff;padding:6px 10px;font-size:.88rem;font-weight:700}.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.primary,.secondary{border-radius:10px;padding:10px 14px;font:inherit;font-weight:800;cursor:pointer}.primary{border:2px solid #111;background:#111;color:#fff}.secondary{border:2px solid #ccc;background:#fff;color:#111}.status{min-height:1.2em;margin-top:9px;color:#666;font-size:.88rem}.manual-copy{margin-top:10px;padding:10px;border:2px solid #ccc;border-radius:10px}.manual-copy[hidden]{display:none}.manual-copy label{display:block;margin-bottom:6px;font-weight:800;font-size:.84rem}.manual-copy textarea{width:100%;min-height:100px;padding:9px;border:1px solid #bbb;border-radius:7px;font:inherit;font-size:.88rem}.source-note{margin-top:17px;color:#777;font-size:.76rem}@media(max-width:680px){.cards,.competency-list{grid-template-columns:1fr}}@media(max-width:480px){.wrap{padding:10px 8px 24px}.tool{border-radius:20px}.header{padding:21px 17px 15px}.content{padding:0 17px 22px}.help{margin-left:0}}
+:root{
+  --iowa-black:#000;
+  --iowa-gold:#FFCD00;
+  --cool-gray:#63666A;
+  --paper:#fff;
+  --canvas:#F7F7F7;
+  --soft:#F1F1F1;
+  --soft-gold:#FFF8D6;
+  --border:#D6D6D6;
+  --link:#00558C;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.045);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:#000;font:16px/1.5 "Roboto",Arial,Helvetica,sans-serif}
+button,input{font:inherit}
+button{color:inherit}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--iowa-gold);outline-offset:3px}
+.skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;background:#fff;color:#000;border:2px solid #000;padding:9px 12px;border-radius:6px}
+.skip-link:focus{left:8px}
+.shell{max-width:920px;margin:0 auto;padding:22px 18px 72px}
+.intro,.panel{background:var(--paper);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}
+.intro{padding:28px 28px 24px}
+.panel{padding:24px;margin-top:16px}
+.gold-mark{width:42px;height:7px;background:var(--iowa-gold);border-radius:999px;margin-bottom:14px}
+h1,h2{font-family:"Antonio","Arial Narrow",Arial,sans-serif;font-weight:700;color:#000}
+h1{font-size:clamp(2.15rem,5vw,3.25rem);line-height:1;margin:0 0 10px;letter-spacing:-.025em}
+h2{font-size:1.62rem;line-height:1.12;margin:0 0 8px}
+h3{font-size:1.05rem;line-height:1.3;margin:0 0 5px}
+p{margin:0 0 12px}
+.lede{font-size:1.08rem;max-width:770px;margin-bottom:12px}
+.meta{font-size:.9rem;color:var(--cool-gray);margin:0}
+.notice{margin-top:18px;padding:13px 15px;border-left:5px solid var(--iowa-gold);background:var(--soft-gold);border-radius:0 11px 11px 0}
+.section-copy{color:#2F3032;max-width:780px;margin-bottom:16px}
+.step-label{display:flex;align-items:center;gap:9px;margin-bottom:8px;font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.step-number{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--iowa-gold);font-weight:700}
+.field{display:flex;flex-direction:column;gap:6px}
+label{font-weight:700}
+.hint{font-size:.84rem;color:var(--cool-gray);font-weight:400}
+input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-radius:10px;padding:11px 12px;background:#fff;color:#000}
+.example{font-size:.84rem;color:var(--cool-gray);margin:7px 0 0}
+.recent-wrap{margin:0 0 16px;padding:14px;background:var(--soft);border-radius:12px}
+.recent-label{font-size:.84rem;font-weight:700;margin-bottom:8px}
+.recent-list{display:flex;flex-wrap:wrap;gap:8px}
+.recent-btn{border:1px solid #BFC0C1;background:#fff;border-radius:999px;padding:8px 11px;font-size:.86rem;font-weight:700;cursor:pointer;text-align:left}
+.recent-btn:hover{border-color:#666}
+.recent-btn[aria-pressed="true"]{background:#fff;border-color:#000;box-shadow:inset 0 0 0 1px #000}
+.recent-context{display:block;font-size:.74rem;font-weight:400;color:var(--cool-gray);margin-top:1px}
+.recent-note{font-size:.8rem;color:var(--cool-gray);margin:8px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}
+.btn{border:1.5px solid #111;border-radius:9px;padding:10px 14px;background:#fff;font-weight:700;cursor:pointer}
+.btn.primary{background:#000;color:#fff;border-color:#000}
+.btn.soft{background:var(--soft);border-color:#BEBEBE}
+.btn.small{padding:7px 10px;font-size:.86rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 16px}
+.filter-btn{border:1px solid #C5C5C5;background:#fff;border-radius:999px;padding:7px 11px;font-size:.86rem;font-weight:700;cursor:pointer}
+.filter-btn[aria-pressed="true"]{background:#000;color:#fff;border-color:#000}
+.task-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.task-btn{min-height:56px;text-align:left;background:#fff;border:1.5px solid #C9C9C9;border-radius:11px;padding:10px 12px;cursor:pointer;font-weight:500;line-height:1.35;transition:background .12s,border-color .12s}
+.task-btn:hover{border-color:#666}
+.task-btn[aria-pressed="true"]{background:var(--soft);border-color:#555;box-shadow:inset 0 0 0 1px #555}
+.task-btn[hidden]{display:none}
+.selection-note{margin-top:12px;font-size:.87rem;color:var(--cool-gray)}
+.empty{padding:20px;text-align:center;border:1.5px dashed #BFC0C1;border-radius:13px;background:#FAFAFA;color:var(--cool-gray)}
+.comp-grid{display:grid;gap:11px;margin-top:14px}
+.comp-card{border:1px solid var(--border);border-radius:14px;background:#fff;overflow:hidden}
+.comp-head{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:start;padding:14px}
+.comp-check{width:22px;height:22px;margin-top:1px;accent-color:#000}
+.comp-title{font-weight:700;font-size:1.02rem}
+.comp-desc{font-size:.86rem;color:#454648;margin-top:2px}
+.match{font-size:.78rem;font-weight:700;background:var(--soft-gold);padding:5px 8px;border-radius:999px;white-space:nowrap}
+.comp-body{border-top:1px solid #ECECEC;padding:13px 14px 14px;background:#FCFCFC}
+.evidence-label,.skills-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#4C4D4F;margin-bottom:6px}
+.evidence-list{margin:0 0 12px;padding-left:20px;font-size:.9rem;color:#343536}
+.evidence-list li+li{margin-top:4px}
+.skill-chips{display:flex;flex-wrap:wrap;gap:7px}
+.skill-chip{border:1px solid #BFC0C1;background:#fff;border-radius:999px;padding:7px 10px;font-size:.84rem;font-weight:700;cursor:pointer}
+.skill-chip[aria-pressed="true"]{background:var(--soft);border-color:#555;box-shadow:inset 0 0 0 1px #555}
+.review-tip{margin-top:14px;padding:13px 15px;background:var(--soft);border-radius:12px;font-size:.9rem}
+.summary-title{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.exp-label{font-size:.84rem;color:var(--cool-gray);margin-top:2px}
+.result-list{display:grid;gap:11px;margin-top:15px}
+.result-card{border-left:4px solid var(--iowa-gold);background:#FAFAFA;border-radius:0 11px 11px 0;padding:12px 13px}
+.result-card h3{font-size:1rem;margin-bottom:5px}
+.result-skills{font-size:.91rem;font-weight:500}
+.result-evidence{margin-top:6px;font-size:.85rem;color:#4A4B4D}
+.use-next{margin-top:17px;padding:14px 15px;background:var(--soft);border-radius:12px}
+.use-next strong{display:block;margin-bottom:4px}
+.use-next p{font-size:.9rem;color:#343536;margin:0}
+.status{min-height:1.25em;margin-top:10px;font-size:.88rem;font-weight:700}
+.resource-link{margin-top:16px;font-size:.86rem}
+.disclaimer{font-size:.82rem;color:var(--cool-gray);margin-top:12px}
+@media(max-width:720px){
+  .shell{padding:12px 10px 48px}.intro,.panel{padding:20px 17px;border-radius:16px}.task-grid{grid-template-columns:1fr}.comp-head{grid-template-columns:auto 1fr}.match{grid-column:2;justify-self:start}.summary-title{display:block}
+}
+@media(max-width:440px){.actions .btn{width:100%}.filters{gap:6px}.filter-btn{font-size:.8rem}.comp-head{padding:12px}.comp-body{padding:12px}}
+@media print{
+  body{background:#fff;font-size:11pt}.shell{max-width:none;padding:0}.intro,.panel{box-shadow:none;border:0;padding:0;margin:0}.intro,.panel:not(#resultsPanel){display:none!important}#resultsPanel{display:block!important}#resultsPanel .step-label,#resultsPanel .section-copy,#resultsPanel .actions,#resultsPanel .status,#resultsPanel .use-next,#resultsPanel .resource-link,#resultsPanel .disclaimer{display:none!important}.result-card{break-inside:avoid;background:#fff;border-left:3px solid #000}h2{font-size:20pt}
+}
 </style>
 </head>
 <body>
-<div class="wrap"><main class="tool">
-<header class="header"><h1>Find the Skills in Your Experience</h1><p class="intro">You build career-ready skills in jobs, classes, student organizations, volunteering, athletics, caregiving, and everyday responsibilities. Choose one experience and tell us what you actually did—we'll help you identify the transferable skills you practiced.</p></header>
-<div class="content">
-<section class="section" aria-labelledby="step1"><div class="step-label"><span class="step-number" aria-hidden="true">1</span><h2 id="step1">What experience are you thinking about?</h2></div><p class="help">Choose a common experience or type your own.</p><div class="presets" id="presets"></div><input class="experience" id="experience" type="text" aria-label="Name your experience" placeholder="Example: barista, nanny, research assistant, group project..."><div class="suggestion" id="suggestion" hidden><span id="suggestionText"></span><button id="useSuggestion" type="button">Use tailored choices</button></div><div class="context" id="context" hidden></div></section>
-<section class="section" aria-labelledby="step2"><div class="step-label"><span class="step-number" aria-hidden="true">2</span><h2 id="step2">What did you do?</h2></div><p class="task-intro" id="taskIntro">Select anything that sounds like your experience.</p><div class="cards" id="actionCards"></div><div class="more-wrap"><button class="more-btn" id="moreBtn" type="button" aria-expanded="false">+ Show more ways I may have contributed</button></div><div class="extra" id="extra" hidden><div class="cards" id="extraCards"></div></div></section>
-<section class="results" id="results" hidden aria-live="polite" aria-labelledby="resultsTitle"><div class="results-head"><h2 id="resultsTitle">Transferable skills you may have practiced</h2><p>Choose up to <strong>3</strong> that feel strongest. The power verbs are based on what you selected.</p></div><div class="results-body"><div class="personalized-result" id="personalizedResult"></div><div class="competency-list" id="competencyList"></div><div class="selected-summary" id="selectedSummary" hidden><div class="summary-label">Your strongest transferable skills</div><div class="chosen" id="chosen"></div></div><div class="controls"><button class="primary" id="copyBtn" type="button">Copy my power verbs</button><button class="secondary" id="resetBtn" type="button">Start over</button></div><div class="status" id="status" role="status"></div><div class="manual-copy" id="manualCopy" hidden><label for="manualCopyText">Copy these power verbs:</label><textarea id="manualCopyText" readonly></textarea></div><div class="source-note">Competency titles follow the University of Iowa NACE Career Readiness Competencies. Power verbs come from the Pomerantz Career Center Resume Writing Power Verbs resource.</div></div></section>
-</div></main></div>
+<a class="skip-link" href="#activity">Skip to activity</a>
+<main class="shell" id="activity">
+  <section class="intro" aria-labelledby="page-title">
+    <div class="gold-mark" aria-hidden="true"></div>
+    <h1 id="page-title">Find Your Transferable Skills</h1>
+    <p class="lede">Choose one experience and what you actually did. We’ll help you spot skills you practiced that can transfer to other classes, jobs, internships, and opportunities.</p>
+    <p class="meta">You do not need a formal job or internship. A class project, student organization, volunteer role, caregiving responsibility, athletics, or personal project can build transferable skills too.</p>
+    <div class="notice"><strong>This is a brainstorm, not a test.</strong> The suggestions are a starting point. Keep only the skills you can explain with a real example from your experience.</div>
+  </section>
+
+  <section class="panel" aria-labelledby="experience-title">
+    <div class="step-label"><span class="step-number">1</span> Choose</div>
+    <h2 id="experience-title">What experience are you thinking about?</h2>
+    <p class="section-copy">Focus on one experience at a time. You can repeat the activity with another experience later.</p>
+    <div class="recent-wrap" id="recentWrap" hidden>
+      <div class="recent-label">Use a recent experience</div>
+      <div class="recent-list" id="recentList" aria-label="Recent experiences"></div>
+      <p class="recent-note">These appear only when recent work from the Experience Brainstorm is available on this device. You can still enter something different below.</p>
+    </div>
+    <div class="field">
+      <label for="experienceName">Experience, role, project, or responsibility</label>
+      <input id="experienceName" type="text" autocomplete="off" placeholder="e.g., Resident Assistant">
+    </div>
+    <p class="example">Other examples: group research project, retail job, student organization committee, caring for siblings, volunteer event, athletics, or a personal project.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="actions-title">
+    <div class="step-label"><span class="step-number">2</span> Reflect</div>
+    <h2 id="actions-title">What did you do?</h2>
+    <p class="section-copy">Select anything that genuinely happened in this experience. These are prompts—not a checklist you need to complete.</p>
+    <div class="filters" id="filters" aria-label="Filter activity prompts"></div>
+    <div class="task-grid" id="taskGrid"></div>
+    <div class="other-action">
+      <button class="task-btn other-action-toggle" type="button" id="otherActionToggle" aria-expanded="false" aria-controls="otherActionFields">Something else I did</button>
+      <div class="other-action-fields" id="otherActionFields" hidden>
+        <label for="otherActionText">What else did you do?</label>
+        <textarea id="otherActionText" maxlength="400" placeholder="Example: Managed our family’s weekly appointments and transportation schedule"></textarea>
+        <p class="other-action-help">We won’t try to guess from your wording. Instead, all Iowa career-readiness competencies will be available below so you can choose what genuinely fits.</p>
+      </div>
+    </div>
+    <p class="selection-note" id="selectionNote" aria-live="polite">Select a few actions that describe your experience.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="review-title">
+    <div class="step-label"><span class="step-number">3</span> Decide</div>
+    <h2 id="review-title">Which skills fit?</h2>
+    <p class="section-copy">Based on what you selected, these Iowa career-readiness competencies may fit. Choose the competencies and specific skills you could support with an example.</p>
+    <p class="manual-note" id="manualNote" hidden>Because you added something not covered by the prompts, all eight competencies are available to browse below. Suggested matches still appear first.</p>
+    <div id="compEmpty" class="empty">Select what you did above to see possible skills.</div>
+    <div class="comp-grid" id="compGrid"></div>
+    <div class="review-tip" id="reviewTip" hidden><strong>Use evidence, not labels.</strong> “Communication” is more useful when you can say what that looked like—for example, explaining information clearly, writing for an audience, or listening and responding to concerns.</div>
+    <div class="actions">
+      <button class="btn primary" type="button" id="buildResultsBtn" disabled>Build My Skill List</button>
+    </div>
+    <div class="status" id="reviewStatus" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="panel" id="resultsPanel" aria-labelledby="results-title" hidden>
+    <div class="step-label"><span class="step-number">4</span> Keep</div>
+    <div class="summary-title">
+      <div>
+        <h2 id="results-title">Skills from this experience</h2>
+        <p class="exp-label" id="resultExperience"></p>
+      </div>
+    </div>
+    <p class="section-copy">Use this as a reminder of the skills you can talk about—not as wording to paste directly into every application.</p>
+    <div class="result-list" id="resultList"></div>
+    <div class="use-next">
+      <strong>Now you have evidence to work with.</strong>
+      <p>You can use this list to choose a skill for an interview example, decide what to emphasize in a cover letter, identify LinkedIn skills, or move to the Resume Bullet Builder when you want to describe this experience on a resume.</p>
+    </div>
+    <div class="actions">
+      <button class="btn primary" type="button" id="copyBtn">Copy My Skill List</button>
+      <button class="btn" type="button" id="printBtn">Print / Save</button>
+      <button class="btn soft" type="button" id="resetBtn">Start With Another Experience</button>
+    </div>
+    <div class="status" id="resultStatus" role="status" aria-live="polite"></div>
+    <p class="resource-link"><a href="https://careers.uiowa.edu/career-ready" target="_blank" rel="noopener">Explore Iowa’s Career Readiness Competencies</a></p>
+    <p class="disclaimer">Career-readiness competency suggestions are based on the actions you selected. You are the best judge of what you actually practiced and can explain.</p>
+  </section>
+</main>
+
 <script>
-const LIB={
-"Part-time / campus job":[
-{text:"Helped customers, students, visitors, or guests and answered questions",maps:{"Communication":["Helped","Informed","Welcomed","Explained"],"Professionalism":["Handled","Performed","Completed"]}},
-{text:"Managed several tasks or priorities during busy periods",maps:{"Professionalism":["Prioritized","Handled","Organized","Managed"],"Critical Thinking":["Determined","Decided"]}},
-{text:"Worked with coworkers to keep things running smoothly",maps:{"Teamwork":["Collaborated","Cooperated","Coordinated","Contributed"],"Communication":["Communicated","Consulted"]}},
-{text:"Solved day-to-day problems or handled unexpected situations",maps:{"Critical Thinking":["Resolved","Solved","Determined","Decided"],"Professionalism":["Handled","Adjusted"]}},
-{text:"Used a register, software, equipment, or other workplace tools",maps:{"Technology":["Operated","Input","Processed","Streamlined"],"Professionalism":["Performed","Maintained"]}},
-{text:"Followed procedures, met expectations, or handled responsibilities reliably",maps:{"Professionalism":["Completed","Maintained","Performed","Ensured"]}},
-{text:"Trained or helped a newer coworker",maps:{"Leadership":["Trained","Guided","Mentored"],"Communication":["Explained","Instructed","Demonstrated"]}}],
-"Internship":[
-{text:"Learned new processes, asked questions, or sought feedback",maps:{"Career & Self-Development":["Developed","Identified","Researched","Evaluated"],"Professionalism":["Prepared","Revised"]}},
-{text:"Completed projects or assignments with deadlines and expectations",maps:{"Professionalism":["Completed","Delivered","Prioritized","Prepared"]}},
-{text:"Communicated with supervisors, coworkers, clients, or partners",maps:{"Communication":["Communicated","Consulted","Corresponded","Presented"],"Teamwork":["Collaborated","Coordinated"]}},
-{text:"Researched, analyzed, or synthesized information",maps:{"Critical Thinking":["Researched","Analyzed","Investigated","Synthesized"]}},
-{text:"Collaborated with others on a project or shared goal",maps:{"Teamwork":["Collaborated","Cooperated","Coordinated","Contributed"]}},
-{text:"Used professional software, systems, data, or specialized tools",maps:{"Technology":["Operated","Input","Programmed","Streamlined"],"Critical Thinking":["Analyzed","Applied"]}},
-{text:"Solved a problem or recommended a better approach",maps:{"Critical Thinking":["Resolved","Recommended","Solved","Streamlined"],"Leadership":["Initiated","Improved"]}},
-{text:"Took ownership of a task or contributed an idea",maps:{"Career & Self-Development":["Developed","Identified","Strategized"],"Leadership":["Initiated","Led"]}}],
-"Class / group project":[
-{text:"Researched or analyzed information for the project",maps:{"Critical Thinking":["Researched","Analyzed","Investigated","Synthesized"]}},
-{text:"Shared ideas, wrote content, or presented information",maps:{"Communication":["Presented","Wrote","Explained","Summarized"]}},
-{text:"Divided responsibilities and worked with group members",maps:{"Teamwork":["Collaborated","Coordinated","Cooperated","Contributed"]}},
-{text:"Organized the work and kept the group on schedule",maps:{"Professionalism":["Organized","Scheduled","Prioritized","Tracked"],"Leadership":["Coordinated","Managed"]}},
-{text:"Worked through disagreement or different ideas",maps:{"Teamwork":["Collaborated","Cooperated","Combined"],"Communication":["Mediated","Negotiated","Clarified"]}},
-{text:"Created, designed, or improved the final product",maps:{"Critical Thinking":["Created","Designed","Improved","Revised"]}},
-{text:"Used software, data, or digital tools to complete the work",maps:{"Technology":["Input","Programmed","Operated","Streamlined"]}},
-{text:"Used feedback to revise or strengthen your work",maps:{"Career & Self-Development":["Evaluated","Revised","Developed","Improved"]}}],
-"Research":[
-{text:"Collected, recorded, or organized data or information",maps:{"Critical Thinking":["Collected","Recorded","Compiled","Organized"],"Professionalism":["Logged","Tracked"]}},
-{text:"Analyzed data, evidence, patterns, or findings",maps:{"Critical Thinking":["Analyzed","Investigated","Synthesized","Evaluated"]}},
-{text:"Used research software, lab equipment, databases, or specialized tools",maps:{"Technology":["Operated","Input","Programmed","Processed"],"Critical Thinking":["Applied","Computed"]}},
-{text:"Documented procedures, findings, or results",maps:{"Communication":["Reported","Wrote","Summarized"],"Professionalism":["Recorded","Maintained"]}},
-{text:"Worked with a faculty member, lab team, or research group",maps:{"Teamwork":["Collaborated","Cooperated","Contributed","Coordinated"]}},
-{text:"Troubleshot a method, process, or unexpected result",maps:{"Critical Thinking":["Diagnosed","Resolved","Investigated","Solved"],"Technology":["Debugged","Streamlined"]}},
-{text:"Presented or explained findings to others",maps:{"Communication":["Presented","Explained","Illustrated","Reported"]}},
-{text:"Built new knowledge or technical expertise",maps:{"Career & Self-Development":["Developed","Studied","Researched","Identified"]}}],
-"Student organization":[
-{text:"Planned an event, meeting, program, or activity",maps:{"Leadership":["Led","Coordinated","Organized","Planned"],"Professionalism":["Scheduled","Prepared","Prioritized"]}},
-{text:"Welcomed, recruited, or connected with members",maps:{"Communication":["Welcomed","Recruited","Communicated","Informed"],"Leadership":["Involved","Motivated"]}},
-{text:"Led a meeting, committee, project, or group of people",maps:{"Leadership":["Led","Chaired","Directed","Guided"],"Teamwork":["Coordinated","Collaborated"]}},
-{text:"Worked with others to accomplish a shared goal",maps:{"Teamwork":["Collaborated","Cooperated","Contributed","Combined"]}},
-{text:"Promoted an event, shared updates, or communicated with members",maps:{"Communication":["Publicized","Communicated","Presented","Wrote"]}},
-{text:"Handled logistics, schedules, budgets, or materials",maps:{"Professionalism":["Organized","Scheduled","Tracked","Prepared"],"Critical Thinking":["Budgeted","Determined"]}},
-{text:"Solved a problem or adjusted when plans changed",maps:{"Critical Thinking":["Resolved","Solved","Adjusted","Revamped"]}},
-{text:"Started or improved a program, process, or idea",maps:{"Career & Self-Development":["Developed","Identified","Strategized"],"Leadership":["Initiated","Improved","Spearheaded"]}}],
-"Volunteer / service":[
-{text:"Helped, served, or supported people in the community",maps:{"Communication":["Helped","Supported","Served","Assisted"],"Professionalism":["Provided","Sustained"]}},
-{text:"Talked with participants, families, visitors, or community members",maps:{"Communication":["Communicated","Informed","Welcomed","Consulted"]}},
-{text:"Worked with other volunteers or staff members",maps:{"Teamwork":["Collaborated","Cooperated","Contributed","Coordinated"]}},
-{text:"Organized materials, activities, donations, or an event",maps:{"Professionalism":["Organized","Arranged","Prepared","Coordinated"]}},
-{text:"Adapted your approach to meet someone's needs",maps:{"Critical Thinking":["Adjusted","Determined","Resolved"],"Communication":["Adapted","Supported"]}},
-{text:"Took initiative when something needed to be done",maps:{"Career & Self-Development":["Identified","Developed"],"Leadership":["Initiated","Led"]}},
-{text:"Taught, guided, coached, or encouraged someone",maps:{"Leadership":["Guided","Coached","Mentored","Encouraged"],"Communication":["Taught","Educated","Supported"]}}],
-"Athletics":[
-{text:"Practiced consistently and followed through on team commitments",maps:{"Professionalism":["Completed","Maintained","Performed","Prepared"]}},
-{text:"Worked with teammates toward a shared goal",maps:{"Teamwork":["Collaborated","Cooperated","Contributed","Coordinated"]}},
-{text:"Received coaching or feedback and applied it to improve",maps:{"Career & Self-Development":["Developed","Evaluated","Improved","Revised"]}},
-{text:"Adapted or made decisions under pressure",maps:{"Critical Thinking":["Adjusted","Decided","Determined","Resolved"]}},
-{text:"Encouraged, mentored, or supported teammates",maps:{"Leadership":["Encouraged","Mentored","Guided","Motivated"],"Communication":["Supported","Communicated"]}},
-{text:"Balanced practices, competition, academics, and other responsibilities",maps:{"Professionalism":["Prioritized","Scheduled","Organized","Managed"]}},
-{text:"Set goals and worked intentionally toward improvement",maps:{"Career & Self-Development":["Developed","Identified","Strategized","Evaluated"]}}],
-"Caregiving / nannying":[
-{text:"Cared for children or others and responded to their day-to-day needs",maps:{"Communication":["Helped","Supported","Assisted","Provided"],"Professionalism":["Maintained","Handled"]}},
-{text:"Planned activities, meals, transportation, routines, or schedules",maps:{"Professionalism":["Planned","Scheduled","Organized","Prepared"]}},
-{text:"Communicated with parents, caregivers, or family members",maps:{"Communication":["Communicated","Informed","Consulted","Corresponded"]}},
-{text:"Handled unexpected situations or made decisions independently",maps:{"Critical Thinking":["Decided","Determined","Resolved","Solved"],"Professionalism":["Handled","Adjusted"]}},
-{text:"Balanced several responsibilities at the same time",maps:{"Professionalism":["Prioritized","Managed","Organized","Handled"]}},
-{text:"Taught, read with, coached, or helped someone learn",maps:{"Leadership":["Guided","Coached","Mentored"],"Communication":["Taught","Educated","Explained","Tutored"]}},
-{text:"Maintained a safe, supportive, and dependable environment",maps:{"Professionalism":["Maintained","Ensured","Supervised"],"Leadership":["Supported"]}},
-{text:"Adjusted your approach based on different needs, ages, or situations",maps:{"Critical Thinking":["Adjusted","Determined"],"Communication":["Adapted","Supported"]}}],
-"Tutoring / mentoring":[
-{text:"Explained concepts or instructions in a way someone could understand",maps:{"Communication":["Explained","Clarified","Instructed","Educated"]}},
-{text:"Adjusted your approach when someone learned differently or needed more support",maps:{"Critical Thinking":["Adjusted","Determined","Revised"],"Communication":["Adapted","Supported"]}},
-{text:"Identified what someone understood and where they needed help",maps:{"Critical Thinking":["Identified","Assessed","Evaluated","Determined"]}},
-{text:"Prepared lessons, examples, activities, or study materials",maps:{"Professionalism":["Prepared","Planned","Organized"],"Communication":["Illustrated","Demonstrated"]}},
-{text:"Encouraged, motivated, or built someone's confidence",maps:{"Leadership":["Encouraged","Motivated","Mentored","Guided"],"Communication":["Supported","Reinforced"]}},
-{text:"Tracked progress or helped set goals",maps:{"Career & Self-Development":["Identified","Developed","Evaluated"],"Professionalism":["Tracked","Recorded"]}},
-{text:"Maintained a dependable schedule and followed through",maps:{"Professionalism":["Maintained","Scheduled","Completed"]}},
-{text:"Used online platforms, learning tools, or other technology",maps:{"Technology":["Operated","Input","Programmed","Streamlined"]}}],
-"Other experience":[
-{text:"Helped, supported, or worked with other people",maps:{"Communication":["Helped","Supported","Communicated"],"Teamwork":["Collaborated","Cooperated"]}},
-{text:"Explained information, taught, wrote, or presented",maps:{"Communication":["Explained","Taught","Wrote","Presented"]}},
-{text:"Solved a problem or made a decision",maps:{"Critical Thinking":["Resolved","Solved","Determined","Decided"]}},
-{text:"Organized or planned tasks, schedules, materials, or events",maps:{"Professionalism":["Organized","Planned","Scheduled","Prepared"]}},
-{text:"Managed time, priorities, or important responsibilities",maps:{"Professionalism":["Prioritized","Managed","Handled","Completed"]}},
-{text:"Took initiative, learned something new, or sought feedback",maps:{"Career & Self-Development":["Developed","Identified","Evaluated","Researched"]}},
-{text:"Led, trained, coordinated, or guided other people",maps:{"Leadership":["Led","Trained","Coordinated","Guided"]}},
-{text:"Used technology, tools, data, or specialized equipment",maps:{"Technology":["Operated","Input","Programmed","Streamlined"]}}]};
-const EXTRA=[
-{text:"Created or improved something",maps:{"Critical Thinking":["Created","Improved","Revamped","Designed"],"Leadership":["Initiated"]}},
-{text:"Worked with numbers, data, patterns, or evidence",maps:{"Critical Thinking":["Analyzed","Calculated","Compiled","Quantified"],"Technology":["Computed","Input"]}},
-{text:"Handled a disagreement or difficult conversation",maps:{"Teamwork":["Collaborated","Cooperated"],"Communication":["Mediated","Negotiated","Clarified","Settled"]}},
-{text:"Advocated for yourself or someone else",maps:{"Career & Self-Development":["Identified","Developed"],"Communication":["Represented","Communicated","Supported"],"Leadership":["Influenced"]}},
-{text:"Built a relationship, networked, or asked someone for advice",maps:{"Career & Self-Development":["Identified","Researched","Developed"],"Communication":["Consulted","Interviewed","Communicated"]}},
-{text:"Used feedback to improve your work",maps:{"Career & Self-Development":["Evaluated","Revised","Developed","Improved"]}}];
-const KEY=[
-{p:"Caregiving / nannying",w:["nanny","babysit","babysitter","childcare","caregiver","caregiving","daycare","camp counselor"]},
-{p:"Tutoring / mentoring",w:["tutor","tutoring","mentor","mentoring","peer mentor","teaching assistant","academic coach"]},
-{p:"Part-time / campus job",w:["barista","cashier","server","waiter","waitress","retail","restaurant","food service","customer service","dining","front desk","campus job"]},
-{p:"Research",w:["research assistant","research","lab assistant","laboratory"]},
-{p:"Internship",w:["intern","internship"]},
-{p:"Student organization",w:["student org","club","organization","fraternity","sorority","committee","student government"]},
-{p:"Volunteer / service",w:["volunteer","community service","food pantry","nonprofit"]},
-{p:"Athletics",w:["athlete","athletics","soccer","basketball","football","volleyball","track","softball","baseball","swim","tennis","gymnastics","rowing"]},
-{p:"Class / group project",w:["class project","group project","course project","capstone","class assignment"]}];
-const LABELS=["Part-time / campus job","Internship","Class / group project","Research","Student organization","Volunteer / service","Athletics","Caregiving / nannying","Tutoring / mentoring","Other experience"];
-const $=id=>document.getElementById(id),presets=$("presets"),experience=$("experience"),suggestion=$("suggestion"),suggestionText=$("suggestionText"),useSuggestion=$("useSuggestion"),context=$("context"),actionCards=$("actionCards"),moreBtn=$("moreBtn"),extra=$("extra"),extraCards=$("extraCards"),taskIntro=$("taskIntro"),results=$("results"),personalizedResult=$("personalizedResult"),competencyList=$("competencyList"),selectedSummary=$("selectedSummary"),chosen=$("chosen"),status=$("status"),manualCopy=$("manualCopy"),manualCopyText=$("manualCopyText");
-let active="Other experience",suggested=null,selected=new Map(),picked=new Set();
-LABELS.forEach(name=>{const b=document.createElement("button");b.type="button";b.className="preset";b.textContent=name;b.dataset.preset=name;b.setAttribute("aria-pressed",name===active?"true":"false");b.addEventListener("click",()=>choosePreset(name,true));presets.appendChild(b)});
-function updatePresetButtons(){document.querySelectorAll(".preset").forEach(b=>b.setAttribute("aria-pressed",b.dataset.preset===active?"true":"false"))}
-function choosePreset(name,fromChip=false){active=name;selected.clear();picked.clear();updatePresetButtons();renderActions();if(fromChip&&!experience.value.trim()&&name!=="Other experience")experience.value=name;if(name==="Other experience"){context.hidden=true;taskIntro.textContent="Select anything that sounds like your experience."}else{const typed=experience.value.trim(),display=typed&&typed!==name?typed:name.toLowerCase();context.hidden=false;context.textContent=`Here are common things students may do in ${display}. Choose only what actually fits your experience.`;taskIntro.textContent="Which of these sound like what you actually did?"}suggestion.hidden=true;results.hidden=true;renderSummary()}
-function renderActions(){actionCards.innerHTML="";(LIB[active]||LIB["Other experience"]).forEach((a,i)=>addAction(actionCards,a,`main:${i}`));extraCards.innerHTML="";EXTRA.forEach((a,i)=>addAction(extraCards,a,`extra:${i}`))}
-function addAction(container,a,key){const b=document.createElement("button");b.type="button";b.className="action";b.textContent=a.text;b.setAttribute("aria-pressed",selected.has(key)?"true":"false");b.addEventListener("click",()=>{selected.has(key)?selected.delete(key):selected.set(key,a);b.setAttribute("aria-pressed",selected.has(key)?"true":"false");updateResults()});container.appendChild(b)}
-function suggest(text){const v=text.toLowerCase().trim();if(v.length<3)return null;for(const x of KEY)if(x.w.some(w=>v.includes(w)))return x.p;return null}
-experience.addEventListener("input",()=>{const m=suggest(experience.value);suggested=m;if(m&&m!==active){suggestionText.textContent="We can tailor the choices for this kind of experience.";useSuggestion.textContent=`Use ${m.toLowerCase()} examples`;suggestion.hidden=false}else suggestion.hidden=true;if(active!=="Other experience"&&experience.value.trim()){context.hidden=false;context.textContent=`Here are common things students may do in ${experience.value.trim()}. Choose only what actually fits your experience.`}});
-useSuggestion.addEventListener("click",()=>{if(suggested)choosePreset(suggested,false)});
-moreBtn.addEventListener("click",()=>{const open=moreBtn.getAttribute("aria-expanded")==="true";moreBtn.setAttribute("aria-expanded",String(!open));extra.hidden=open;moreBtn.textContent=open?"+ Show more ways I may have contributed":"− Show fewer additional choices"});
-function data(){const m=new Map();for(const a of selected.values())for(const [c,verbs] of Object.entries(a.maps)){if(!m.has(c))m.set(c,{score:0,verbs:[],reasons:[]});const x=m.get(c);x.score++;x.reasons.push(a.text);verbs.forEach(v=>{if(!x.verbs.includes(v))x.verbs.push(v)})}return[...m.entries()].sort((a,b)=>b[1].score-a[1].score||a[0].localeCompare(b[0])).map(([name,x])=>({name,...x}))}
-function why(reasons){if(!reasons.length)return"";const lower=s=>s.charAt(0).toLowerCase()+s.slice(1);return reasons.length===1?`You practiced this when you ${lower(reasons[0])}.`:`You practiced this when you ${lower(reasons[0])} and ${lower(reasons[1])}.`}
-function updateResults(){const d=data(),avail=new Set(d.map(x=>x.name));picked=new Set([...picked].filter(x=>avail.has(x)));if(!d.length){results.hidden=true;picked.clear();renderSummary();return}results.hidden=false;const exp=experience.value.trim();personalizedResult.textContent=exp?`Based on what you selected from your ${exp} experience, these competencies stand out most.`:active!=="Other experience"?`Based on what you selected from this ${active.toLowerCase()} experience, these competencies stand out most.`:"Based on what you selected, these competencies stand out most.";competencyList.innerHTML="";d.slice(0,5).forEach(item=>{const b=document.createElement("button");b.type="button";b.className="competency";b.setAttribute("aria-pressed",picked.has(item.name)?"true":"false");if(!picked.has(item.name)&&picked.size>=3)b.disabled=true;const n=document.createElement("span");n.className="competency-name";n.textContent=item.name;const w=document.createElement("span");w.className="why";w.textContent=why(item.reasons);const vl=document.createElement("span");vl.className="verb-label";vl.textContent="Power verbs";const vs=document.createElement("span");vs.className="verbs";vs.textContent=item.verbs.slice(0,5).join(" • ");b.append(n,w,vl,vs);b.addEventListener("click",()=>{picked.has(item.name)?picked.delete(item.name):picked.size<3&&picked.add(item.name);updateResults()});competencyList.appendChild(b)});renderSummary()}
-function renderSummary(){chosen.innerHTML="";if(!picked.size){selectedSummary.hidden=true;return}selectedSummary.hidden=false;[...picked].forEach(name=>{const s=document.createElement("span");s.textContent=name;chosen.appendChild(s)})}
-function legacyCopy(text){const t=document.createElement("textarea");t.value=text;t.setAttribute("readonly","");t.style.position="fixed";t.style.left="-9999px";document.body.appendChild(t);t.focus();t.select();let ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(t);return ok}
-$("copyBtn").addEventListener("click",async()=>{if(!picked.size){status.textContent="Choose at least one transferable skill first.";manualCopy.hidden=true;return}const lookup=new Map(data().map(x=>[x.name,x])),lines=[...picked].map(name=>`${name}: ${lookup.get(name).verbs.slice(0,5).join(", ")}`),exp=experience.value.trim(),text=exp?`${exp}\n${lines.join("\n")}`:lines.join("\n");manualCopy.hidden=true;manualCopyText.value="";if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(text);status.textContent="Power verbs copied!";return}catch(e){}}if(legacyCopy(text)){status.textContent="Power verbs copied!";return}manualCopyText.value=text;manualCopy.hidden=false;manualCopyText.focus();manualCopyText.select();status.textContent="Automatic copying was blocked. The text is selected below—press Ctrl+C or Command+C."});
-$("resetBtn").addEventListener("click",()=>{active="Other experience";suggested=null;selected.clear();picked.clear();experience.value="";suggestion.hidden=true;context.hidden=true;results.hidden=true;selectedSummary.hidden=true;competencyList.innerHTML="";chosen.innerHTML="";status.textContent="";manualCopy.hidden=true;manualCopyText.value="";extra.hidden=true;moreBtn.setAttribute("aria-expanded","false");moreBtn.textContent="+ Show more ways I may have contributed";taskIntro.textContent="Select anything that sounds like your experience.";updatePresetButtons();renderActions()});
-renderActions();
+(() => {
+  const competencies = {
+    career: {
+      name: 'Career & Self-Development',
+      desc: 'Growing through learning, feedback, self-awareness, career exploration, and goal setting.',
+      skills: ['self-awareness','goal setting','learning','seeking feedback','self-advocacy','initiative','relationship building']
+    },
+    communication: {
+      name: 'Communication',
+      desc: 'Exchanging information and ideas clearly and effectively with others.',
+      skills: ['verbal communication','written communication','active listening','presenting','explaining','persuasion','audience awareness']
+    },
+    critical: {
+      name: 'Critical Thinking',
+      desc: 'Analyzing information and context to make decisions, solve problems, and respond to needs.',
+      skills: ['problem solving','analysis','decision making','prioritization','research','adaptability','attention to context']
+    },
+    perspectives: {
+      name: 'Other Perspectives',
+      desc: 'Seeking, valuing, and thoughtfully considering perspectives different from your own.',
+      skills: ['perspective taking','empathy','curiosity','inclusive decision making','seeking input','open-mindedness','adapting to others’ needs']
+    },
+    leadership: {
+      name: 'Leadership',
+      desc: 'Using strengths to guide, motivate, support, and move work toward shared goals.',
+      skills: ['initiative','project coordination','mentoring','facilitation','motivation','delegation','planning']
+    },
+    professionalism: {
+      name: 'Professionalism',
+      desc: 'Using dependable, accountable, ethical, and effective work habits.',
+      skills: ['reliability','time management','organization','attention to detail','accountability','integrity','follow-through']
+    },
+    teamwork: {
+      name: 'Teamwork',
+      desc: 'Building collaborative relationships and sharing responsibility to reach common goals.',
+      skills: ['collaboration','conflict management','supporting others','coordination','shared responsibility','compromise','relationship building']
+    },
+    technology: {
+      name: 'Technology',
+      desc: 'Using and adapting to technology effectively and ethically to complete work and solve problems.',
+      skills: ['digital tools','learning new technology','troubleshooting','data tools','digital communication','productivity tools','technical adaptability']
+    }
+  };
+
+  const tasks = [
+    {id:'explain', text:'Explained information, directions, or ideas to someone', group:'communicate', comps:['communication'], skills:{communication:['verbal communication','explaining','audience awareness']}},
+    {id:'write', text:'Wrote, edited, documented, or created written content', group:'communicate', comps:['communication','professionalism'], skills:{communication:['written communication','audience awareness'], professionalism:['attention to detail']}},
+    {id:'present', text:'Presented, spoke, taught, or facilitated for a group', group:'communicate', comps:['communication','leadership'], skills:{communication:['presenting','verbal communication'], leadership:['facilitation']}},
+    {id:'listen', text:'Listened to concerns, questions, or feedback and responded', group:'communicate', comps:['communication','perspectives'], skills:{communication:['active listening'], perspectives:['empathy','open-mindedness']}},
+
+    {id:'solve', text:'Solved a problem or figured out what to do when something went wrong', group:'solve', comps:['critical','professionalism'], skills:{critical:['problem solving','decision making'], professionalism:['follow-through']}},
+    {id:'analyze', text:'Analyzed information, data, evidence, or patterns', group:'solve', comps:['critical','technology'], skills:{critical:['analysis','research'], technology:['data tools']}},
+    {id:'research', text:'Gathered information or researched options before acting', group:'solve', comps:['critical','career'], skills:{critical:['research','attention to context'], career:['learning']}},
+    {id:'prioritize', text:'Balanced competing needs, deadlines, or responsibilities', group:'solve', comps:['critical','professionalism'], skills:{critical:['prioritization','decision making'], professionalism:['time management','organization']}},
+
+    {id:'team', text:'Worked with others toward a shared goal', group:'people', comps:['teamwork'], skills:{teamwork:['collaboration','shared responsibility']}},
+    {id:'support', text:'Supported, helped, served, coached, or cared for someone', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['supporting others'], communication:['active listening'], perspectives:['empathy','adapting to others’ needs']}},
+    {id:'conflict', text:'Handled disagreement, conflict, or different expectations', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['conflict management','compromise'], communication:['active listening'], perspectives:['perspective taking','open-mindedness']}},
+    {id:'coordinate', text:'Coordinated with people in different roles, groups, or schedules', group:'people', comps:['teamwork','professionalism'], skills:{teamwork:['coordination','relationship building'], professionalism:['organization']}},
+
+    {id:'lead', text:'Led a project, event, activity, meeting, or group effort', group:'lead', comps:['leadership','professionalism'], skills:{leadership:['project coordination','planning'], professionalism:['accountability']}},
+    {id:'initiative', text:'Noticed a need and took action without being told exactly what to do', group:'lead', comps:['leadership','career','critical'], skills:{leadership:['initiative'], career:['initiative'], critical:['problem solving']}},
+    {id:'mentor', text:'Trained, mentored, onboarded, or guided someone', group:'lead', comps:['leadership','communication'], skills:{leadership:['mentoring','motivation'], communication:['explaining','audience awareness']}},
+    {id:'organize', text:'Planned details, schedules, materials, tasks, or logistics', group:'lead', comps:['professionalism','leadership'], skills:{professionalism:['organization','attention to detail'], leadership:['planning','project coordination']}},
+
+    {id:'deadline', text:'Met deadlines or followed through on responsibilities others counted on', group:'manage', comps:['professionalism'], skills:{professionalism:['reliability','accountability','follow-through','time management']}},
+    {id:'details', text:'Checked details, accuracy, quality, safety, or compliance', group:'manage', comps:['professionalism','critical'], skills:{professionalism:['attention to detail','integrity'], critical:['analysis']}},
+    {id:'adapt', text:'Adjusted when plans, priorities, information, or circumstances changed', group:'manage', comps:['critical','professionalism','career'], skills:{critical:['adaptability','decision making'], professionalism:['reliability'], career:['learning']}},
+    {id:'sensitive', text:'Handled private, sensitive, difficult, or high-responsibility situations', group:'manage', comps:['professionalism','communication'], skills:{professionalism:['integrity','accountability'], communication:['audience awareness','active listening']}},
+
+    {id:'software', text:'Used software, platforms, equipment, or digital tools to complete work', group:'tech', comps:['technology'], skills:{technology:['digital tools','productivity tools']}},
+    {id:'newtech', text:'Learned a new technology, system, process, or tool', group:'tech', comps:['technology','career'], skills:{technology:['learning new technology','technical adaptability'], career:['learning']}},
+    {id:'troubleshoot', text:'Troubleshot a technical or process problem', group:'tech', comps:['technology','critical'], skills:{technology:['troubleshooting'], critical:['problem solving']}},
+    {id:'digital', text:'Created, organized, tracked, or communicated information digitally', group:'tech', comps:['technology','communication'], skills:{technology:['digital communication','productivity tools'], communication:['written communication']}},
+
+    {id:'feedback', text:'Asked for, received, or used feedback to improve', group:'grow', comps:['career','perspectives'], skills:{career:['seeking feedback','self-awareness'], perspectives:['open-mindedness']}},
+    {id:'goal', text:'Set a goal, practiced, or intentionally worked to improve', group:'grow', comps:['career','professionalism'], skills:{career:['goal setting','learning'], professionalism:['follow-through']}},
+    {id:'advocate', text:'Spoke up for a need, idea, person, or improvement', group:'grow', comps:['career','communication','leadership'], skills:{career:['self-advocacy'], communication:['persuasion'], leadership:['initiative']}},
+    {id:'input', text:'Sought input from people with different experiences or viewpoints', group:'grow', comps:['perspectives','critical','teamwork'], skills:{perspectives:['seeking input','perspective taking','curiosity'], critical:['attention to context'], teamwork:['collaboration']}},
+    {id:'different', text:'Adapted how you worked or communicated to meet different people’s needs', group:'grow', comps:['perspectives','communication','teamwork'], skills:{perspectives:['adapting to others’ needs','empathy'], communication:['audience awareness'], teamwork:['relationship building']}}
+  ];
+
+  const filterDefs = [
+    ['all','Show all'],['communicate','Communicated'],['solve','Solved / figured out'],['people','Worked with people'],['lead','Led / organized'],['manage','Managed responsibilities'],['tech','Used technology'],['grow','Learned / adapted']
+  ];
+
+  const EXPERIENCE_BANK_KEY = 'uiowaCareerExperienceBank_v1';
+  const SKILLS_BANK_KEY = 'uiowaCareerSkillsBank_v1';
+  const selectedTasks = new Set();
+  const chosenCompetencies = new Set();
+  const chosenSkills = {};
+  let activeFilter = 'all';
+  let recentExperiences = [];
+  let selectedRecentId = null;
+
+  const experienceName = document.getElementById('experienceName');
+  const recentWrap = document.getElementById('recentWrap');
+  const recentList = document.getElementById('recentList');
+  const filters = document.getElementById('filters');
+  const taskGrid = document.getElementById('taskGrid');
+  const selectionNote = document.getElementById('selectionNote');
+  const otherActionToggle = document.getElementById('otherActionToggle');
+  const otherActionFields = document.getElementById('otherActionFields');
+  const otherActionText = document.getElementById('otherActionText');
+  const manualNote = document.getElementById('manualNote');
+  const compGrid = document.getElementById('compGrid');
+  const compEmpty = document.getElementById('compEmpty');
+  const reviewTip = document.getElementById('reviewTip');
+  const buildResultsBtn = document.getElementById('buildResultsBtn');
+  const reviewStatus = document.getElementById('reviewStatus');
+  const resultsPanel = document.getElementById('resultsPanel');
+  const resultExperience = document.getElementById('resultExperience');
+  const resultList = document.getElementById('resultList');
+  const copyBtn = document.getElementById('copyBtn');
+  const printBtn = document.getElementById('printBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const resultStatus = document.getElementById('resultStatus');
+
+  function escapeHtml(value){
+    return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  }
+
+  function loadRecentExperiences(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(EXPERIENCE_BANK_KEY) || '[]');
+      if(Array.isArray(saved)){
+        recentExperiences = saved
+          .filter(item => item && typeof item.experienceName === 'string' && item.experienceName.trim())
+          .slice(-6)
+          .reverse();
+      }
+    }catch(e){
+      recentExperiences = [];
+    }
+    renderRecentExperiences();
+  }
+
+  function renderRecentExperiences(){
+    recentList.innerHTML='';
+    if(!recentExperiences.length){
+      recentWrap.hidden=true;
+      return;
+    }
+    recentWrap.hidden=false;
+    recentExperiences.forEach((exp,index)=>{
+      const b=document.createElement('button');
+      b.type='button';
+      b.className='recent-btn';
+      const expId=exp.id || `${exp.experienceName}-${index}`;
+      b.setAttribute('aria-pressed',String(selectedRecentId===expId));
+      const name=document.createElement('span');
+      name.textContent=exp.experienceName;
+      b.appendChild(name);
+      if(exp.context){
+        const context=document.createElement('span');
+        context.className='recent-context';
+        context.textContent=exp.context;
+        b.appendChild(context);
+      }
+      b.addEventListener('click',()=>{
+        selectedRecentId=expId;
+        experienceName.value=exp.experienceName;
+        renderRecentExperiences();
+        experienceName.focus();
+      });
+      recentList.appendChild(b);
+    });
+  }
+
+  experienceName.addEventListener('input',()=>{
+    if(!selectedRecentId) return;
+    const selected=recentExperiences.find((exp,index)=>(exp.id || `${exp.experienceName}-${index}`)===selectedRecentId);
+    if(!selected || experienceName.value.trim()!==selected.experienceName.trim()){
+      selectedRecentId=null;
+      renderRecentExperiences();
+    }
+  });
+
+  function hasOtherAction(){
+    return otherActionText.value.trim().length > 0;
+  }
+
+  otherActionToggle.addEventListener('click',()=>{
+    const opening=otherActionFields.hidden;
+    otherActionFields.hidden=!opening;
+    otherActionToggle.setAttribute('aria-expanded',String(opening));
+    otherActionToggle.setAttribute('aria-pressed',String(opening));
+    if(opening) otherActionText.focus();
+  });
+
+  otherActionText.addEventListener('input',()=>{
+    updateSuggestions();
+  });
+
+  function renderFilters(){
+    filters.innerHTML = '';
+    filterDefs.forEach(([id,label]) => {
+      const b = document.createElement('button');
+      b.type='button'; b.className='filter-btn'; b.textContent=label;
+      b.setAttribute('aria-pressed', String(activeFilter===id));
+      b.addEventListener('click', () => {activeFilter=id; renderFilters(); renderTasks();});
+      filters.appendChild(b);
+    });
+  }
+
+  function renderTasks(){
+    taskGrid.innerHTML='';
+    tasks.forEach(t => {
+      const b=document.createElement('button');
+      b.type='button'; b.className='task-btn'; b.textContent=t.text;
+      b.setAttribute('aria-pressed',String(selectedTasks.has(t.id)));
+      if(activeFilter!=='all' && t.group!==activeFilter) b.hidden=true;
+      b.addEventListener('click',() => {
+        if(selectedTasks.has(t.id)) selectedTasks.delete(t.id); else selectedTasks.add(t.id);
+        b.setAttribute('aria-pressed',String(selectedTasks.has(t.id)));
+        updateSuggestions();
+      });
+      taskGrid.appendChild(b);
+    });
+  }
+
+  function scoreCompetencies(){
+    const score={};
+    const evidence={};
+    const skillHits={};
+    Object.keys(competencies).forEach(k=>{score[k]=0;evidence[k]=[];skillHits[k]=new Set();});
+    tasks.filter(t=>selectedTasks.has(t.id)).forEach(t => {
+      t.comps.forEach((c,idx) => {
+        score[c] += idx===0 ? 2 : 1;
+        evidence[c].push(t.text);
+        (t.skills[c]||[]).forEach(s=>skillHits[c].add(s));
+      });
+    });
+    return {score,evidence,skillHits};
+  }
+
+  function updateSuggestions(){
+    const count=selectedTasks.size;
+    const hasOther=hasOtherAction();
+    const total=count+(hasOther?1:0);
+    if(total===0){
+      selectionNote.textContent='Select a few actions that describe your experience.';
+    }else if(hasOther && count===0){
+      selectionNote.textContent='Your additional action is ready. Browse the competencies below and choose what fits.';
+    }else if(hasOther){
+      selectionNote.textContent=`${count} listed action${count===1?'':'s'} selected, plus your additional action.`;
+    }else{
+      selectionNote.textContent=`${count} action${count===1?'':'s'} selected. You can choose more if they fit.`;
+    }
+    reviewStatus.textContent='';
+    resultsPanel.hidden=true;
+    manualNote.hidden=!hasOther;
+
+    if(total===0){
+      compGrid.innerHTML=''; compEmpty.hidden=false; reviewTip.hidden=true; buildResultsBtn.disabled=true;
+      chosenCompetencies.clear();
+      Object.keys(chosenSkills).forEach(k=>delete chosenSkills[k]);
+      return;
+    }
+
+    const {score,evidence,skillHits}=scoreCompetencies();
+    const suggested=Object.keys(competencies).filter(k=>score[k]>0).sort((a,b)=>score[b]-score[a]);
+    const browseOnly=hasOther ? Object.keys(competencies).filter(k=>score[k]===0) : [];
+    const ordered=[...suggested,...browseOnly];
+    const current=new Set(ordered);
+    [...chosenCompetencies].forEach(k=>{if(!current.has(k)) chosenCompetencies.delete(k);});
+    Object.keys(chosenSkills).forEach(k=>{if(!current.has(k)) delete chosenSkills[k];});
+
+    compGrid.innerHTML=''; compEmpty.hidden=true; reviewTip.hidden=false;
+    ordered.forEach((key,index)=>{
+      const c=competencies[key];
+      const isSuggested=score[key]>0;
+      if(!(key in chosenSkills)) chosenSkills[key]=new Set();
+      const suggestedSkills=[...skillHits[key]];
+      const suggestedIndex=suggested.indexOf(key);
+      if(isSuggested && !chosenCompetencies.has(key) && suggestedIndex<Math.min(4,suggested.length)) chosenCompetencies.add(key);
+      if(isSuggested) suggestedSkills.slice(0,4).forEach(s=>chosenSkills[key].add(s));
+
+      const card=document.createElement('div'); card.className='comp-card';
+      const head=document.createElement('div'); head.className='comp-head';
+      const cb=document.createElement('input'); cb.type='checkbox'; cb.className='comp-check'; cb.checked=chosenCompetencies.has(key); cb.id=`comp-${key}`;
+      cb.addEventListener('change',()=>{cb.checked?chosenCompetencies.add(key):chosenCompetencies.delete(key); updateBuildButton();});
+      const text=document.createElement('div');
+      text.innerHTML=`<label class="comp-title" for="comp-${key}">${escapeHtml(c.name)}</label><div class="comp-desc">${escapeHtml(c.desc)}</div>`;
+      const match=document.createElement('span'); match.className='match';
+      match.textContent=isSuggested ? (suggestedIndex===0?'Strong match':'Possible match') : 'Browse';
+      head.append(cb,text,match);
+      const body=document.createElement('div'); body.className='comp-body';
+      if(isSuggested){
+        const evLabel=document.createElement('div'); evLabel.className='evidence-label'; evLabel.textContent='What pointed here';
+        const ul=document.createElement('ul'); ul.className='evidence-list';
+        evidence[key].slice(0,4).forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li);});
+        body.append(evLabel,ul);
+      }else{
+        const browseHelp=document.createElement('p'); browseHelp.className='other-action-help'; browseHelp.textContent='Not automatically suggested. Choose this if your additional action is evidence of this competency.';
+        body.appendChild(browseHelp);
+      }
+      const skLabel=document.createElement('div'); skLabel.className='skills-label'; skLabel.textContent='Skills that may fit — choose what is true';
+      const chips=document.createElement('div'); chips.className='skill-chips';
+      const skills=[...new Set([...suggestedSkills,...c.skills])].slice(0,8);
+      skills.forEach(skill=>{
+        const sb=document.createElement('button'); sb.type='button'; sb.className='skill-chip'; sb.textContent=skill;
+        sb.setAttribute('aria-pressed',String(chosenSkills[key].has(skill)));
+        sb.addEventListener('click',()=>{
+          if(chosenSkills[key].has(skill)) chosenSkills[key].delete(skill); else chosenSkills[key].add(skill);
+          sb.setAttribute('aria-pressed',String(chosenSkills[key].has(skill)));
+          if(chosenSkills[key].size && !chosenCompetencies.has(key)){chosenCompetencies.add(key); cb.checked=true;}
+          updateBuildButton();
+        });
+        chips.appendChild(sb);
+      });
+      body.append(skLabel,chips); card.append(head,body); compGrid.appendChild(card);
+    });
+    updateBuildButton();
+  }
+
+  function updateBuildButton(){
+    buildResultsBtn.disabled = (selectedTasks.size===0 && !hasOtherAction()) || chosenCompetencies.size===0;
+  }
+
+  function saveSkillResult(name, evidence){
+    try{
+      const keys=[...chosenCompetencies].filter(k=>competencies[k]);
+      const selected=recentExperiences.find((exp,index)=>(exp.id || `${exp.experienceName}-${index}`)===selectedRecentId);
+      const entry={
+        id:`skills-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+        experienceName:name,
+        context:selected && selected.context ? selected.context : '',
+        competencies:keys.map(key=>{
+          const evidenceItems=(evidence[key]||[]).slice(0,3);
+          if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
+          return {
+            id:key,
+            name:competencies[key].name,
+            skills:[...(chosenSkills[key]||new Set())],
+            evidence:evidenceItems
+          };
+        }),
+        updatedAt:new Date().toISOString()
+      };
+      let bank=JSON.parse(localStorage.getItem(SKILLS_BANK_KEY)||'[]');
+      if(!Array.isArray(bank)) bank=[];
+      bank=bank.filter(item=>item && item.experienceName!==name);
+      bank.unshift(entry);
+      localStorage.setItem(SKILLS_BANK_KEY,JSON.stringify(bank.slice(0,20)));
+    }catch(e){ /* Optional convenience only; the tool still works without storage. */ }
+  }
+
+  function buildResults(){
+    reviewStatus.textContent='';
+    const name=experienceName.value.trim();
+    if(!name){
+      reviewStatus.textContent='Add the experience you are reflecting on above.';
+      experienceName.focus();
+      return;
+    }
+    const {evidence}=scoreCompetencies();
+    const keys=[...chosenCompetencies].filter(k=>competencies[k]);
+    if(!keys.length){reviewStatus.textContent='Choose at least one competency that fits.';return;}
+    resultExperience.textContent=name;
+    resultList.innerHTML='';
+    keys.forEach(key=>{
+      const card=document.createElement('div'); card.className='result-card';
+      const skills=[...(chosenSkills[key]||new Set())];
+      const evidenceItems=(evidence[key]||[]).slice(0,3);
+      if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
+      card.innerHTML=`<h3>${escapeHtml(competencies[key].name)}</h3><div class="result-skills">${escapeHtml(skills.length?skills.join(' • '):'Competency identified from your experience')}</div><div class="result-evidence"><strong>Evidence:</strong> ${escapeHtml(evidenceItems.join('; '))}</div>`;
+      resultList.appendChild(card);
+    });
+    saveSkillResult(name,evidence);
+    resultsPanel.hidden=false;
+    resultsPanel.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function resultText(){
+    const {evidence}=scoreCompetencies();
+    const name=experienceName.value.trim();
+    const lines=[`Skills from: ${name}`,''];
+    [...chosenCompetencies].forEach(key=>{
+      const skills=[...(chosenSkills[key]||new Set())];
+      lines.push(competencies[key].name);
+      if(skills.length) lines.push(`Skills: ${skills.join(', ')}`);
+      const evidenceItems=(evidence[key]||[]).slice(0,3);
+      if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
+      if(evidenceItems.length) lines.push(`Evidence: ${evidenceItems.join('; ')}`);
+      lines.push('');
+    });
+    return lines.join('\n').trim();
+  }
+
+  async function copyResults(){
+    try{
+      await navigator.clipboard.writeText(resultText());
+      resultStatus.textContent='Copied your skill list.';
+    }catch(e){
+      const ta=document.createElement('textarea'); ta.value=resultText(); ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy');resultStatus.textContent='Copied your skill list.';}catch(err){resultStatus.textContent='Copy was blocked by your browser. Use Print / Save instead.';}
+      ta.remove();
+    }
+  }
+
+  function reset(){
+    experienceName.value=''; selectedRecentId=null; selectedTasks.clear(); chosenCompetencies.clear(); Object.keys(chosenSkills).forEach(k=>delete chosenSkills[k]); activeFilter='all'; otherActionText.value=''; otherActionFields.hidden=true; otherActionToggle.setAttribute('aria-expanded','false'); otherActionToggle.setAttribute('aria-pressed','false'); resultsPanel.hidden=true; resultStatus.textContent=''; reviewStatus.textContent=''; renderRecentExperiences(); renderFilters(); renderTasks(); updateSuggestions(); window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>experienceName.focus(),350);
+  }
+
+  buildResultsBtn.addEventListener('click',buildResults);
+  copyBtn.addEventListener('click',copyResults);
+  printBtn.addEventListener('click',()=>window.print());
+  resetBtn.addEventListener('click',reset);
+
+  loadRecentExperiences(); renderFilters(); renderTasks(); updateSuggestions();
+})();
 </script>
 </body>
 </html>
+index.html
+HTML
+index.html
+HTML
+Create next 
+
+Built the simplified Resume Builder.
+
+Download the new Resume Builder index.html
+
+This version is deliberately more focused than the old one:
+
+No Quick Tool/PCC header; it uses the same UIowa visual system as the other tools.
+No experience brainstorming inside the builder. It can optionally pull in recent experience names/context instead.
+No mini bullet builder. Students enter bullets here, while the dedicated Bullet Builder does the deeper coaching.
+Saved bullets from the standalone Bullet Builder can optionally appear inside the matching experience and be added with one click.
+Recent handoffs refresh when students return to the builder, so a bullet created in another tab can show up without making the resume builder dependent on it.
+Keeps the useful resume-specific functions: custom section names, moving sections by relevance, reverse-chronological ordering within sections, dates, locations, live preview, technical/language skills, and editable Word download.
+Preserves the header rules we established: city/state stays with contact information when there is no street address; an address moves to its own line; LinkedIn stays on its own line.
+Education displays the degree as BA (Major) and retains optional GPA, Dean’s List, minors, and certificates.
+The final step explicitly points students toward the Resume Format Checker instead of trying to perform that function here.
+
+That separation also matches current PCC guidance: section headings should help highlight relevant experience, while strong bullet development is its own substantive task using action verbs plus what was done and relevant results/context.
+
+This is the version I’d put into the existing Resume Builder repository, replacing its current index.html.
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Build Your Resume | My Career Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --iowa-black:#000;
+  --iowa-gold:#FFCD00;
+  --cool-gray:#63666A;
+  --paper:#fff;
+  --canvas:#F7F7F7;
+  --soft:#F1F1F1;
+  --soft-gold:#FFF8D6;
+  --border:#D6D6D6;
+  --link:#00558C;
+  --danger:#9c1c1c;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.045);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:#000;font:16px/1.5 "Roboto",Arial,Helvetica,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--iowa-gold);outline-offset:3px}
+.skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;background:#fff;color:#000;border:2px solid #000;padding:9px 12px;border-radius:6px}
+.skip-link:focus{left:8px}
+.shell{max-width:1180px;margin:0 auto;padding:22px 18px 72px}
+.intro,.panel,.preview-card{background:var(--paper);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}
+.intro{padding:28px 28px 24px;margin-bottom:16px}
+.panel{padding:24px;margin-bottom:16px}
+.gold-mark{width:42px;height:7px;background:var(--iowa-gold);border-radius:999px;margin-bottom:14px}
+h1,h2{font-family:"Antonio","Arial Narrow",Arial,sans-serif;font-weight:700;color:#000}
+h1{font-size:clamp(2.15rem,5vw,3.25rem);line-height:1;margin:0 0 10px;letter-spacing:-.025em}
+h2{font-size:1.62rem;line-height:1.12;margin:0 0 8px}
+h3{font-size:1rem;line-height:1.3;margin:0 0 5px}
+p{margin:0 0 12px}
+.lede{font-size:1.08rem;max-width:820px;margin-bottom:12px}
+.meta{font-size:.9rem;color:var(--cool-gray);margin:0}
+.notice{margin-top:18px;padding:13px 15px;border-left:5px solid var(--iowa-gold);background:var(--soft-gold);border-radius:0 11px 11px 0}
+.notice strong{display:block;margin-bottom:2px}
+.workspace{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(330px,.72fr);gap:18px;align-items:start}
+.preview-wrap{position:sticky;top:12px}
+.preview-card{padding:20px}
+.preview-card h2{font-size:1.3rem;margin-bottom:4px}
+.preview-note{font-size:.84rem;color:var(--cool-gray);margin-bottom:14px}
+.step-label{display:flex;align-items:center;gap:9px;margin-bottom:8px;font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.step-number{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--iowa-gold);font-weight:700}
+.section-copy{color:#2F3032;max-width:780px;margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+label{font-weight:700}
+.hint{font-size:.84rem;color:var(--cool-gray);font-weight:400}
+input[type="text"],input[type="email"],input[type="tel"],select,textarea{width:100%;border:1.5px solid #B8B8B8;border-radius:10px;padding:11px 12px;background:#fff;color:#000}
+input,select{min-height:46px}
+textarea{min-height:82px;resize:vertical}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--danger);box-shadow:inset 0 0 0 1px var(--danger)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:14px}
+.btn{border:1.5px solid #111;border-radius:9px;padding:10px 14px;background:#fff;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.primary{background:#000;color:#fff;border-color:#000}
+.btn.soft{background:var(--soft);border-color:#BEBEBE}
+.btn.small{padding:7px 10px;font-size:.84rem}
+.btn.danger{color:var(--danger);border-color:#C8A3A3;background:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.status{min-height:1.25em;margin-top:9px;font-size:.88rem;font-weight:700}
+.optional-block{border-top:1px solid #E2E2E2;margin-top:14px;padding-top:12px}
+.optional-block summary,.inline-help summary{cursor:pointer;font-weight:700}
+.inline-help{margin-top:12px}
+.recent-wrap{margin:0 0 16px;padding:14px;background:var(--soft);border-radius:12px}
+.recent-label{font-size:.84rem;font-weight:700;margin-bottom:8px}
+.recent-list{display:flex;flex-wrap:wrap;gap:8px}
+.recent-btn{border:1px solid #BFC0C1;background:#fff;border-radius:999px;padding:8px 11px;font-size:.86rem;font-weight:700;cursor:pointer;text-align:left}
+.recent-context{display:block;font-size:.74rem;font-weight:400;color:var(--cool-gray);margin-top:1px}
+.recent-note{font-size:.8rem;color:var(--cool-gray);margin:8px 0 0}
+.exp-card{border:1px solid #D7D7D7;border-radius:15px;background:#fff;margin-top:14px;overflow:hidden}
+.exp-head{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#FAFAFA;border-bottom:1px solid #E0E0E0;padding:12px 14px}
+.exp-head strong{display:block}
+.exp-head .sub{font-size:.8rem;color:var(--cool-gray)}
+.exp-body{padding:14px}
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.date-pair{display:grid;grid-template-columns:1.15fr .85fr;gap:6px}
+.check-label{display:flex;align-items:center;gap:7px;font-weight:500;margin-top:7px;font-size:.9rem}
+.check-label input{min-height:auto;width:auto}
+.bullet-zone{margin-top:7px;padding-top:12px;border-top:1px solid #E7E7E7}
+.bullet-zone-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:7px}
+.bullet-zone-title strong{font-size:.95rem}
+.bullet-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;margin:8px 0}
+.bullet-row textarea{min-height:70px}
+.bullet-help{font-size:.84rem;color:#424345;background:var(--soft-gold);border-radius:10px;padding:10px 12px;margin:9px 0}
+.bullet-handoff{background:#FAFAFA;border:1px solid #DEDEDE;border-radius:11px;padding:11px;margin:9px 0}
+.bullet-handoff strong{display:block;font-size:.86rem;margin-bottom:6px}
+.handoff-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid #E5E5E5}
+.handoff-item:first-of-type{border-top:0;padding-top:0}
+.handoff-text{font-size:.85rem;overflow-wrap:anywhere}
+.section-order{margin-top:15px;background:#FAFAFA;border:1px solid #DDD;border-radius:13px;padding:13px}
+.section-order-list{display:grid;gap:7px;margin-top:9px}
+.order-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;background:#fff;border:1px solid #D4D4D4;border-radius:9px;padding:8px 10px}
+.order-actions{display:flex;gap:6px}
+.order-actions .btn{min-height:42px}
+.skills-example{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:11px;padding:11px 12px;font-size:.84rem;margin-bottom:13px}
+.skills-example strong{display:block;margin-bottom:3px}
+.finish-box{border:2px solid #111}
+.finish-note{font-size:.9rem;color:#353638}
+.save-options{border-top:1px solid #D8D8D8;margin-top:14px;padding-top:12px}
+.mobile-save-note{display:none;background:var(--soft-gold);border-left:4px solid var(--iowa-gold);padding:10px 11px;margin:10px 0;border-radius:0 9px 9px 0;font-size:.86rem}
+.resource-link{font-size:.86rem;margin-top:14px}
+.next-step{margin-top:14px;padding:12px 14px;background:var(--soft);border-radius:11px;font-size:.88rem}
+[hidden]{display:none!important}
+/* Resume preview */
+.resume-preview{font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.3;color:#111;background:#fff;border:1px solid #E2E2E2;padding:18px;min-height:470px}
+.p-name{text-align:center;font-size:17px;font-weight:700;letter-spacing:.01em}
+.p-contact{text-align:center;font-size:11px;margin-top:1px;overflow-wrap:anywhere}
+.p-section{font-size:12px;font-weight:700;margin:14px 0 3px;text-transform:uppercase}
+.p-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.p-right{white-space:nowrap;text-align:right}
+.p-bold{font-weight:700}
+.p-small{font-size:11px}
+.p-exp{margin-bottom:9px}
+.p-exp ul,.p-edu-list{margin:2px 0 0;padding-left:17px}
+.p-empty{font-size:11px;color:#777;font-style:italic}
+@media(max-width:960px){.workspace{grid-template-columns:1fr}.preview-wrap{position:static}}
+@media(max-width:700px){
+  .shell{padding:12px 10px 48px}.intro,.panel,.preview-card{padding:20px 17px;border-radius:16px}.form-grid,.form-grid.three,.section-grid,.date-grid{grid-template-columns:1fr}.date-pair{grid-template-columns:1fr 1fr}.exp-head{align-items:flex-start}.order-item{grid-template-columns:1fr}.order-actions{justify-content:flex-start}.mobile-save-note{display:block}.finish-box .actions{display:grid;grid-template-columns:1fr}.finish-box .actions .btn{width:100%;text-align:center;min-height:48px}.recent-btn{width:100%}
+}
+@media(max-width:440px){.date-pair{grid-template-columns:1fr}.bullet-row{grid-template-columns:1fr}.bullet-row .btn{width:100%}.handoff-item{grid-template-columns:1fr}.handoff-item .btn{width:100%}}
+@media print{body{background:#fff}.shell{max-width:none;padding:0}.intro,.workspace>div:first-child,.preview-card>h2,.preview-note{display:none!important}.workspace{display:block}.preview-wrap{position:static}.preview-card{border:0;box-shadow:none;padding:0}.resume-preview{border:0;padding:0}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#builder">Skip to resume builder</a>
+<main class="shell" id="builder">
+  <section class="intro" aria-labelledby="page-title">
+    <div class="gold-mark" aria-hidden="true"></div>
+    <h1 id="page-title">Build Your Resume</h1>
+    <p class="lede">Put your information into a clear, editable resume. This builder handles structure and formatting; use the other My Career Path activities when you need deeper help brainstorming experiences, identifying skills, or writing bullets.</p>
+    <p class="meta" id="storageNote">Download your resume before leaving this page so you have a copy you can keep editing.</p>
+    <div class="notice"><strong>Your resume does not need to look exactly like someone else’s.</strong> Choose section names and an order that make your most relevant experience easy to find. Experiences within each section are arranged in reverse chronological order.</div>
+  </section>
+
+  <div class="workspace">
+    <div>
+      <section class="panel" aria-labelledby="basics-title">
+        <div class="step-label"><span class="step-number">1</span> Basics</div>
+        <h2 id="basics-title">Add your contact information and education</h2>
+        <p class="section-copy">The builder handles the placement. Keep your contact information professional and your education details concise.</p>
+
+        <h3>Contact information</h3>
+        <div class="form-grid">
+          <div class="field"><label for="name">Name</label><input id="name" type="text" autocomplete="name"></div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email"></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" autocomplete="tel" placeholder="319-555-1234"></div>
+          <div class="field"><label for="linkedin">LinkedIn <span class="hint">(optional)</span></label><input id="linkedin" type="text" placeholder="linkedin.com/in/yourname"></div>
+          <div class="field"><label for="city">City</label><input id="city" type="text" autocomplete="address-level2" placeholder="Iowa City"></div>
+          <div class="field"><label for="state">State abbreviation</label><input id="state" type="text" autocomplete="address-level1" maxlength="2" placeholder="IA"><span class="hint">Use the 2-letter abbreviation.</span></div>
+        </div>
+        <details class="optional-block">
+          <summary>Add a street address</summary>
+          <div class="field" style="margin-top:11px"><label for="streetAddress">Street address <span class="hint">(optional)</span></label><input id="streetAddress" type="text" autocomplete="street-address" placeholder="123 Main Street"><span class="hint">If included, the full address appears on its own line. If omitted, city and state stay with your other contact information.</span></div>
+        </details>
+
+        <h3 style="margin-top:22px">Education</h3>
+        <div class="form-grid">
+          <div class="field"><label for="school">School</label><input id="school" type="text" value="University of Iowa"></div>
+          <div class="field"><label for="schoolLocation">School location</label><input id="schoolLocation" type="text" value="Iowa City, IA"></div>
+          <div class="field"><label for="degree">Degree</label><select id="degree"><option value="">Choose</option><option>BA</option><option>BS</option><option>BBA</option><option>BFA</option><option>Other</option></select></div>
+          <div class="field" id="otherDegreeWrap" hidden><label for="otherDegree">Degree name</label><input id="otherDegree" type="text" placeholder="Bachelor of Music"></div>
+          <div class="field"><label for="major">Major</label><input id="major" type="text" placeholder="Psychology"></div>
+          <div class="field"><label for="gradMonth">Anticipated graduation month</label><select id="gradMonth"></select></div>
+          <div class="field"><label for="gradYear">Anticipated graduation year</label><select id="gradYear"></select></div>
+        </div>
+        <details class="optional-block" id="educationDetails">
+          <summary>Add optional education details</summary>
+          <div class="form-grid" style="margin-top:11px">
+            <div class="field"><label for="minor">Minor</label><input id="minor" type="text" placeholder="Spanish"></div>
+            <div class="field"><label for="certificates">Certificate(s)</label><input id="certificates" type="text" placeholder="Writing; Public Health"></div>
+            <div class="field"><label for="deansList">Dean’s List</label><input id="deansList" type="text" placeholder="Fall 2026 – Spring 2028, Spring 2029"><span class="hint">Enter the terms exactly as you want them to appear.</span></div>
+            <div class="field"><label for="gpa">GPA</label><input id="gpa" type="text" inputmode="decimal" placeholder="3.62"><span class="hint">Consider including it when it is 3.0 or above. /4.0 is added automatically.</span></div>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel" aria-labelledby="experience-title">
+        <div class="step-label"><span class="step-number">2</span> Experiences</div>
+        <h2 id="experience-title">Add and organize your experiences</h2>
+        <p class="section-copy">This is where resume-specific decisions belong: which experiences to include, what section they fit under, their dates, and the bullets you want an employer to see.</p>
+
+        <div class="recent-wrap" id="recentExperienceWrap" hidden>
+          <div class="recent-label">Add from recent brainstorm work</div>
+          <div class="recent-list" id="recentExperienceList" aria-label="Recent brainstormed experiences"></div>
+          <p class="recent-note">These appear only when recent work is available on this device. Choosing one adds its name and context; you still decide how it belongs on this resume.</p>
+        </div>
+
+        <div class="bullet-help"><strong>Need to remember more possibilities?</strong> Use <em>Brainstorm Your Experiences</em> in My Career Path, then return here. This builder intentionally does not repeat the full brainstorm activity.</div>
+
+        <div id="experienceEditor"></div>
+        <div class="actions"><button class="btn" id="addExperience" type="button">+ Add an Experience</button></div>
+
+        <div class="section-order" id="sectionOrderWrap" hidden>
+          <h3>Arrange your experience sections</h3>
+          <p class="hint">Move the section with the most relevant experience higher when applying. Experiences within each section are automatically arranged by most recent end date.</p>
+          <div class="section-order-list" id="sectionOrderList"></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="skills-title">
+        <div class="step-label"><span class="step-number">3</span> Skills</div>
+        <h2 id="skills-title">Add technical and language skills</h2>
+        <p class="section-copy">Use this section for specific technical tools, computer/programming languages, operating systems, software, or spoken/written languages—not general qualities such as communication, teamwork, or leadership.</p>
+        <div class="skills-example"><strong>Example of the level of specificity to use</strong>Languages: SQL, C++, Java, Ruby, Python, HTML5, CSS<br>Operating Systems: UNIX, Windows, LINUX, Mac OS X<br>Software: Microsoft Access, Adobe Acrobat</div>
+        <details id="skillsDetails">
+          <summary><strong>+ Add technical or language skills</strong></summary>
+          <div style="margin-top:13px">
+            <h3>Computer Skills</h3>
+            <div class="field"><label for="programmingLanguages">Programming / computer languages</label><input id="programmingLanguages" type="text" placeholder="SQL, C++, Java, Ruby, Python, HTML5, CSS"></div>
+            <div class="field"><label for="operatingSystems">Operating Systems</label><input id="operatingSystems" type="text" placeholder="UNIX, Windows, LINUX, Mac OS X"></div>
+            <div class="field"><label for="software">Software</label><input id="software" type="text" placeholder="Microsoft Access, Adobe Acrobat"></div>
+            <h3 style="margin-top:17px">Languages</h3>
+            <div class="field"><label for="spokenLanguages">Spoken / written languages</label><input id="spokenLanguages" type="text" placeholder="Spanish (conversational)"><span class="hint">Use this for languages such as Spanish or Arabic—not programming languages.</span></div>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel finish-box" aria-labelledby="finish-title">
+        <div class="step-label"><span class="step-number">4</span> Finish</div>
+        <h2 id="finish-title">Create your editable resume</h2>
+        <p class="finish-note">The Word file uses a simple single-column layout, consistent margins, aligned dates, real bullet points, and no decorative graphics. You can continue editing it in Word.</p>
+        <div class="mobile-save-note"><strong>On a phone or tablet:</strong> after creating the file, use <strong>Share / Save</strong> to save it to Files, open it in Word, or send it to yourself.</div>
+        <div class="actions"><button class="btn primary" id="downloadResume" type="button">Create My Word Resume</button></div>
+        <div class="status" id="downloadStatus" role="status" aria-live="polite"></div>
+        <div class="save-options" id="saveOptions" hidden>
+          <strong>Your Word resume is ready.</strong>
+          <div class="actions"><button class="btn primary" id="shareResume" type="button" hidden>Share / Save Resume</button><a class="btn" id="downloadAgain" href="#">Download .docx</a></div>
+          <p class="hint">Edit the file as needed, then save/export a PDF for most applications unless the employer requests another format.</p>
+        </div>
+        <div class="next-step"><strong>Before submitting:</strong> use the Resume Format Checker in My Career Path to catch common content and formatting issues.</div>
+        <p class="resource-link"><a href="https://careers.uiowa.edu/resumes" target="_blank" rel="noopener">View Pomerantz Career Center resume guidance and examples</a></p>
+      </section>
+    </div>
+
+    <aside class="preview-wrap" aria-label="Resume content preview">
+      <section class="preview-card">
+        <h2>Resume preview</h2>
+        <p class="preview-note">Use this to check content and order. The Word file handles the final page formatting.</p>
+        <div class="resume-preview" id="preview"></div>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<script src="https://unpkg.com/docx@8.2.4/build/index.umd.js"></script>
+<script>
+(()=>{
+'use strict';
+const BUILDER_KEY='uiowaResumeBuilder_v2';
+const OLD_BUILDER_KEY='pccStandaloneResumeBuilderV1';
+const EXPERIENCE_BANK_KEY='uiowaCareerExperienceBank_v1';
+const BULLET_BANK_KEY='uiowaCareerBulletBank_v1';
+const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const sectionPresets=['Relevant Experience','Work Experience','Leadership & Involvement','Volunteer Experience','Projects','Research','Teaching / Clinical / Field Experience','Additional Experience'];
+const $=id=>document.getElementById(id);
+let storageOK=false;
+let data={version:2,fields:{},experiences:[],sectionOrder:[]};
+let recentExperiences=[];
+let bulletBank=[];
+let lastDownloadUrl='';
+let lastDownloadFile=null;
+
+function uid(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():`exp-${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
+function escapeHtml(v=''){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function attr(v=''){return escapeHtml(v).replace(/`/g,'&#96;')}
+function cleanBullet(s=''){return String(s||'').replace(/^\s*[•\-*]\s*/,'').trim().replace(/[.]+\s*$/,'')}
+function normalize(s=''){return String(s||'').trim().toLowerCase()}
+function capState(s=''){return String(s||'').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase()}
+function field(id){return $(id)?.value?.trim?.()||''}
+function safeArray(key){try{const v=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(v)?v:[]}catch(_){return[]}}
+function testStorage(){try{const k='__uiowa_resume_test__';localStorage.setItem(k,'1');localStorage.removeItem(k);return true}catch(_){return false}}
+function safeSet(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(_){return false}}
+
+function defaultExp(title='',org=''){
+  return {id:uid(),title,org,section:'',customSection:'',expCity:'',expState:'',startMonth:'',startYear:'',endMonth:'',endYear:'',current:false,bullets:['']};
+}
+function migrateExp(e={}){
+  return {...defaultExp(),...e,id:e.id||uid(),expState:capState(e.expState||''),bullets:(Array.isArray(e.bullets)&&e.bullets.length?e.bullets:['']).map(cleanBullet)};
+}
+function load(){
+  storageOK=testStorage();
+  let saved=null;
+  if(storageOK){
+    try{saved=JSON.parse(localStorage.getItem(BUILDER_KEY)||'null')}catch(_){saved=null}
+    if(!saved){try{saved=JSON.parse(localStorage.getItem(OLD_BUILDER_KEY)||'null')}catch(_){saved=null}}
+  }
+  if(saved&&Array.isArray(saved.experiences)){
+    data={version:2,fields:saved.fields||{},experiences:saved.experiences.map(migrateExp),sectionOrder:Array.isArray(saved.sectionOrder)?saved.sectionOrder:[]};
+  }else{
+    data={version:2,fields:{},experiences:[defaultExp()],sectionOrder:[]};
+  }
+  recentExperiences=safeArray(EXPERIENCE_BANK_KEY).filter(x=>x&&x.experienceName).slice().reverse().slice(0,8);
+  bulletBank=safeArray(BULLET_BANK_KEY).filter(x=>x&&x.experienceName&&x.bullet);
+  $('storageNote').textContent=storageOK?'Recent work can be remembered on this device when browser storage is available. Download your resume before leaving so you have a copy you control.':'Local browser saving is not available here. The builder still works, but download your resume before leaving this page.';
+}
+function save(){
+  const ids=['name','email','phone','linkedin','city','state','streetAddress','school','schoolLocation','degree','otherDegree','major','gradMonth','gradYear','minor','certificates','deansList','gpa','programmingLanguages','operatingSystems','software','spokenLanguages'];
+  ids.forEach(id=>{if($(id))data.fields[id]=$(id).value});
+  syncSectionOrder();
+  if(storageOK)safeSet(BUILDER_KEY,data);
+}
+function fillGrad(){
+  const now=new Date().getFullYear();
+  $('gradMonth').innerHTML='<option value="">Month</option>'+months.map(m=>`<option>${m}</option>`).join('');
+  $('gradYear').innerHTML='<option value="">Year</option>'+Array.from({length:10},(_,i)=>now+i).map(y=>`<option>${y}</option>`).join('');
+}
+function restore(){
+  Object.entries(data.fields||{}).forEach(([k,v])=>{if($(k))$(k).value=v});
+  $('otherDegreeWrap').hidden=$('degree').value!=='Other';
+  if(field('programmingLanguages')||field('operatingSystems')||field('software')||field('spokenLanguages'))$('skillsDetails').open=true;
+  if(field('streetAddress'))document.querySelector('details.optional-block')?.setAttribute('open','');
+  if(field('minor')||field('certificates')||field('deansList')||field('gpa'))$('educationDetails').open=true;
+}
+function monthOptions(selected=''){return '<option value="">Month</option>'+months.map((m,i)=>`<option value="${i+1}"${String(selected)===String(i+1)?' selected':''}>${m}</option>`).join('')}
+function yearOptions(selected=''){
+  const now=new Date().getFullYear();let h='<option value="">Year</option>';
+  for(let y=now+8;y>=now-15;y--)h+=`<option${String(selected)===String(y)?' selected':''}>${y}</option>`;
+  return h;
+}
+function sectionOptions(selected=''){
+  const custom=selected&&!sectionPresets.includes(selected);
+  return '<option value="">Choose a resume section</option>'+sectionPresets.map(s=>`<option${s===selected?' selected':''}>${s}</option>`).join('')+`<option value="__custom"${custom?' selected':''}>Create my own section…</option>`;
+}
+function dateLabel(e){
+  const sm=months[Number(e.startMonth)-1]||'';const start=[sm,e.startYear].filter(Boolean).join(' ');
+  let end='';if(e.current)end='Present';else{const em=months[Number(e.endMonth)-1]||'';end=[em,e.endYear].filter(Boolean).join(' ')}
+  return start&&end?`${start}–${end}`:start||end;
+}
+function endKey(e){return e.current?999999:Number(`${e.endYear||'0'}${String(e.endMonth||'0').padStart(2,'0')}`)}
+function expLoc(e){return [e.expCity,capState(e.expState)].filter(Boolean).join(', ')}
+function cityStateLine(){return [field('city'),capState(field('state'))].filter(Boolean).join(', ')}
+function streetLine(){return [field('streetAddress'),cityStateLine()].filter(Boolean).join(' | ')}
+function degreeLine(){const d=field('degree')==='Other'?field('otherDegree'):field('degree');const m=field('major');return d&&m?`${d} (${m})`:d||m}
+function gradLine(){return [field('gradMonth'),field('gradYear')].filter(Boolean).join(' ')}
+function gpaLine(){const g=field('gpa').replace(/\/4\.0$/,'').trim();return g?`${g}/4.0`:''}
+
+function renderRecentExperiences(){
+  const wrap=$('recentExperienceWrap'),list=$('recentExperienceList');list.innerHTML='';
+  wrap.hidden=!recentExperiences.length;
+  recentExperiences.forEach(exp=>{
+    const btn=document.createElement('button');btn.type='button';btn.className='recent-btn';
+    btn.innerHTML=`${escapeHtml(exp.experienceName)}${exp.context?`<span class="recent-context">${escapeHtml(exp.context)}</span>`:''}`;
+    btn.addEventListener('click',()=>addRecentExperience(exp));list.appendChild(btn);
+  });
+}
+function addRecentExperience(exp){
+  const exists=data.experiences.some(e=>normalize(e.title)===normalize(exp.experienceName)&&normalize(e.org)===normalize(exp.context||''));
+  if(exists){document.querySelector(`[data-title-key="${CSS.escape(normalize(exp.experienceName))}"]`)?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  data.experiences.push(defaultExp(exp.experienceName||'',exp.context||''));save();renderExperiences();renderSectionOrder();renderPreview();
+  document.querySelector('.exp-card:last-of-type')?.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function matchingBullets(e){
+  return bulletBank.filter(b=>normalize(b.experienceName)===normalize(e.title)).filter(b=>!(e.bullets||[]).some(x=>normalize(x)===normalize(b.bullet))).slice(0,5);
+}
+function bulletHandoffHtml(e){
+  const matches=matchingBullets(e);if(!matches.length)return'';
+  return `<div class="bullet-handoff"><strong>Recent bullets available for this experience</strong>${matches.map(b=>`<div class="handoff-item"><div class="handoff-text">• ${escapeHtml(b.bullet)}</div><button type="button" class="btn small" data-import-bullet="${attr(b.id||b.bullet)}">Add</button></div>`).join('')}</div>`;
+}
+function renderExperiences(){
+  const root=$('experienceEditor');
+  if(!data.experiences.length){root.innerHTML='<div class="recent-note">No experiences added yet.</div>';return;}
+  root.innerHTML=data.experiences.map((e,idx)=>{
+    const custom=e.section&&!sectionPresets.includes(e.section);
+    return `<article class="exp-card" data-id="${attr(e.id)}" data-title-key="${attr(normalize(e.title))}">
+      <div class="exp-head"><div><strong>${escapeHtml(e.title||`Experience ${idx+1}`)}</strong><span class="sub">${escapeHtml(e.section||'Choose a resume section')}</span></div><button class="btn small danger" type="button" data-remove="${attr(e.id)}">Remove</button></div>
+      <div class="exp-body">
+        <div class="form-grid">
+          <div class="field"><label>Role, project, or activity name</label><input type="text" data-field="title" value="${attr(e.title)}" placeholder="Resident Assistant"></div>
+          <div class="field"><label>Organization, course, or setting</label><input type="text" data-field="org" value="${attr(e.org)}" placeholder="University Housing"></div>
+        </div>
+        <div class="section-grid">
+          <div class="field"><label>Resume section</label><select data-field="sectionChoice">${sectionOptions(e.section)}</select><span class="hint">Choose the heading that helps a reader understand why this experience matters.</span></div>
+          <div class="field" data-custom-wrap ${custom?'':'hidden'}><label>Custom section name</label><input type="text" data-field="customSection" value="${custom?attr(e.section):''}" placeholder="Campus Experience"></div>
+        </div>
+        <div class="form-grid">
+          <div class="field"><label>Location</label><div class="form-grid"><input type="text" aria-label="City" data-field="expCity" value="${attr(e.expCity)}" placeholder="Iowa City"><input type="text" aria-label="State abbreviation" data-field="expState" value="${attr(e.expState)}" placeholder="IA" maxlength="2"></div></div>
+          <div class="field"><label>Dates</label><div class="date-grid"><div><span class="hint">Start</span><div class="date-pair"><select aria-label="Start month" data-field="startMonth">${monthOptions(e.startMonth)}</select><select aria-label="Start year" data-field="startYear">${yearOptions(e.startYear)}</select></div></div><div><span class="hint">End</span><div class="date-pair"><select aria-label="End month" data-field="endMonth" ${e.current?'disabled':''}>${monthOptions(e.endMonth)}</select><select aria-label="End year" data-field="endYear" ${e.current?'disabled':''}>${yearOptions(e.endYear)}</select></div><label class="check-label"><input type="checkbox" data-field="current" ${e.current?'checked':''}> I currently do this</label></div></div></div>
+        </div>
+        <div class="bullet-zone">
+          <div class="bullet-zone-title"><strong>Resume bullets</strong><span class="hint">Add only the bullets you want on this version of your resume.</span></div>
+          ${bulletHandoffHtml(e)}
+          <div class="bullet-list">${(e.bullets||['']).map((b,i)=>`<div class="bullet-row"><textarea data-bullet="${i}" aria-label="Bullet ${i+1} for ${attr(e.title||'this experience')}" placeholder="Start with an action verb and describe what you did">${escapeHtml(cleanBullet(b))}</textarea><button class="btn small" type="button" data-delete-bullet="${i}" aria-label="Remove bullet ${i+1}">Remove</button></div>`).join('')}</div>
+          <div class="actions"><button class="btn small soft" type="button" data-add-bullet="${attr(e.id)}">+ Add Bullet</button></div>
+          <div class="bullet-help"><strong>Stuck on the wording?</strong> Use <em>Build a Strong Resume Bullet</em> in My Career Path. If you keep a bullet there and browser storage is available, it can appear here as an optional suggestion.</div>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+function syncSectionOrder(){
+  const used=[];data.experiences.forEach(e=>{const s=String(e.section||'').trim();if(s&&!used.includes(s))used.push(s)});
+  if(!Array.isArray(data.sectionOrder))data.sectionOrder=[];
+  data.sectionOrder=data.sectionOrder.filter(s=>used.includes(s));used.forEach(s=>{if(!data.sectionOrder.includes(s))data.sectionOrder.push(s)});
+}
+function renderSectionOrder(){
+  syncSectionOrder();const wrap=$('sectionOrderWrap'),list=$('sectionOrderList');
+  const used=data.sectionOrder.filter(s=>data.experiences.some(e=>(e.title||e.org)&&e.section===s));
+  wrap.hidden=used.length<2;list.innerHTML='';if(used.length<2)return;
+  list.innerHTML=used.map((s,i)=>`<div class="order-item"><strong>${escapeHtml(s)}</strong><div class="order-actions"><button class="btn small" type="button" data-order-up="${i}" ${i===0?'disabled':''}>↑ Move up</button><button class="btn small" type="button" data-order-down="${i}" ${i===used.length-1?'disabled':''}>↓ Move down</button></div></div>`).join('');
+}
+function getGroups(){
+  const groups={};data.experiences.forEach(e=>{if(!e.section||(!e.title&&!e.org))return;(groups[e.section]??=[]).push(e)});Object.values(groups).forEach(arr=>arr.sort((a,b)=>endKey(b)-endKey(a)));return groups;
+}
+function orderedSections(groups){syncSectionOrder();const ordered=data.sectionOrder.filter(s=>groups[s]?.length);Object.keys(groups).forEach(s=>{if(!ordered.includes(s))ordered.push(s)});return ordered}
+function renderPreview(){
+  let html='';const name=field('name');const cityState=cityStateLine();const hasStreet=!!field('streetAddress');
+  const contact=[field('email'),field('phone'),...(!hasStreet&&cityState?[cityState]:[])].filter(Boolean).join(' | ');
+  html+=`<div class="p-name">${escapeHtml((name||'YOUR NAME').toUpperCase())}</div>`;
+  if(contact)html+=`<div class="p-contact">${escapeHtml(contact)}</div>`;
+  if(field('linkedin'))html+=`<div class="p-contact">${escapeHtml(field('linkedin'))}</div>`;
+  if(hasStreet)html+=`<div class="p-contact">${escapeHtml(streetLine())}</div>`;
+  if(field('school')||degreeLine()){
+    html+=`<div class="p-section">EDUCATION</div><div class="p-row"><span class="p-bold">${escapeHtml([field('school'),field('schoolLocation')].filter(Boolean).join(', '))}</span><span class="p-right">${gradLine()?`Anticipated ${escapeHtml(gradLine())}`:''}</span></div><div>${escapeHtml(degreeLine())}</div>`;
+    const extras=[];if(field('minor'))extras.push(`Minor: ${field('minor')}`);if(field('certificates'))extras.push(`Certificate${field('certificates').includes(';')?'s':''}: ${field('certificates').replace(/;/g,', ')}`);if(field('deansList'))extras.push(`Dean's List: ${field('deansList')}`);if(gpaLine())extras.push(`GPA: ${gpaLine()}`);
+    if(extras.length)html+=`<ul class="p-edu-list">${extras.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`;
+  }
+  const groups=getGroups();orderedSections(groups).forEach(section=>{
+    html+=`<div class="p-section">${escapeHtml(section)}</div>`;
+    groups[section].forEach(e=>{const bullets=(e.bullets||[]).map(cleanBullet).filter(Boolean);html+=`<div class="p-exp"><div class="p-row"><span class="p-bold">${escapeHtml(e.title||'Experience Title')}</span><span class="p-right">${escapeHtml(dateLabel(e))}</span></div><div class="p-small">${escapeHtml([e.org,expLoc(e)].filter(Boolean).join(', '))}</div>${bullets.length?`<ul>${bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul>`:'<div class="p-empty">Add bullets</div>'}</div>`});
+  });
+  if(field('programmingLanguages')||field('operatingSystems')||field('software')){
+    html+=`<div class="p-section">COMPUTER SKILLS</div>${field('programmingLanguages')?`<div><span class="p-bold">Languages:</span> ${escapeHtml(field('programmingLanguages'))}</div>`:''}${field('operatingSystems')?`<div><span class="p-bold">Operating Systems:</span> ${escapeHtml(field('operatingSystems'))}</div>`:''}${field('software')?`<div><span class="p-bold">Software:</span> ${escapeHtml(field('software'))}</div>`:''}`;
+  }
+  if(field('spokenLanguages'))html+=`<div class="p-section">LANGUAGES</div><div>${escapeHtml(field('spokenLanguages'))}</div>`;
+  $('preview').innerHTML=html;
+}
+
+$('addExperience').addEventListener('click',()=>{data.experiences.push(defaultExp());save();renderExperiences();renderSectionOrder();renderPreview();document.querySelector('.exp-card:last-of-type')?.scrollIntoView({behavior:'smooth',block:'center'})});
+$('experienceEditor').addEventListener('input',e=>{
+  const card=e.target.closest('.exp-card');if(!card)return;const exp=data.experiences.find(x=>String(x.id)===String(card.dataset.id));if(!exp)return;
+  if(e.target.dataset.field){const k=e.target.dataset.field;if(k==='expState')e.target.value=capState(e.target.value);if(k==='customSection')exp.section=e.target.value;else if(!['sectionChoice','current'].includes(k))exp[k]=e.target.value}
+  if(e.target.dataset.bullet!==undefined)exp.bullets[Number(e.target.dataset.bullet)]=cleanBullet(e.target.value);
+  save();renderSectionOrder();renderPreview();
+});
+$('experienceEditor').addEventListener('change',e=>{
+  const card=e.target.closest('.exp-card');if(!card)return;const exp=data.experiences.find(x=>String(x.id)===String(card.dataset.id));if(!exp)return;
+  if(e.target.dataset.field==='sectionChoice'){
+    if(e.target.value==='__custom'){exp.section='';card.querySelector('[data-custom-wrap]').hidden=false}else{exp.section=e.target.value;card.querySelector('[data-custom-wrap]').hidden=true}
+  }
+  if(e.target.dataset.field==='current'){exp.current=e.target.checked;if(exp.current){exp.endMonth='';exp.endYear=''}renderExperiences()}
+  if(e.target.dataset.field&&!['sectionChoice','current'].includes(e.target.dataset.field)){const k=e.target.dataset.field;if(k==='expState')e.target.value=capState(e.target.value);exp[k]=e.target.value}
+  save();renderSectionOrder();renderPreview();
+});
+$('experienceEditor').addEventListener('click',e=>{
+  const card=e.target.closest('.exp-card');const exp=card?data.experiences.find(x=>String(x.id)===String(card.dataset.id)):null;
+  if(e.target.dataset.remove){data.experiences=data.experiences.filter(x=>String(x.id)!==String(e.target.dataset.remove));save();renderExperiences();renderSectionOrder();renderPreview();return}
+  if(!exp)return;
+  if(e.target.dataset.addBullet){exp.bullets.push('');save();renderExperiences();return}
+  if(e.target.dataset.deleteBullet!==undefined){exp.bullets.splice(Number(e.target.dataset.deleteBullet),1);if(!exp.bullets.length)exp.bullets=[''];save();renderExperiences();renderPreview();return}
+  if(e.target.dataset.importBullet!==undefined){const key=e.target.dataset.importBullet;const item=bulletBank.find(b=>String(b.id||b.bullet)===String(key));if(item){const blank=exp.bullets.findIndex(b=>!String(b||'').trim());if(blank>=0)exp.bullets[blank]=cleanBullet(item.bullet);else exp.bullets.push(cleanBullet(item.bullet));save();renderExperiences();renderPreview()}return}
+});
+$('sectionOrderList').addEventListener('click',e=>{
+  const up=e.target.closest('[data-order-up]'),down=e.target.closest('[data-order-down]');if(!up&&!down)return;syncSectionOrder();const btn=up||down;const i=Number(up?btn.dataset.orderUp:btn.dataset.orderDown);const j=up?i-1:i+1;if(j<0||j>=data.sectionOrder.length)return;[data.sectionOrder[i],data.sectionOrder[j]]=[data.sectionOrder[j],data.sectionOrder[i]];save();renderSectionOrder();renderPreview();
+});
+
+function bindFields(){
+  const ids=['name','email','phone','linkedin','city','state','streetAddress','school','schoolLocation','degree','otherDegree','major','gradMonth','gradYear','minor','certificates','deansList','gpa','programmingLanguages','operatingSystems','software','spokenLanguages'];
+  ids.forEach(id=>$(id).addEventListener('input',()=>{if(id==='state')$('state').value=capState($('state').value);save();renderPreview()}));
+  $('degree').addEventListener('change',()=>{$('otherDegreeWrap').hidden=$('degree').value!=='Other';save();renderPreview()});
+}
+function validate(){
+  document.querySelectorAll('[aria-invalid="true"]').forEach(el=>el.removeAttribute('aria-invalid'));
+  const required=[['name','name'],['email','email'],['phone','phone'],['city','city'],['state','state'],['school','school'],['degree','degree'],['major','major'],['gradMonth','graduation month'],['gradYear','graduation year']];
+  const missing=[];let first=null;
+  required.forEach(([id,label])=>{if(!field(id)){missing.push(label);$(id).setAttribute('aria-invalid','true');first??=$(id)}});
+  if(field('degree')==='Other'&&!field('otherDegree')){missing.push('degree name');$('otherDegree').setAttribute('aria-invalid','true');first??=$('otherDegree')}
+  if(field('state')&&!/^[A-Za-z]{2}$/.test(field('state'))){missing.push('a 2-letter state abbreviation');$('state').setAttribute('aria-invalid','true');first??=$('state')}
+  if(field('email')&&!$('email').checkValidity()){missing.push('a valid email');$('email').setAttribute('aria-invalid','true');first??=$('email')}
+  const filled=data.experiences.filter(e=>e.title||e.org||e.section||(e.bullets||[]).some(b=>String(b||'').trim()));
+  for(const e of filled){
+    const dateComplete=e.startMonth&&e.startYear&&(e.current||(e.endMonth&&e.endYear));
+    if(!e.title||!e.org||!e.section||!e.expCity||!/^[A-Za-z]{2}$/.test(e.expState||'')||!dateComplete){missing.push(`complete title, organization, section, location, and dates for ${e.title||'an experience'}`);first??=document.querySelector(`[data-id="${CSS.escape(String(e.id))}"] input, [data-id="${CSS.escape(String(e.id))}"] select`);break}
+  }
+  if(!filled.length)missing.push('at least one experience');
+  if(missing.length){$('downloadStatus').textContent='Before creating the Word file, add '+missing.join('; ')+'.';first?.focus();return false}
+  return true;
+}
+function makeWordDocument(){
+  if(!window.docx)throw new Error('docx library unavailable');
+  const {Document,Paragraph,TextRun,Tab,AlignmentType,TabStopType,PageOrientation}=window.docx;
+  const FONT='Arial',BODY=21,SMALL=19,NAME=32,RIGHT=10368,GAP=210;
+  const run=(t,o={})=>new TextRun({text:String(t||''),font:FONT,size:o.size||BODY,bold:!!o.bold,italics:!!o.italics});
+  const rightLine=(l,r,o={})=>new Paragraph({children:[run(l,{bold:!!o.leftBold}),new TextRun({children:[new Tab(),String(r||'')],font:FONT,size:BODY,bold:!!o.rightBold})],tabStops:[{type:TabStopType.RIGHT,position:RIGHT}],spacing:{before:o.before||0,after:o.after||0},keepNext:true,widowControl:true});
+  const heading=t=>new Paragraph({children:[run(String(t).toUpperCase(),{bold:true})],spacing:{before:GAP,after:0},keepNext:true,widowControl:true});
+  const bullet=t=>new Paragraph({children:[run(cleanBullet(t))],bullet:{level:0},indent:{left:360,hanging:180},spacing:{after:0},widowControl:true});
+  const line=(runs=[],after=0,keep=false)=>new Paragraph({children:runs,spacing:{after},keepNext:keep,widowControl:true});
+  const children=[];
+  children.push(new Paragraph({children:[run(field('name').toUpperCase(),{bold:true,size:NAME})],alignment:AlignmentType.CENTER,spacing:{after:0},keepNext:true}));
+  const cityState=cityStateLine(),hasStreet=!!field('streetAddress');const contact=[field('email'),field('phone'),...(!hasStreet&&cityState?[cityState]:[])].filter(Boolean).join(' | ');
+  if(contact)children.push(new Paragraph({children:[run(contact,{size:SMALL})],alignment:AlignmentType.CENTER,spacing:{after:0},keepNext:true}));
+  if(field('linkedin'))children.push(new Paragraph({children:[run(field('linkedin'),{size:SMALL})],alignment:AlignmentType.CENTER,spacing:{after:0},keepNext:true}));
+  if(hasStreet)children.push(new Paragraph({children:[run(streetLine(),{size:SMALL})],alignment:AlignmentType.CENTER,spacing:{after:0},keepNext:true}));
+  children.push(heading('Education'));
+  children.push(rightLine([field('school'),field('schoolLocation')].filter(Boolean).join(', '),`Anticipated ${gradLine()}`,{leftBold:true}));
+  children.push(line([run(degreeLine())],0,!!(field('minor')||field('certificates')||field('deansList')||gpaLine())));
+  if(field('minor'))children.push(bullet(`Minor: ${field('minor')}`));
+  if(field('certificates'))children.push(bullet(`Certificate${field('certificates').includes(';')?'s':''}: ${field('certificates').replace(/;/g,', ')}`));
+  if(field('deansList'))children.push(bullet(`Dean's List: ${field('deansList')}`));
+  if(gpaLine())children.push(bullet(`GPA: ${gpaLine()}`));
+  const groups=getGroups();orderedSections(groups).forEach(section=>{
+    children.push(heading(section));groups[section].forEach((e,idx)=>{const bullets=(e.bullets||[]).map(cleanBullet).filter(Boolean);children.push(rightLine(e.title,dateLabel(e),{leftBold:true,before:idx>0?GAP:0}));children.push(line([run([e.org,expLoc(e)].filter(Boolean).join(', '))],0,bullets.length>0));bullets.forEach(b=>children.push(bullet(b)))});
+  });
+  if(field('programmingLanguages')||field('operatingSystems')||field('software')){children.push(heading('Computer Skills'));if(field('programmingLanguages'))children.push(line([run('Languages: ',{bold:true}),run(field('programmingLanguages'))]));if(field('operatingSystems'))children.push(line([run('Operating Systems: ',{bold:true}),run(field('operatingSystems'))]));if(field('software'))children.push(line([run('Software: ',{bold:true}),run(field('software'))]));}
+  if(field('spokenLanguages')){children.push(heading('Languages'));children.push(line([run(field('spokenLanguages'))]));}
+  return new Document({sections:[{properties:{page:{size:{width:12240,height:15840,orientation:PageOrientation.PORTRAIT},margin:{top:936,right:936,bottom:936,left:936,header:360,footer:360,gutter:0}}},children}]});
+}
+function filename(){const n=field('name').replace(/[^A-Za-z0-9\s_-]/g,'').replace(/\s+/g,'_').replace(/_+/g,'_');return `${n||'Resume'}_Resume.docx`}
+$('downloadResume').addEventListener('click',async()=>{
+  save();if(!validate())return;const btn=$('downloadResume');btn.disabled=true;$('downloadStatus').textContent='Creating your Word resume…';$('saveOptions').hidden=true;
+  try{const blob=await window.docx.Packer.toBlob(makeWordDocument());if(lastDownloadUrl)URL.revokeObjectURL(lastDownloadUrl);lastDownloadUrl=URL.createObjectURL(blob);const fn=filename();lastDownloadFile=new File([blob],fn,{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});$('downloadAgain').href=lastDownloadUrl;$('downloadAgain').download=fn;$('saveOptions').hidden=false;const share=$('shareResume');const canShare=!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[lastDownloadFile]}));share.hidden=!canShare;const mobile=matchMedia('(max-width:700px)').matches||/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);if(!mobile){const a=document.createElement('a');a.href=lastDownloadUrl;a.download=fn;document.body.appendChild(a);a.click();a.remove();$('downloadStatus').textContent=`Your editable Word resume is ready: ${fn}`}else{$('downloadStatus').textContent='Your Word resume is ready. Choose Share / Save or Download .docx below.'}}
+  catch(err){console.error(err);$('downloadStatus').textContent='The Word file could not be created. Refresh the page and try again.'}finally{btn.disabled=false}
+});
+$('shareResume').addEventListener('click',async()=>{if(!lastDownloadFile)return;try{await navigator.share({files:[lastDownloadFile],title:'Resume'});$('downloadStatus').textContent='Resume shared or saved.'}catch(err){if(err?.name!=='AbortError')$('downloadStatus').textContent='Share was not available. Use Download .docx instead.'}});
+
+window.addEventListener('focus',()=>{
+  const latestExperiences=safeArray(EXPERIENCE_BANK_KEY).filter(x=>x&&x.experienceName).slice().reverse().slice(0,8);
+  const latestBullets=safeArray(BULLET_BANK_KEY).filter(x=>x&&x.experienceName&&x.bullet);
+  const changed=JSON.stringify(latestExperiences)!==JSON.stringify(recentExperiences)||JSON.stringify(latestBullets)!==JSON.stringify(bulletBank);
+  recentExperiences=latestExperiences;bulletBank=latestBullets;
+  if(changed){renderRecentExperiences();renderExperiences();renderPreview();}
+});
+
+fillGrad();load();restore();renderRecentExperiences();renderExperiences();renderSectionOrder();bindFields();renderPreview();save();
+})();
+</script>
+</body>
+</html>
+index.html
+HTML
+Today 9:27 PM
+no parenthesis around degree, allow for changing up category order, linkedin hops to first row when full address is used
+
+Done.
+
+Download the updated Resume Builder
+
+Changes:
+
+Degree now displays as BA, Psychology instead of BA (Psychology).
+Section/category order is more explicit and can be changed as soon as students have chosen two different resume sections—not only after fully completing the experiences.
+The control now says “Change your section order” and makes it clear students can reorder categories based on relevance.
+When a full street address is used, LinkedIn moves into the first contact row with email and phone, while the full address gets the second line.
+When no street address is used, city/state stays in the first contact row and LinkedIn remains on its own line.
+
+I also checked the updated JavaScript for syntax errors.
+
+index.html
+HTML
+list degree as BA Psychology - nopunctuation, at the end remind students to continue editing and tailoring and that this creates a working draft. if bullets not given, have "add bullets" as a bullet so formatting is ready to go
+
+Done.
+
+Download the updated Resume Builder
+
+Changes:
+
+Degree now displays as BA Psychology — no parentheses or punctuation.
+The finish section now clearly says the builder creates a working draft, not a finished resume.
+Students are reminded to continue editing and tailor the content, section order, and bullets for each opportunity before submitting.
+The final reminder also directs them to tailor first, then use the Resume Format Checker.
+If an experience has no bullets, the preview and downloaded Word file now include “Add bullets” as an actual bullet point, so the bullet formatting is already in place for them to replace with their own content.
+
+I also rechecked the JavaScript after the changes.
+
+index.html
+HTML
