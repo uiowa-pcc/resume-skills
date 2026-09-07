@@ -173,8 +173,8 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
 
   <section class="panel" aria-labelledby="review-title">
     <div class="step-label"><span class="step-number">3</span> Decide</div>
-    <h2 id="review-title">Which skills fit?</h2>
-    <p class="section-copy">Based on what you selected, these Iowa career-readiness competencies may fit. Choose the competencies and specific skills you could support with an example.</p>
+    <h2 id="review-title">Which power verbs fit?</h2>
+    <p class="section-copy">Based on what you selected, these Iowa career-readiness competencies may fit. Under each one, choose power verbs that accurately describe what you did.</p>
     <p class="manual-note" id="manualNote" hidden>Because you added something not covered by the prompts, all eight competencies are available to browse below. Suggested matches still appear first.</p>
     <div id="compEmpty" class="empty">Select what you did above to see possible skills.</div>
     <div class="comp-grid" id="compGrid"></div>
@@ -193,11 +193,11 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
         <p class="exp-label" id="resultExperience"></p>
       </div>
     </div>
-    <p class="section-copy">Use this as a reminder of the skills you can talk about—not as wording to paste directly into every application.</p>
+    <p class="section-copy">Use these as language ideas. Choose only power verbs that accurately describe what you did, then add the details and results that make the example specific.</p>
     <div class="result-list" id="resultList"></div>
     <div class="use-next">
       <strong>Now you have evidence to work with.</strong>
-      <p>You can use this list to choose a skill for an interview example, decide what to emphasize in a cover letter, identify LinkedIn skills, or move to the Resume Bullet Builder when you want to describe this experience on a resume.</p>
+      <p>Use the competency as the skill you practiced and the power verbs as wording ideas. They can help you describe the experience in a resume bullet, cover letter, interview example, LinkedIn profile, or personal statement.</p>
     </div>
     <div class="actions">
       <button class="btn primary" type="button" id="copyBtn">Copy My Skill List</button>
@@ -216,66 +216,66 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
     career: {
       name: 'Career & Self-Development',
       desc: 'Growing through learning, feedback, self-awareness, career exploration, and goal setting.',
-      skills: ['self-awareness','goal setting','learning','seeking feedback','self-advocacy','initiative','relationship building']
+      skills: ['Developed','Evaluated','Identified','Planned','Prioritized','Researched','Revised','Strategized']
     },
     communication: {
       name: 'Communication',
       desc: 'Exchanging information and ideas clearly and effectively with others.',
-      skills: ['verbal communication','written communication','active listening','presenting','explaining','persuasion','audience awareness']
+      skills: ['Addressed','Clarified','Communicated','Consulted','Explained','Informed','Presented','Summarized']
     },
     critical: {
       name: 'Critical Thinking',
       desc: 'Analyzing information and context to make decisions, solve problems, and respond to needs.',
-      skills: ['problem solving','analysis','decision making','prioritization','research','adaptability','attention to context']
+      skills: ['Analyzed','Assessed','Determined','Evaluated','Investigated','Recommended','Resolved','Solved']
     },
     perspectives: {
       name: 'Other Perspectives',
       desc: 'Seeking, valuing, and thoughtfully considering perspectives different from your own.',
-      skills: ['perspective taking','empathy','curiosity','inclusive decision making','seeking input','open-mindedness','adapting to others’ needs']
+      skills: ['Adapted','Consulted','Interpreted','Mediated','Negotiated','Supported','Welcomed','Cooperated']
     },
     leadership: {
       name: 'Leadership',
       desc: 'Using strengths to guide, motivate, support, and move work toward shared goals.',
-      skills: ['initiative','project coordination','mentoring','facilitation','motivation','delegation','planning']
+      skills: ['Directed','Encouraged','Guided','Initiated','Led','Managed','Mentored','Trained']
     },
     professionalism: {
       name: 'Professionalism',
       desc: 'Using dependable, accountable, ethical, and effective work habits.',
-      skills: ['reliability','time management','organization','attention to detail','accountability','integrity','follow-through']
+      skills: ['Completed','Handled','Implemented','Maintained','Organized','Prepared','Prioritized','Tracked']
     },
     teamwork: {
       name: 'Teamwork',
       desc: 'Building collaborative relationships and sharing responsibility to reach common goals.',
-      skills: ['collaboration','conflict management','supporting others','coordination','shared responsibility','compromise','relationship building']
+      skills: ['Collaborated','Contributed','Coordinated','Cooperated','Facilitated','Supported','Assisted','Mediated']
     },
     technology: {
       name: 'Technology',
       desc: 'Using and adapting to technology effectively and ethically to complete work and solve problems.',
-      skills: ['digital tools','learning new technology','troubleshooting','data tools','digital communication','productivity tools','technical adaptability']
+      skills: ['Programmed','Installed','Operated','Updated','Debugged','Streamlined','Converted','Tracked']
     }
   };
 
   const tasks = [
-    {id:'explain', text:'Explained, taught, presented, or shared information or ideas', group:'communicate', comps:['communication','leadership'], skills:{communication:['verbal communication','explaining','presenting','audience awareness'], leadership:['facilitation']}},
-    {id:'write', text:'Wrote, edited, documented, or created written content', group:'communicate', comps:['communication','professionalism'], skills:{communication:['written communication','audience awareness'], professionalism:['attention to detail']}},
-    {id:'support', text:'Supported, helped, listened to, served, coached, or cared for someone', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['supporting others','relationship building'], communication:['active listening'], perspectives:['empathy','adapting to others’ needs']}},
+    {id:'explain', text:'Explained, taught, presented, or shared information or ideas', group:'communicate', comps:['communication','leadership'], skills:{communication:['Explained','Presented','Instructed','Taught'], leadership:['Guided']}},
+    {id:'write', text:'Wrote, edited, documented, or created written content', group:'communicate', comps:['communication','professionalism'], skills:{communication:['Wrote','Edited','Drafted','Composed'], professionalism:['Prepared','Completed']}},
+    {id:'support', text:'Supported, helped, listened to, served, coached, or cared for someone', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['Supported','Assisted','Cooperated'], communication:['Consulted','Clarified'], perspectives:['Adapted','Welcomed','Supported']}},
 
-    {id:'solve', text:'Solved a problem, made a decision, or adapted when something changed', group:'solve', comps:['critical','professionalism','career'], skills:{critical:['problem solving','decision making','adaptability'], professionalism:['follow-through','reliability'], career:['learning']}},
-    {id:'analyze', text:'Researched, analyzed, or used information, data, or evidence', group:'solve', comps:['critical','technology','career'], skills:{critical:['analysis','research','attention to context'], technology:['data tools'], career:['learning']}},
-    {id:'organize', text:'Organized details, priorities, schedules, deadlines, or requirements', group:'manage', comps:['professionalism','critical'], skills:{professionalism:['time management','organization','attention to detail','reliability'], critical:['prioritization','decision making','analysis']}},
+    {id:'solve', text:'Solved a problem, made a decision, or adapted when something changed', group:'solve', comps:['critical','professionalism','career'], skills:{critical:['Analyzed','Determined','Resolved','Solved'], professionalism:['Handled','Completed'], career:['Developed','Revised']}},
+    {id:'analyze', text:'Researched, analyzed, or used information, data, or evidence', group:'solve', comps:['critical','technology','career'], skills:{critical:['Analyzed','Researched','Evaluated','Synthesized'], technology:['Compiled','Converted','Tracked'], career:['Studied','Identified']}},
+    {id:'organize', text:'Organized details, priorities, schedules, deadlines, or requirements', group:'manage', comps:['professionalism','critical'], skills:{professionalism:['Organized','Scheduled','Tracked','Prioritized'], critical:['Assessed','Determined','Evaluated']}},
 
-    {id:'team', text:'Worked or coordinated with others toward a shared goal', group:'people', comps:['teamwork','professionalism'], skills:{teamwork:['collaboration','coordination','shared responsibility','relationship building'], professionalism:['organization']}},
-    {id:'conflict', text:'Handled conflict, disagreement, or different expectations', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['conflict management','compromise'], communication:['active listening'], perspectives:['perspective taking','open-mindedness']}},
+    {id:'team', text:'Worked or coordinated with others toward a shared goal', group:'people', comps:['teamwork','professionalism'], skills:{teamwork:['Collaborated','Coordinated','Cooperated','Contributed'], professionalism:['Facilitated','Organized']}},
+    {id:'conflict', text:'Handled conflict, disagreement, or different expectations', group:'people', comps:['teamwork','communication','perspectives'], skills:{teamwork:['Collaborated','Cooperated','Mediated'], communication:['Mediated','Negotiated','Arbitrated'], perspectives:['Adapted','Consulted','Mediated']}},
 
-    {id:'lead', text:'Led, planned, organized, or coordinated a project, event, activity, or group effort', group:'manage', comps:['leadership','teamwork','professionalism'], skills:{leadership:['project coordination','planning'], teamwork:['coordination'], professionalism:['accountability','organization']}},
-    {id:'initiative', text:'Noticed a need, spoke up, or took action without being told exactly what to do', group:'manage', comps:['leadership','career','critical','communication'], skills:{leadership:['initiative'], career:['initiative','self-advocacy'], critical:['problem solving'], communication:['persuasion']}},
-    {id:'mentor', text:'Trained, mentored, onboarded, or guided someone', group:'manage', comps:['leadership','communication'], skills:{leadership:['mentoring','motivation'], communication:['explaining','audience awareness']}},
-    {id:'sensitive', text:'Handled private, sensitive, difficult, or high-responsibility situations', group:'manage', comps:['professionalism','communication'], skills:{professionalism:['integrity','accountability'], communication:['audience awareness','active listening']}},
+    {id:'lead', text:'Led, planned, organized, or coordinated a project, event, activity, or group effort', group:'manage', comps:['leadership','teamwork','professionalism'], skills:{leadership:['Led','Directed','Managed','Initiated'], teamwork:['Facilitated','Coordinated'], professionalism:['Implemented','Organized']}},
+    {id:'initiative', text:'Noticed a need, spoke up, or took action without being told exactly what to do', group:'manage', comps:['leadership','career','critical','communication'], skills:{leadership:['Initiated','Led'], career:['Developed','Strategized'], critical:['Identified','Solved'], communication:['Suggested','Persuaded']}},
+    {id:'mentor', text:'Trained, mentored, onboarded, or guided someone', group:'manage', comps:['leadership','communication'], skills:{leadership:['Mentored','Trained','Guided'], communication:['Instructed','Explained']}},
+    {id:'sensitive', text:'Handled private, sensitive, difficult, or high-responsibility situations', group:'manage', comps:['professionalism','communication'], skills:{professionalism:['Handled','Maintained','Reviewed'], communication:['Consulted','Clarified','Supported']}},
 
-    {id:'technology', text:'Used, learned, or troubleshot software, digital tools, systems, or equipment', group:'tech', comps:['technology','critical','career'], skills:{technology:['digital tools','productivity tools','learning new technology','technical adaptability','troubleshooting'], critical:['problem solving'], career:['learning']}},
+    {id:'technology', text:'Used, learned, or troubleshot software, digital tools, systems, or equipment', group:'tech', comps:['technology','critical','career'], skills:{technology:['Programmed','Installed','Operated','Updated','Debugged','Streamlined'], critical:['Solved','Analyzed'], career:['Developed','Studied']}},
 
-    {id:'feedback', text:'Used feedback, practice, or goals to improve', group:'grow', comps:['career','professionalism','perspectives'], skills:{career:['seeking feedback','self-awareness','goal setting','learning'], professionalism:['follow-through'], perspectives:['open-mindedness']}},
-    {id:'perspectives', text:'Worked with different people or perspectives and adjusted to others’ needs', group:'grow', comps:['perspectives','communication','teamwork','critical'], skills:{perspectives:['seeking input','perspective taking','curiosity','adapting to others’ needs'], communication:['audience awareness'], teamwork:['collaboration'], critical:['attention to context']}}
+    {id:'feedback', text:'Used feedback, practice, or goals to improve', group:'grow', comps:['career','professionalism','perspectives'], skills:{career:['Evaluated','Developed','Revised','Studied'], professionalism:['Revised','Completed'], perspectives:['Adapted','Consulted']}},
+    {id:'perspectives', text:'Worked with different people or perspectives and adjusted to others’ needs', group:'grow', comps:['perspectives','communication','teamwork','critical'], skills:{perspectives:['Adapted','Consulted','Welcomed','Supported'], communication:['Communicated','Interpreted'], teamwork:['Collaborated','Cooperated'], critical:['Assessed','Evaluated']}}
   ];
 
   const filterDefs = [
@@ -606,7 +606,7 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
         const browseHelp=document.createElement('p'); browseHelp.className='other-action-help'; browseHelp.textContent='Not automatically suggested. Choose this if your additional action is evidence of this competency.';
         body.appendChild(browseHelp);
       }
-      const skLabel=document.createElement('div'); skLabel.className='skills-label'; skLabel.textContent='Skills that may fit — choose what is true';
+      const skLabel=document.createElement('div'); skLabel.className='skills-label'; skLabel.textContent='power verbs that may fit — choose what is accurate';
       const chips=document.createElement('div'); chips.className='skill-chips';
       const skills=[...new Set([...suggestedSkills,...c.skills])].slice(0,8);
       skills.forEach(skill=>{
@@ -675,7 +675,7 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
       const skills=[...(chosenSkills[key]||new Set())];
       const evidenceItems=(evidence[key]||[]).slice(0,3);
       if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
-      card.innerHTML=`<h3>${escapeHtml(competencies[key].name)}</h3><div class="result-skills">${escapeHtml(skills.length?skills.join(' • '):'Competency identified from your experience')}</div><div class="result-evidence"><strong>Evidence:</strong> ${escapeHtml(evidenceItems.join('; '))}</div>`;
+      card.innerHTML=`<h3>${escapeHtml(competencies[key].name)}</h3><div class="result-skills">${escapeHtml(skills.length?skills.join(' • '):'Choose a power verb above if you want a wording prompt')}</div><div class="result-evidence"><strong>Evidence:</strong> ${escapeHtml(evidenceItems.join('; '))}</div>`;
       resultList.appendChild(card);
     });
     saveSkillResult(name,evidence);
@@ -690,7 +690,7 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
     [...chosenCompetencies].forEach(key=>{
       const skills=[...(chosenSkills[key]||new Set())];
       lines.push(competencies[key].name);
-      if(skills.length) lines.push(`Skills: ${skills.join(', ')}`);
+      if(skills.length) lines.push(`Power verbs: ${skills.join(', ')}`);
       const evidenceItems=(evidence[key]||[]).slice(0,3);
       if(!evidenceItems.length && hasOtherAction()) evidenceItems.push(otherActionText.value.trim());
       if(evidenceItems.length) lines.push(`Evidence: ${evidenceItems.join('; ')}`);
@@ -702,10 +702,10 @@ input[type="text"]{width:100%;min-height:46px;border:1.5px solid #B8B8B8;border-
   async function copyResults(){
     try{
       await navigator.clipboard.writeText(resultText());
-      resultStatus.textContent='Copied your skill list.';
+      resultStatus.textContent='Copied your transferable skills and power verbs.';
     }catch(e){
       const ta=document.createElement('textarea'); ta.value=resultText(); ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
-      try{document.execCommand('copy');resultStatus.textContent='Copied your skill list.';}catch(err){resultStatus.textContent='Copy was blocked by your browser. Use Print / Save instead.';}
+      try{document.execCommand('copy');resultStatus.textContent='Copied your transferable skills and power verbs.';}catch(err){resultStatus.textContent='Copy was blocked by your browser. Use Print / Save instead.';}
       ta.remove();
     }
   }
